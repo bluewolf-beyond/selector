@@ -217,7 +217,7 @@ private class FilterTest
             'A Field with a new value on update isn\'t considered changed' );
     }
 
-    private static testMethod void testPredicate_FieldNull_Insert()
+    private static testMethod void testPredicate_FieldNull()
     {
         Filter.Predicate predicate = new Filter.FieldNullPredicate( Lead.Company );
 
@@ -233,39 +233,16 @@ private class FilterTest
 
         Test.stopTest();
 
+        System.assert( predicate instanceof Filter.InsertPredicate,
+            'No update test needed' );
+
         System.assertEquals( false, fieldWithValueNull,
             'A Field with a value on insert is not null' );
         System.assertEquals( true, fieldWithoutValueNull,
             'A Field without a value on insert is null' );
     }
 
-    private static testMethod void testPredicate_FieldNull_Update()
-    {
-        Filter.Predicate predicate = new Filter.FieldNullPredicate( Lead.Company );
-
-        sObject sObjectOriginal = new Lead();
-        sObjectOriginal.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithValue = new Lead();
-        sObjectWithValue.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithoutValue = new Lead();
-        sObjectWithoutValue.put( 'Company', null );
-
-        Test.startTest();
-
-            Boolean fieldWithValueNull = predicate.evaluate( sObjectWithValue, sObjectOriginal );
-            Boolean fieldWithoutValueNull = predicate.evaluate( sObjectWithoutValue, sObjectOriginal );
-
-        Test.stopTest();
-
-        System.assertEquals( false, fieldWithValueNull,
-            'A Field with a value on update isn\'t null' );
-        System.assertEquals( true, fieldWithoutValueNull,
-            'A Field without a value on update is null' );
-    }
-
-    private static testMethod void testPredicate_FieldNotNull_Insert()
+    private static testMethod void testPredicate_FieldNotNull()
     {
         Filter.Predicate predicate = new Filter.FieldNotNullPredicate( Lead.Company );
 
@@ -281,39 +258,16 @@ private class FilterTest
 
         Test.stopTest();
 
+        System.assert( predicate instanceof Filter.InsertPredicate,
+            'No update test needed' );
+
         System.assertEquals( true, fieldWithValueNotNull,
             'A Field with a value on insert is not null' );
         System.assertEquals( false, fieldWithoutValueNotNull,
             'A Field without a value on insert is null' );
     }
 
-    private static testMethod void testPredicate_FieldNotNull_Update()
-    {
-        Filter.Predicate predicate = new Filter.FieldNotNullPredicate( Lead.Company );
-
-        sObject sObjectOriginal = new Lead();
-        sObjectOriginal.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithValue = new Lead();
-        sObjectWithValue.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithoutValue = new Lead();
-        sObjectWithoutValue.put( 'Company', null );
-
-        Test.startTest();
-
-            Boolean fieldWithValueNotNull = predicate.evaluate( sObjectWithValue, sObjectOriginal );
-            Boolean fieldWithoutValueNotNull = predicate.evaluate( sObjectWithoutValue, sObjectOriginal );
-
-        Test.stopTest();
-
-        System.assertEquals( true, fieldWithValueNotNull,
-            'A Field with a value on update isn\'t null' );
-        System.assertEquals( false, fieldWithoutValueNotNull,
-            'A Field without a value on update is null' );
-    }
-
-    private static testMethod void testPredicate_FieldEquals_Insert()
+    private static testMethod void testPredicate_FieldEquals()
     {
         Filter.Predicate predicate = new Filter.FieldEqualsPredicate( Lead.Company, 'Foobar Industries' );
 
@@ -329,6 +283,9 @@ private class FilterTest
             Boolean fieldWithOtherEquals = predicate.evaluate( sObjectWithOther );
 
         Test.stopTest();
+
+        System.assert( predicate instanceof Filter.InsertPredicate,
+            'No update test needed' );
 
         System.assertEquals( true, fieldWithValueEquals,
             'A Field with a matching value on insert is considered equal' );
