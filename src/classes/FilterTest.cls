@@ -155,4 +155,20 @@ private class FilterTest
             return newRecord.get('Company') != company;
         }
     }
+
+    private static testMethod void testFieldChangedFilter()
+    {
+        Test.startTest();
+
+            Filter companyChangedFilter = Filter.fieldChanged( Lead.Company );
+
+        Test.stopTest();
+
+        System.assert( companyChangedFilter.predicate instanceof Filter.FieldChangedPredicate,
+            'The field changed filter should have a predicate of the Field Changed variety' );
+
+        Filter.FieldChangedPredicate predicate = (Filter.FieldChangedPredicate)companyChangedFilter.predicate;
+        System.assertEquals( predicate.field, Lead.Company,
+            'The field passed in should be the filter field' );
+    }
 }

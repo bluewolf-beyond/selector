@@ -1,5 +1,10 @@
 global class Filter
 {
+    global static Filter fieldChanged( Schema.SObjectField field )
+    {
+        return new Filter( new FieldChangedPredicate( field ) );
+    }
+
     global interface Predicate
     {
         Boolean evaluate( sObject newRecord );
@@ -8,7 +13,7 @@ global class Filter
 
     global class FieldChangedPredicate implements Predicate
     {
-        Schema.SObjectField field;
+        @TestVisible Schema.SObjectField field;
 
         global FieldChangedPredicate( Schema.SObjectField field )
         {
@@ -63,5 +68,5 @@ global class Filter
         return filteredRecords;
     }
 
-    Predicate predicate;
+    @TestVisible Predicate predicate;
 }
