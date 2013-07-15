@@ -98,7 +98,7 @@ global class Filter
     // standard Predicates
     /////////////////////////////////////////////////////////////////
 
-    global class FieldChangedPredicate implements Predicate
+    global virtual class FieldChangedPredicate implements Predicate
     {
         @TestVisible Schema.SObjectField field;
 
@@ -118,37 +118,23 @@ global class Filter
         }
     }
 
-    global class FieldNullPredicate extends InsertPredicate
+    global virtual class FieldNullPredicate extends FieldEqualsPredicate
     {
-        @TestVisible Schema.SObjectField field;
-
         global FieldNullPredicate( Schema.SObjectField field )
         {
-            this.field = field;
-        }
-
-        global Boolean evaluate( sObject newRecord )
-        {
-            return newRecord.get( field ) == null;
+            super( field, null );
         }
     }
 
-    global class FieldNotNullPredicate extends InsertPredicate
+    global virtual class FieldNotNullPredicate extends FieldNotEqualsPredicate
     {
-        @TestVisible Schema.SObjectField field;
-
         global FieldNotNullPredicate( Schema.SObjectField field )
         {
-            this.field = field;
-        }
-
-        global Boolean evaluate( sObject newRecord )
-        {
-            return newRecord.get( field ) != null;
+            super( field, null );
         }
     }
 
-    global class FieldEqualsPredicate extends InsertPredicate
+    global virtual class FieldEqualsPredicate extends InsertPredicate
     {
         @TestVisible Schema.SObjectField field;
         @TestVisible Object value;
@@ -165,7 +151,7 @@ global class Filter
         }
     }
 
-    global class FieldNotEqualsPredicate extends InsertPredicate
+    global virtual class FieldNotEqualsPredicate extends InsertPredicate
     {
         @TestVisible Schema.SObjectField field;
         @TestVisible Object value;
