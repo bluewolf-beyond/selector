@@ -19,6 +19,11 @@ global class Filter
         return new Filter( new FieldNotNullPredicate( field ) );
     }
 
+    global static Filter fieldEquals( Schema.SObjectField field, Object value )
+    {
+        return new Filter( new FieldEqualsPredicate( field, value ) );
+    }
+
     /////////////////////////////////////////////////////////////////
     // Filter instance methods
     /////////////////////////////////////////////////////////////////
@@ -135,6 +140,23 @@ global class Filter
         global Boolean evaluate( sObject newRecord )
         {
             return newRecord.get( field ) != null;
+        }
+    }
+
+    global class FieldEqualsPredicate extends InsertPredicate
+    {
+        @TestVisible Schema.SObjectField field;
+        @TestVisible Object value;
+
+        global FieldEqualsPredicate( Schema.SObjectField field, Object value )
+        {
+            this.field = field;
+            this.value = value;
+        }
+
+        global Boolean evaluate( sObject newRecord )
+        {
+            return newRecord.get( field ) == value;
         }
     }
 }

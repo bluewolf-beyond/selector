@@ -14,7 +14,7 @@ private class FilterTest
         Test.stopTest();
 
         System.assert( companyChangedFilter.predicate instanceof Filter.FieldChangedPredicate,
-            'The field changed filter should have a predicate of the Field Changed variety' );
+            'The filter should be of the proper variety' );
 
         Filter.FieldChangedPredicate predicate = (Filter.FieldChangedPredicate)companyChangedFilter.predicate;
         System.assertEquals( predicate.field, Lead.Company,
@@ -30,7 +30,7 @@ private class FilterTest
         Test.stopTest();
 
         System.assert( companyNullFilter.predicate instanceof Filter.FieldNullPredicate,
-            'The field changed filter should have a predicate of the Field Changed variety' );
+            'The filter should be of the proper variety' );
 
         Filter.FieldNullPredicate predicate = (Filter.FieldNullPredicate)companyNullFilter.predicate;
         System.assertEquals( predicate.field, Lead.Company,
@@ -46,11 +46,31 @@ private class FilterTest
         Test.stopTest();
 
         System.assert( companyNotNullFilter.predicate instanceof Filter.FieldNotNullPredicate,
-            'The field changed filter should have a predicate of the Field Changed variety' );
+            'The filter should be of the proper variety' );
 
         Filter.FieldNotNullPredicate predicate = (Filter.FieldNotNullPredicate)companyNotNullFilter.predicate;
         System.assertEquals( predicate.field, Lead.Company,
             'The field passed in should be the filter field' );
+    }
+
+    private static testMethod void testFieldEqualsFilter()
+    {
+        final String FILTER_VALUE = 'Foobar';
+
+        Test.startTest();
+
+            Filter companyEqualsFoobarFilter = Filter.fieldEquals( Lead.Company, FILTER_VALUE );
+
+        Test.stopTest();
+
+        System.assert( companyEqualsFoobarFilter.predicate instanceof Filter.FieldEqualsPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldEqualsPredicate predicate = (Filter.FieldEqualsPredicate)companyEqualsFoobarFilter.predicate;
+        System.assertEquals( predicate.field, Lead.Company,
+            'The field passed in should be the filter field' );
+        System.assertEquals( predicate.value, FILTER_VALUE,
+            'The value passed in should be the filter value' );
     }
 
     /////////////////////////////////////////////////////////////////
@@ -291,6 +311,29 @@ private class FilterTest
             'A Field with a value on update isn\'t null' );
         System.assertEquals( false, fieldWithoutValueNotNull,
             'A Field without a value on update is null' );
+    }
+
+    private static testMethod void testPredicate_FieldEquals_Insert()
+    {
+        Filter.Predicate predicate = new Filter.FieldEqualsPredicate( Lead.Company, 'Foobar Industries' );
+
+        sObject sObjectWithValue = new Lead();
+        sObjectWithValue.put( 'Company', 'Foobar Industries' );
+
+        sObject sObjectWithOther = new Lead();
+        sObjectWithOther.put( 'Company', 'Intractable Industries' );
+
+        Test.startTest();
+
+            Boolean fieldWithValueEquals = predicate.evaluate( sObjectWithValue );
+            Boolean fieldWithOtherEquals = predicate.evaluate( sObjectWithOther );
+
+        Test.stopTest();
+
+        System.assertEquals( true, fieldWithValueEquals,
+            'A Field with a matching value on insert is considered equal' );
+        System.assertEquals( false, fieldWithOtherEquals,
+            'A Field with a differing value on insert isn\'t considered equal' );
     }
 
     /////////////////////////////////////////////////////////////////
