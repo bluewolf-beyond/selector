@@ -76,6 +76,14 @@ global class Filter
         Boolean evaluate( sObject newRecord, sObject oldRecord );
     }
 
+    global abstract class InsertPredicate implements Predicate
+    {
+        global Boolean evaluate( sObject newRecord, sObject oldRecord )
+        {
+            return ((Predicate)this).evaluate( newRecord );
+        }
+    }
+
     /////////////////////////////////////////////////////////////////
     // standard Predicates
     /////////////////////////////////////////////////////////////////
@@ -100,7 +108,7 @@ global class Filter
         }
     }
 
-    global class FieldNullPredicate implements Predicate
+    global class FieldNullPredicate extends InsertPredicate
     {
         @TestVisible Schema.SObjectField field;
 
@@ -113,14 +121,9 @@ global class Filter
         {
             return newRecord.get( field ) == null;
         }
-
-        global Boolean evaluate( sObject newRecord, sObject oldRecord )
-        {
-            return evaluate( newRecord );
-        }
     }
 
-    global class FieldNotNullPredicate implements Predicate
+    global class FieldNotNullPredicate extends InsertPredicate
     {
         @TestVisible Schema.SObjectField field;
 
@@ -132,11 +135,6 @@ global class Filter
         global Boolean evaluate( sObject newRecord )
         {
             return newRecord.get( field ) != null;
-        }
-
-        global Boolean evaluate( sObject newRecord, sObject oldRecord )
-        {
-            return evaluate( newRecord );
         }
     }
 }
