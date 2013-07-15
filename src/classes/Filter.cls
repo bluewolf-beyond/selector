@@ -65,6 +65,16 @@ global class Filter
         return filteredRecords;
     }
 
+    global Filter andx( Filter other )
+    {
+        return new Filter( new AndPredicate( this.predicate, other.predicate ) );
+    }
+
+    global Filter orx( Filter other )
+    {
+        return new Filter( new OrPredicate( this.predicate, other.predicate ) );
+    }
+
     /////////////////////////////////////////////////////////////////
     // Filter class glue
     /////////////////////////////////////////////////////////////////
@@ -165,6 +175,52 @@ global class Filter
         global FieldNotNullPredicate( Schema.SObjectField field )
         {
             super( field, null );
+        }
+    }
+
+    global class AndPredicate implements Predicate
+    {
+        @TestVisible Predicate left, right;
+
+        global AndPredicate( Predicate left, Predicate right )
+        {
+            this.left = left;
+            this.right = right;
+        }
+
+        global Boolean evaluate( sObject newRecord )
+        {
+            return left.evaluate( newRecord ) &&
+                   right.evaluate( newRecord );
+        }
+
+        global Boolean evaluate( sObject newRecord, sObject oldRecord )
+        {
+            return left.evaluate( newRecord, oldRecord ) &&
+                   right.evaluate( newRecord, oldRecord );
+        }
+    }
+
+    global class OrPredicate implements Predicate
+    {
+        @TestVisible Predicate left, right;
+
+        global OrPredicate( Predicate left, Predicate right )
+        {
+            this.left = left;
+            this.right = right;
+        }
+
+        global Boolean evaluate( sObject newRecord )
+        {
+            return left.evaluate( newRecord ) ||
+                   right.evaluate( newRecord );
+        }
+
+        global Boolean evaluate( sObject newRecord, sObject oldRecord )
+        {
+            return left.evaluate( newRecord, oldRecord ) ||
+                   right.evaluate( newRecord, oldRecord );
         }
     }
 }
