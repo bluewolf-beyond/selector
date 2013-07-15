@@ -9,6 +9,11 @@ global class Filter
         return new Filter( new FieldChangedPredicate( field ) );
     }
 
+    global static Filter fieldNull( Schema.SObjectField field )
+    {
+        return new Filter( new FieldNullPredicate( field ) );
+    }
+
     /////////////////////////////////////////////////////////////////
     // Filter instance methods
     /////////////////////////////////////////////////////////////////
@@ -87,6 +92,26 @@ global class Filter
         global Boolean evaluate( sObject newRecord, sObject oldRecord )
         {
             return newRecord.get( field ) != oldRecord.get( field );
+        }
+    }
+
+    global class FieldNullPredicate implements Predicate
+    {
+        @TestVisible Schema.SObjectField field;
+
+        global FieldNullPredicate( Schema.SObjectField field )
+        {
+            this.field = field;
+        }
+
+        global Boolean evaluate( sObject newRecord )
+        {
+            return newRecord.get( field ) == null;
+        }
+
+        global Boolean evaluate( sObject newRecord, sObject oldRecord )
+        {
+            return evaluate( newRecord );
         }
     }
 }

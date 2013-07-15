@@ -21,6 +21,22 @@ private class FilterTest
             'The field passed in should be the filter field' );
     }
 
+    private static testMethod void testFieldNullFilter()
+    {
+        Test.startTest();
+
+            Filter companyNullFilter = Filter.fieldNull( Lead.Company );
+
+        Test.stopTest();
+
+        System.assert( companyNullFilter.predicate instanceof Filter.FieldNullPredicate,
+            'The field changed filter should have a predicate of the Field Changed variety' );
+
+        Filter.FieldNullPredicate predicate = (Filter.FieldNullPredicate)companyNullFilter.predicate;
+        System.assertEquals( predicate.field, Lead.Company,
+            'The field passed in should be the filter field' );
+    }
+
     /////////////////////////////////////////////////////////////////
     // Filter instance methods
     /////////////////////////////////////////////////////////////////
@@ -163,6 +179,54 @@ private class FilterTest
             'A Field with the original value on update isn\'t considered changed' );
         System.assertEquals( true, fieldWithNewValueChanged,
             'A Field with a new value on update isn\'t considered changed' );
+    }
+
+    private static testMethod void testPredicate_FieldNull_Insert()
+    {
+        Filter.Predicate predicate = new Filter.FieldNullPredicate( Lead.Company );
+
+        sObject sObjectWithValue = new Lead();
+        sObjectWithValue.put( 'Company', 'Foobar Industries' );
+
+        sObject sObjectWithoutValue = new Lead();
+
+        Test.startTest();
+
+            Boolean fieldWithValueNull = predicate.evaluate( sObjectWithValue );
+            Boolean fieldWithoutValueNull = predicate.evaluate( sObjectWithoutValue );
+
+        Test.stopTest();
+
+        System.assertEquals( false, fieldWithValueNull,
+            'A Field with a value on insert is not null' );
+        System.assertEquals( true, fieldWithoutValueNull,
+            'A Field without a value on insert is null' );
+    }
+
+    private static testMethod void testPredicate_FieldNull_Update()
+    {
+        Filter.Predicate predicate = new Filter.FieldNullPredicate( Lead.Company );
+
+        sObject sObjectOriginal = new Lead();
+        sObjectOriginal.put( 'Company', 'Foobar Industries' );
+
+        sObject sObjectWithValue = new Lead();
+        sObjectWithValue.put( 'Company', 'Foobar Industries' );
+
+        sObject sObjectWithoutValue = new Lead();
+        sObjectWithoutValue.put( 'Company', null );
+
+        Test.startTest();
+
+            Boolean fieldWithValueNull = predicate.evaluate( sObjectWithValue, sObjectOriginal );
+            Boolean fieldWithoutValueNull = predicate.evaluate( sObjectWithoutValue, sObjectOriginal );
+
+        Test.stopTest();
+
+        System.assertEquals( false, fieldWithValueNull,
+            'A Field with a value on update isn\'t null' );
+        System.assertEquals( true, fieldWithoutValueNull,
+            'A Field without a value on update is null' );
     }
 
     /////////////////////////////////////////////////////////////////
