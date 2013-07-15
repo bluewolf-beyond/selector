@@ -9,16 +9,6 @@ global class Filter
         return new Filter( new FieldChangedPredicate( field ) );
     }
 
-    global static Filter fieldNull( Schema.SObjectField field )
-    {
-        return new Filter( new FieldNullPredicate( field ) );
-    }
-
-    global static Filter fieldNotNull( Schema.SObjectField field )
-    {
-        return new Filter( new FieldNotNullPredicate( field ) );
-    }
-
     global static Filter fieldEquals( Schema.SObjectField field, Object value )
     {
         return new Filter( new FieldEqualsPredicate( field, value ) );
@@ -27,6 +17,16 @@ global class Filter
     global static Filter fieldNotEquals( Schema.SObjectField field, Object value )
     {
         return new Filter( new FieldNotEqualsPredicate( field, value ) );
+    }
+
+    global static Filter fieldNull( Schema.SObjectField field )
+    {
+        return new Filter( new FieldNullPredicate( field ) );
+    }
+
+    global static Filter fieldNotNull( Schema.SObjectField field )
+    {
+        return new Filter( new FieldNotNullPredicate( field ) );
     }
 
     /////////////////////////////////////////////////////////////////
@@ -118,22 +118,6 @@ global class Filter
         }
     }
 
-    global virtual class FieldNullPredicate extends FieldEqualsPredicate
-    {
-        global FieldNullPredicate( Schema.SObjectField field )
-        {
-            super( field, null );
-        }
-    }
-
-    global virtual class FieldNotNullPredicate extends FieldNotEqualsPredicate
-    {
-        global FieldNotNullPredicate( Schema.SObjectField field )
-        {
-            super( field, null );
-        }
-    }
-
     global virtual class FieldEqualsPredicate extends InsertPredicate
     {
         @TestVisible Schema.SObjectField field;
@@ -165,6 +149,22 @@ global class Filter
         global Boolean evaluate( sObject newRecord )
         {
             return newRecord.get( field ) != value;
+        }
+    }
+
+    global virtual class FieldNullPredicate extends FieldEqualsPredicate
+    {
+        global FieldNullPredicate( Schema.SObjectField field )
+        {
+            super( field, null );
+        }
+    }
+
+    global virtual class FieldNotNullPredicate extends FieldNotEqualsPredicate
+    {
+        global FieldNotNullPredicate( Schema.SObjectField field )
+        {
+            super( field, null );
         }
     }
 }
