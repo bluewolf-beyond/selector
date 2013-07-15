@@ -1,40 +1,17 @@
 global class Filter
 {
+    /////////////////////////////////////////////////////////////////
+    // standard filter types
+    /////////////////////////////////////////////////////////////////
+
     global static Filter fieldChanged( Schema.SObjectField field )
     {
         return new Filter( new FieldChangedPredicate( field ) );
     }
 
-    global interface Predicate
-    {
-        Boolean evaluate( sObject newRecord );
-        Boolean evaluate( sObject newRecord, sObject oldRecord );
-    }
-
-    global class FieldChangedPredicate implements Predicate
-    {
-        @TestVisible Schema.SObjectField field;
-
-        global FieldChangedPredicate( Schema.SObjectField field )
-        {
-            this.field = field;
-        }
-
-        global Boolean evaluate( sObject newRecord )
-        {
-            return newRecord.get( field ) != null;
-        }
-
-        global Boolean evaluate( sObject newRecord, sObject oldRecord )
-        {
-            return newRecord.get( field ) != oldRecord.get( field );
-        }
-    }
-
-    global Filter( Predicate predicate )
-    {
-        this.predicate = predicate;
-    }
+    /////////////////////////////////////////////////////////////////
+    // Filter instance methods
+    /////////////////////////////////////////////////////////////////
 
     global List<sObject> filter( List<sObject> newRecords )
     {
@@ -68,5 +45,48 @@ global class Filter
         return filteredRecords;
     }
 
+    /////////////////////////////////////////////////////////////////
+    // Filter class glue
+    /////////////////////////////////////////////////////////////////
+
+    global Filter( Predicate predicate )
+    {
+        this.predicate = predicate;
+    }
+
     @TestVisible Predicate predicate;
+
+    /////////////////////////////////////////////////////////////////
+    // Predicate interface
+    /////////////////////////////////////////////////////////////////
+
+    global interface Predicate
+    {
+        Boolean evaluate( sObject newRecord );
+        Boolean evaluate( sObject newRecord, sObject oldRecord );
+    }
+
+    /////////////////////////////////////////////////////////////////
+    // standard Predicates
+    /////////////////////////////////////////////////////////////////
+
+    global class FieldChangedPredicate implements Predicate
+    {
+        @TestVisible Schema.SObjectField field;
+
+        global FieldChangedPredicate( Schema.SObjectField field )
+        {
+            this.field = field;
+        }
+
+        global Boolean evaluate( sObject newRecord )
+        {
+            return newRecord.get( field ) != null;
+        }
+
+        global Boolean evaluate( sObject newRecord, sObject oldRecord )
+        {
+            return newRecord.get( field ) != oldRecord.get( field );
+        }
+    }
 }
