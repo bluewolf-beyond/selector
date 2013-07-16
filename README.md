@@ -89,8 +89,8 @@ new Filter( predicate )
 To write a custom filter predicate, implement the interface `Filter.Predicate`, which
 consists of an evaluate method for the insert case and one for the update case.
 
-    Boolean Predicate#*evaluate*( sObject newRecord )
-    Boolean Predicate#*evaluate*( sObject newRecord, oldRecord )
+Boolean Predicate#*evaluate*( sObject newRecord )
+Boolean Predicate#*evaluate*( sObject newRecord, oldRecord )
 
 ### InsertPredicate abstract class
 
