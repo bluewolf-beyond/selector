@@ -62,6 +62,10 @@ Filter.*fieldChanged*( field )
 
     Filter nameChanged = Filter.fieldChanged( Account.Name )
 
+Filter.*fieldNew*( field )
+
+    Filter newPhone = Filter.fieldNew( Contact.Phone )
+
 Filter.*fieldEquals*( field, value )
 
     Filter nameIsFoobar = Filter.fieldEquals( Account.Name, 'Foobar' )
