@@ -38,7 +38,7 @@ Use the Solution Repository:
 reference
 ---------
 
- * instance methods
+### instance methods
 
 Filter#*filter*( newRecords )
 
@@ -56,7 +56,7 @@ Filter#*orx*( Filter otherFilter )
 
     Filter fooOrBar = nameEqualsFoo.orx( nameEqualsBar )
 
- * built-in filters
+### built-in filters
 
 Filter.*fieldChanged*( field )
 
@@ -78,13 +78,13 @@ Filter.*fieldNotNull*( field )
 
     Filter hasPhone = Filter.fieldNotNull( Contact.Phone )
 
- * constructors
+### constructors
 
 new Filter( predicate )
 
      Filter customFilter = new Filter( customPredicate )
 
- * Predicate interface
+### Predicate interface
 
 To write a custom filter predicate, implement the interface `Filter.Predicate`, which
 consists of an evaluate method for the insert case and one for the update case.
@@ -92,6 +92,6 @@ consists of an evaluate method for the insert case and one for the update case.
     Boolean Predicate#*evaluate*( sObject newRecord )
     Boolean Predicate#*evaluate*( sObject newRecord, oldRecord )
 
- * InsertPredicate abstract class
+### InsertPredicate abstract class
 
 If you don't need special-case logic for the update case, extend this class instead.
