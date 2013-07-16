@@ -21,6 +21,22 @@ private class FilterTest
             'The field passed in should be the filter field' );
     }
 
+    private static testMethod void testFieldNewFilter()
+    {
+        Test.startTest();
+
+            Filter companyNewFilter = Filter.fieldNew( Lead.Company );
+
+        Test.stopTest();
+
+        System.assert( companyNewFilter.predicate instanceof Filter.FieldNewPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldNewPredicate predicate = (Filter.FieldNewPredicate)companyNewFilter.predicate;
+        System.assertEquals( predicate.field, Lead.Company,
+            'The field passed in should be the filter field' );
+    }
+
     private static testMethod void testFieldEqualsFilter()
     {
         final String FILTER_VALUE = 'Foobar';
@@ -285,6 +301,54 @@ private class FilterTest
             'A Field with the original value on update isn\'t considered changed' );
         System.assertEquals( true, fieldWithNewValueChanged,
             'A Field with a new value on update isn\'t considered changed' );
+    }
+
+    private static testMethod void testPredicate_FieldNew_Insert()
+    {
+        Filter.Predicate predicate = new Filter.FieldNewPredicate( Lead.Company );
+
+        sObject sObjectWithValue = new Lead();
+        sObjectWithValue.put( 'Company', 'Foobar Industries' );
+
+        sObject sObjectWithoutValue = new Lead();
+
+        Test.startTest();
+
+            Boolean fieldWithValueNew = predicate.evaluate( sObjectWithValue );
+            Boolean fieldWithoutValueNew = predicate.evaluate( sObjectWithoutValue );
+
+        Test.stopTest();
+
+        System.assertEquals( true, fieldWithValueNew,
+            'A Field with a value on insert is considered new' );
+        System.assertEquals( false, fieldWithoutValueNew,
+            'A Field without a value on insert isn\'t considered new' );
+    }
+
+    private static testMethod void testPredicate_FieldNew_Update()
+    {
+        Filter.Predicate predicate = new Filter.FieldNewPredicate( Lead.Company );
+
+        sObject sObjectNew = new Lead();
+        sObjectNew.put( 'Company', 'Foobar Industries' );
+
+        sObject sObjectWithValue = new Lead();
+        sObjectWithValue.put( 'Company', 'Intractable Industries' );
+
+        sObject sObjectWithoutValue = new Lead();
+        sObjectWithoutValue.put( 'Company', null );
+
+        Test.startTest();
+
+            Boolean fieldWithValueNew = predicate.evaluate( sObjectNew, sObjectWithValue );
+            Boolean fieldWithoutValueNew = predicate.evaluate( sObjectNew, sObjectWithoutValue );
+
+        Test.stopTest();
+
+        System.assertEquals( false, fieldWithValueNew,
+            'A Field with a value on update isn\'t considered new' );
+        System.assertEquals( true, fieldWithoutValueNew,
+            'A Field without a value on update is considered new' );
     }
 
     private static testMethod void testPredicate_FieldEquals()
