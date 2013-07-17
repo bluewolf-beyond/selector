@@ -5,7 +5,7 @@ private class FilterTest
     // standard filter types
     /////////////////////////////////////////////////////////////////
 
-    private static testMethod void testFieldChangedFilter()
+    private static testMethod void testFieldChangedFilter_Schema()
     {
         Test.startTest();
 
@@ -17,11 +17,27 @@ private class FilterTest
             'The filter should be of the proper variety' );
 
         Filter.FieldChangedPredicate predicate = (Filter.FieldChangedPredicate)companyChangedFilter.predicate;
-        System.assertEquals( predicate.field, Lead.Company,
+        System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNewFilter()
+    private static testMethod void testFieldChangedFilter_String()
+    {
+        Test.startTest();
+
+            Filter companyChangedFilter = Filter.fieldChanged( 'Company' );
+
+        Test.stopTest();
+
+        System.assert( companyChangedFilter.predicate instanceof Filter.FieldChangedPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldChangedPredicate predicate = (Filter.FieldChangedPredicate)companyChangedFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
+
+    private static testMethod void testFieldNewFilter_Schema()
     {
         Test.startTest();
 
@@ -33,11 +49,27 @@ private class FilterTest
             'The filter should be of the proper variety' );
 
         Filter.FieldNewPredicate predicate = (Filter.FieldNewPredicate)companyNewFilter.predicate;
-        System.assertEquals( predicate.field, Lead.Company,
+        System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldEqualsFilter()
+    private static testMethod void testFieldNewFilter_String()
+    {
+        Test.startTest();
+
+            Filter companyNewFilter = Filter.fieldNew( 'Company' );
+
+        Test.stopTest();
+
+        System.assert( companyNewFilter.predicate instanceof Filter.FieldNewPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldNewPredicate predicate = (Filter.FieldNewPredicate)companyNewFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
+
+    private static testMethod void testFieldEqualsFilter_Schema()
     {
         final String FILTER_VALUE = 'Foobar';
 
@@ -51,13 +83,33 @@ private class FilterTest
             'The filter should be of the proper variety' );
 
         Filter.FieldEqualsPredicate predicate = (Filter.FieldEqualsPredicate)companyEqualsFoobarFilter.predicate;
-        System.assertEquals( predicate.field, Lead.Company,
+        System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
-        System.assertEquals( predicate.value, FILTER_VALUE,
+        System.assertEquals( FILTER_VALUE, predicate.value,
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldNotEqualsFilter()
+    private static testMethod void testFieldEqualsFilter_String()
+    {
+        final String FILTER_VALUE = 'Foobar';
+
+        Test.startTest();
+
+            Filter companyEqualsFoobarFilter = Filter.fieldEquals( 'Company', FILTER_VALUE );
+
+        Test.stopTest();
+
+        System.assert( companyEqualsFoobarFilter.predicate instanceof Filter.FieldEqualsPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldEqualsPredicate predicate = (Filter.FieldEqualsPredicate)companyEqualsFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( FILTER_VALUE, predicate.value,
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void testFieldNotEqualsFilter_Schema()
     {
         final String FILTER_VALUE = 'Foobar';
 
@@ -71,13 +123,33 @@ private class FilterTest
             'The filter should be of the proper variety' );
 
         Filter.FieldNotEqualsPredicate predicate = (Filter.FieldNotEqualsPredicate)companyNotEqualsFoobarFilter.predicate;
-        System.assertEquals( predicate.field, Lead.Company,
+        System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
-        System.assertEquals( predicate.value, FILTER_VALUE,
+        System.assertEquals( FILTER_VALUE, predicate.value,
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldInFilter()
+    private static testMethod void testFieldNotEqualsFilter_String()
+    {
+        final String FILTER_VALUE = 'Foobar';
+
+        Test.startTest();
+
+            Filter companyNotEqualsFoobarFilter = Filter.fieldNotEquals( 'Company', FILTER_VALUE );
+
+        Test.stopTest();
+
+        System.assert( companyNotEqualsFoobarFilter.predicate instanceof Filter.FieldNotEqualsPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldNotEqualsPredicate predicate = (Filter.FieldNotEqualsPredicate)companyNotEqualsFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( FILTER_VALUE, predicate.value,
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void testFieldInFilter_Schema()
     {
         Set<Object> FILTER_VALUES = new Set<Object>{ 'Foobar' };
 
@@ -91,7 +163,7 @@ private class FilterTest
             'The filter should be of the proper variety' );
 
         Filter.FieldInPredicate predicate = (Filter.FieldInPredicate)companyInFoobarFilter.predicate;
-        System.assertEquals( predicate.field, Lead.Company,
+        System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( 1, predicate.values.size(),
             'The set passed in should be the filter set' );
@@ -99,7 +171,29 @@ private class FilterTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldNotInFilter()
+    private static testMethod void testFieldInFilter_String()
+    {
+        Set<Object> FILTER_VALUES = new Set<Object>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Filter.fieldIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof Filter.FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldInPredicate predicate = (Filter.FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void testFieldNotInFilter_Schema()
     {
         Set<Object> FILTER_VALUES = new Set<Object>{ 'Foobar' };
 
@@ -113,7 +207,7 @@ private class FilterTest
             'The filter should be of the proper variety' );
 
         Filter.FieldNotInPredicate predicate = (Filter.FieldNotInPredicate)companyNotInFoobarFilter.predicate;
-        System.assertEquals( predicate.field, Lead.Company,
+        System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( 1, predicate.values.size(),
             'The set passed in should be the filter set' );
@@ -121,7 +215,29 @@ private class FilterTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldNullFilter()
+    private static testMethod void testFieldNotInFilter_String()
+    {
+        Set<Object> FILTER_VALUES = new Set<Object>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Filter.fieldNotIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof Filter.FieldNotInPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldNotInPredicate predicate = (Filter.FieldNotInPredicate)companyNotInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void testFieldNullFilter_Schema()
     {
         Test.startTest();
 
@@ -133,11 +249,27 @@ private class FilterTest
             'The filter should be of the proper variety' );
 
         Filter.FieldNullPredicate predicate = (Filter.FieldNullPredicate)companyNullFilter.predicate;
-        System.assertEquals( predicate.field, Lead.Company,
+        System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNotNullFilter()
+    private static testMethod void testFieldNullFilter_String()
+    {
+        Test.startTest();
+
+            Filter companyNullFilter = Filter.fieldNull( 'Company' );
+
+        Test.stopTest();
+
+        System.assert( companyNullFilter.predicate instanceof Filter.FieldNullPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldNullPredicate predicate = (Filter.FieldNullPredicate)companyNullFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
+
+    private static testMethod void testFieldNotNullFilter_Schema()
     {
         Test.startTest();
 
@@ -149,7 +281,23 @@ private class FilterTest
             'The filter should be of the proper variety' );
 
         Filter.FieldNotNullPredicate predicate = (Filter.FieldNotNullPredicate)companyNotNullFilter.predicate;
-        System.assertEquals( predicate.field, Lead.Company,
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
+
+    private static testMethod void testFieldNotNullFilter_String()
+    {
+        Test.startTest();
+
+            Filter companyNotNullFilter = Filter.fieldNotNull( 'Company' );
+
+        Test.stopTest();
+
+        System.assert( companyNotNullFilter.predicate instanceof Filter.FieldNotNullPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldNotNullPredicate predicate = (Filter.FieldNotNullPredicate)companyNotNullFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
 
