@@ -24,6 +24,16 @@ global class Filter
         return new Filter( new FieldNotEqualsPredicate( field, value ) );
     }
 
+    global static Filter fieldIn( Schema.SObjectField field, Set<Object> values )
+    {
+        return new Filter( new FieldInPredicate( field, values ) );
+    }
+
+    global static Filter fieldNotIn( Schema.SObjectField field, Set<Object> values )
+    {
+        return new Filter( new FieldNotInPredicate( field, values ) );
+    }
+
     global static Filter fieldNull( Schema.SObjectField field )
     {
         return new Filter( new FieldNullPredicate( field ) );
@@ -185,6 +195,40 @@ global class Filter
         global Boolean evaluate( sObject newRecord )
         {
             return newRecord.get( field ) != value;
+        }
+    }
+
+    global virtual class FieldInPredicate extends InsertPredicate
+    {
+        @TestVisible Schema.SObjectField field;
+        @TestVisible Set<Object> values;
+
+        global FieldInPredicate( Schema.SObjectField field, Set<Object> values )
+        {
+            this.field = field;
+            this.values = values;
+        }
+
+        global Boolean evaluate( sObject newRecord )
+        {
+            return values.contains( newRecord.get( field ) );
+        }
+    }
+
+    global virtual class FieldNotInPredicate extends InsertPredicate
+    {
+        @TestVisible Schema.SObjectField field;
+        @TestVisible Set<Object> values;
+
+        global FieldNotInPredicate( Schema.SObjectField field, Set<Object> values )
+        {
+            this.field = field;
+            this.values = values;
+        }
+
+        global Boolean evaluate( sObject newRecord )
+        {
+            return !values.contains( newRecord.get( field ) );
         }
     }
 

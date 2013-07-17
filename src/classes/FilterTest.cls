@@ -77,6 +77,50 @@ private class FilterTest
             'The value passed in should be the filter value' );
     }
 
+    private static testMethod void testFieldInFilter()
+    {
+        Set<Object> FILTER_VALUES = new Set<Object>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Filter.fieldIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof Filter.FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldInPredicate predicate = (Filter.FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( predicate.field, Lead.Company,
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void testFieldNotInFilter()
+    {
+        Set<Object> FILTER_VALUES = new Set<Object>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Filter.fieldNotIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof Filter.FieldNotInPredicate,
+            'The filter should be of the proper variety' );
+
+        Filter.FieldNotInPredicate predicate = (Filter.FieldNotInPredicate)companyNotInFoobarFilter.predicate;
+        System.assertEquals( predicate.field, Lead.Company,
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+
     private static testMethod void testFieldNullFilter()
     {
         Test.startTest();
@@ -400,6 +444,58 @@ private class FilterTest
         System.assertEquals( false, fieldWithValueNotEquals,
             'A Field with a matching value on insert is considered equal' );
         System.assertEquals( true, fieldWithOtherNotEquals,
+            'A Field with a differing value on insert isn\'t considered equal' );
+    }
+
+    private static testMethod void testPredicate_FieldIn()
+    {
+        Filter.Predicate predicate = new Filter.FieldInPredicate( Lead.Company, new Set<Object>{ 'Foobar Industries' } );
+
+        sObject sObjectWithValue = new Lead();
+        sObjectWithValue.put( 'Company', 'Foobar Industries' );
+
+        sObject sObjectWithOther = new Lead();
+        sObjectWithOther.put( 'Company', 'Intractable Industries' );
+
+        Test.startTest();
+
+            Boolean fieldWithValueIn = predicate.evaluate( sObjectWithValue );
+            Boolean fieldWithOtherIn = predicate.evaluate( sObjectWithOther );
+
+        Test.stopTest();
+
+        System.assert( predicate instanceof Filter.InsertPredicate,
+            'No update test needed' );
+
+        System.assertEquals( true, fieldWithValueIn,
+            'A Field with a matching value on insert is considered equal' );
+        System.assertEquals( false, fieldWithOtherIn,
+            'A Field with a differing value on insert isn\'t considered equal' );
+    }
+
+    private static testMethod void testPredicate_FieldNotIn()
+    {
+        Filter.Predicate predicate = new Filter.FieldNotInPredicate( Lead.Company, new Set<Object>{ 'Foobar Industries' } );
+
+        sObject sObjectWithValue = new Lead();
+        sObjectWithValue.put( 'Company', 'Foobar Industries' );
+
+        sObject sObjectWithOther = new Lead();
+        sObjectWithOther.put( 'Company', 'Intractable Industries' );
+
+        Test.startTest();
+
+            Boolean fieldWithValueNotIn = predicate.evaluate( sObjectWithValue );
+            Boolean fieldWithOtherNotIn = predicate.evaluate( sObjectWithOther );
+
+        Test.stopTest();
+
+        System.assert( predicate instanceof Filter.InsertPredicate,
+            'No update test needed' );
+
+        System.assertEquals( false, fieldWithValueNotIn,
+            'A Field with a matching value on insert is considered equal' );
+        System.assertEquals( true, fieldWithOtherNotIn,
             'A Field with a differing value on insert isn\'t considered equal' );
     }
 
