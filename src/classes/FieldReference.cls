@@ -78,7 +78,9 @@ global abstract class FieldReference
 
         global override Object getFrom( sObject record )
         {
-            return next.getFrom( record.getSObject( field ) );
+            sObject parent = record.getSObject( field );
+
+            return parent == null ? null : next.getFrom( parent );
         }
 
         global override String toString()

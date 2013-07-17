@@ -114,6 +114,23 @@ private class FieldReferenceTest
             'The value from the referenced field should be retrieved' );
     }
 
+    private static testMethod void testGetFrom_Chained_Null()
+    {
+        Contact orphan = new Contact( FirstName = 'Oliver' );
+
+        FieldReference child = new FieldReference.SimpleFieldReference( 'Name' );
+        FieldReference accountName = new FieldReference.ChainedFieldReference( 'Account', child );
+
+        Test.startTest();
+
+            Object retrieved = accountName.getFrom( orphan );
+
+        Test.stopTest();
+
+        System.assertEquals( null, retrieved,
+            'Null should be returned if any chained reference is null' );
+    }
+
     private static testMethod void testToString_Schema()
     {
         FieldReference firstName = new FieldReference.SchemaFieldReference( Lead.FirstName );
