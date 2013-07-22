@@ -82,6 +82,12 @@ Filter.*fieldNotNull*( field )
 
     Filter hasPhone = Filter.fieldNotNull( Contact.Phone )
 
+Filter.hasChildren( field )
+    Filter hasChildren = Filter.hasChildren( 'Contacts' )
+
+Filter.hasNoChildren( field )
+    Filter hasNoChildren = Filter.hasNoChildren( 'Contacts' )
+
 ### constructors
 
 new Filter( predicate )
