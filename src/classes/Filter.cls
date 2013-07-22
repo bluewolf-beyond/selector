@@ -34,15 +34,15 @@ global class Filter
         return new Filter( new FieldEqualsPredicate( field, value ) );
     }
 
-	global static Filter hasChildren( String field )
-	{
-		return new Filter( new HasChildrenPredicate( field ) );
-	}
+    global static Filter hasChildren( String field )
+    {
+        return new Filter( new HasChildrenPredicate( field ) );
+    }
 
-	global static Filter hasNoChildren( String field )
-	{
-		return new Filter( new HasNoChildrenPredicate( field ) );
-	}
+    global static Filter hasNoChildren( String field )
+    {
+        return new Filter( new HasNoChildrenPredicate( field ) );
+    }
 
     global static Filter fieldNotEquals( Schema.SObjectField field, Object value )
     {
@@ -224,39 +224,39 @@ global class Filter
         }
     }
 
-	global virtual class HasNoChildrenPredicate extends InsertPredicate
-	{
-		@TestVisible String childrenField;
+    global virtual class HasNoChildrenPredicate extends InsertPredicate
+    {
+        @TestVisible String childrenField;
 
-		global HasNoChildrenPredicate( String field )
-		{
-			this.childrenField = field;
-		}
+        global HasNoChildrenPredicate( String field )
+        {
+            this.childrenField = field;
+        }
 
-		global Boolean evaluate( sObject newRecord )
-		{
-			List<sObject> childrenObjects = newRecord.getSObjects( childrenField );
-			return childrenObjects == null || childrenObjects.isEmpty();
-		}
+        global Boolean evaluate( sObject newRecord )
+        {
+            List<sObject> childrenObjects = newRecord.getSObjects( childrenField );
+            return childrenObjects == null || childrenObjects.isEmpty();
+        }
 
-	}
+    }
 
-	global virtual class HasChildrenPredicate extends InsertPredicate
-	{
-		@TestVisible String childrenField;
+    global virtual class HasChildrenPredicate extends InsertPredicate
+    {
+        @TestVisible String childrenField;
 
-		global HasChildrenPredicate( String field )
-		{
-			this.childrenField = field;
-		}
+        global HasChildrenPredicate( String field )
+        {
+            this.childrenField = field;
+        }
 
-		global Boolean evaluate( sObject newRecord )
-		{
-			List<sObject> childrenObjects = newRecord.getSObjects( childrenField );
-			return childrenObjects != null && !newRecord.getSObjects( childrenField ).isEmpty();
-		}
+        global Boolean evaluate( sObject newRecord )
+        {
+            List<sObject> childrenObjects = newRecord.getSObjects( childrenField );
+            return childrenObjects != null && !newRecord.getSObjects( childrenField ).isEmpty();
+        }
 
-	}
+    }
 
 
     global virtual class FieldEqualsPredicate extends InsertPredicate
