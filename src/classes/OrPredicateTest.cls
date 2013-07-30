@@ -3,6 +3,7 @@ private class OrPredicateTest
 {
     static Predicate yes = new ConstantPredicate( true );
     static Predicate no = new ConstantPredicate( false );
+    static Lead sObj = new Lead();
 
     private static testMethod void testInsert()
     {
@@ -10,8 +11,6 @@ private class OrPredicateTest
         Predicate yesOrNo = new OrPredicate( no, yes );
         Predicate noOrYes = new OrPredicate( yes, no );
         Predicate noOrNo = new OrPredicate( no, no );
-
-        Lead sObj = new Lead();
 
         Test.startTest();
 
@@ -34,8 +33,6 @@ private class OrPredicateTest
         Predicate yesOrNo = new OrPredicate( no, yes );
         Predicate noOrYes = new OrPredicate( yes, no );
         Predicate noOrNo = new OrPredicate( no, no );
-
-        Lead sObj = new Lead();
 
         Test.startTest();
 
@@ -115,5 +112,35 @@ private class OrPredicateTest
             'Compound predicates should be built in order' );
         System.assertEquals( yes, compoundPredicate.predicates[3],
             'Compound predicates should be built in order' );
+    }
+
+    private static testMethod void testShortcutEvaluate_Insert()
+    {
+        SpyPredicate spy = new SpyPredicate();
+        Predicate both = new OrPredicate( yes, spy );
+
+        Test.startTest();
+
+            both.evaluate( sObj );
+
+        Test.stopTest();
+
+        System.assertEquals( false, spy.wasCalled,
+            'OrPredicate should use shortcut evaluation' );
+    }
+
+    private static testMethod void testShortcutEvaluate_Update()
+    {
+        SpyPredicate spy = new SpyPredicate();
+        Predicate both = new OrPredicate( yes, spy );
+
+        Test.startTest();
+
+            both.evaluate( sObj, sObj );
+
+        Test.stopTest();
+
+        System.assertEquals( false, spy.wasCalled,
+            'OrPredicate should use shortcut evaluation' );
     }
 }
