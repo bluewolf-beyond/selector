@@ -112,14 +112,14 @@ private class FilterTest
         System.assert( leftAndRight.predicate instanceof AndPredicate,
             'The filter and operation should return an and predicate' );
         AndPredicate andPredicate = (AndPredicate)leftAndRight.predicate;
-        System.assertEquals( left, andPredicate.left, 'the predicates should be the children' );
-        System.assertEquals( right, andPredicate.right, 'the predicates should be the children' );
+        System.assertEquals( left, andPredicate.predicates[0], 'the predicates should be the children' );
+        System.assertEquals( right, andPredicate.predicates[1], 'the predicates should be the children' );
 
         System.assert( rightAndLeft.predicate instanceof AndPredicate,
             'The filter and operation should return an and predicate' );
         andPredicate = (AndPredicate)rightAndLeft.predicate;
-        System.assertEquals( right, andPredicate.left, 'the predicates should be the children' );
-        System.assertEquals( left, andPredicate.right, 'the predicates should be the children' );
+        System.assertEquals( right, andPredicate.predicates[0], 'the predicates should be the children' );
+        System.assertEquals( left, andPredicate.predicates[1], 'the predicates should be the children' );
     }
 
     private static testMethod void testFilter_orx()

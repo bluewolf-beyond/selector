@@ -1,22 +1,37 @@
 global class AndPredicate implements Predicate
 {
-    @TestVisible Predicate left, right;
+    @TestVisible List<Predicate> predicates;
 
     global AndPredicate( Predicate left, Predicate right )
     {
-        this.left = left;
-        this.right = right;
+        predicates = new List<Predicate>();
+        predicates.add( left );
+        predicates.add( right );
     }
 
     global Boolean evaluate( sObject newRecord )
     {
-        return left.evaluate( newRecord ) &&
-               right.evaluate( newRecord );
+        for ( Predicate predicate : predicates )
+        {
+            if ( !predicate.evaluate( newRecord ) )
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     global Boolean evaluate( sObject newRecord, sObject oldRecord )
     {
-        return left.evaluate( newRecord, oldRecord ) &&
-               right.evaluate( newRecord, oldRecord );
+        for ( Predicate predicate : predicates )
+        {
+            if ( !predicate.evaluate( newRecord, oldRecord ) )
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
