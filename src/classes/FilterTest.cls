@@ -159,10 +159,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyInFoobarFilter.predicate instanceof Filter.FieldInPredicate,
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldInPredicate predicate = (Filter.FieldInPredicate)companyInFoobarFilter.predicate;
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( 1, predicate.values.size(),
@@ -181,10 +181,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyInFoobarFilter.predicate instanceof Filter.FieldInPredicate,
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldInPredicate predicate = (Filter.FieldInPredicate)companyInFoobarFilter.predicate;
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( 1, predicate.values.size(),
@@ -470,32 +470,6 @@ private class FilterTest
         System.assertEquals( false, fieldWithValueNotEquals,
             'A Field with a matching value on insert is considered equal' );
         System.assertEquals( true, fieldWithOtherNotEquals,
-            'A Field with a differing value on insert isn\'t considered equal' );
-    }
-
-    private static testMethod void testPredicate_FieldIn()
-    {
-        Predicate predicate = new Filter.FieldInPredicate( Lead.Company, new Set<Object>{ 'Foobar Industries' } );
-
-        sObject sObjectWithValue = new Lead();
-        sObjectWithValue.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithOther = new Lead();
-        sObjectWithOther.put( 'Company', 'Intractable Industries' );
-
-        Test.startTest();
-
-            Boolean fieldWithValueIn = predicate.evaluate( sObjectWithValue );
-            Boolean fieldWithOtherIn = predicate.evaluate( sObjectWithOther );
-
-        Test.stopTest();
-
-        System.assert( predicate instanceof InsertPredicate,
-            'No update test needed' );
-
-        System.assertEquals( true, fieldWithValueIn,
-            'A Field with a matching value on insert is considered equal' );
-        System.assertEquals( false, fieldWithOtherIn,
             'A Field with a differing value on insert isn\'t considered equal' );
     }
 
