@@ -5,8 +5,24 @@ global class AndPredicate implements Predicate
     global AndPredicate( Predicate left, Predicate right )
     {
         predicates = new List<Predicate>();
-        predicates.add( left );
-        predicates.add( right );
+
+        if ( left instanceof AndPredicate )
+        {
+            predicates.addAll( ((AndPredicate)left).predicates );
+        }
+        else
+        {
+            predicates.add( left );
+        }
+
+        if ( right instanceof AndPredicate )
+        {
+            predicates.addAll( ((AndPredicate)right).predicates );
+        }
+        else
+        {
+            predicates.add( right );
+        }
     }
 
     global Boolean evaluate( sObject newRecord )
