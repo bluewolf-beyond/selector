@@ -1,11 +1,11 @@
 global class Field
 {
-    global static Filter changed( Schema.SObjectField field )
+    global static Filter hasChanged( Schema.SObjectField field )
     {
         return new Filter( new FieldChangedPredicate( field ) );
     }
 
-    global static Filter changed( String field )
+    global static Filter hasChanged( String field )
     {
         return new Filter( new FieldChangedPredicate( field ) );
     }
@@ -30,24 +30,24 @@ global class Field
         return hasChildren( field ).notx();
     }
 
-    global static Filter equals( Schema.SObjectField field, Object value )
+    global static Filter isEqual( Schema.SObjectField field, Object value )
     {
         return new Filter( new FieldEqualsPredicate( field, value ) );
     }
 
-    global static Filter equals( String field, Object value )
+    global static Filter isEqual( String field, Object value )
     {
         return new Filter( new FieldEqualsPredicate( field, value ) );
     }
 
-    global static Filter notEquals( Schema.SObjectField field, Object value )
+    global static Filter notEqual( Schema.SObjectField field, Object value )
     {
-        return equals( field, value ).notx();
+        return isEqual( field, value ).notx();
     }
 
-    global static Filter notEquals( String field, Object value )
+    global static Filter notEqual( String field, Object value )
     {
-        return equals( field, value ).notx();
+        return isEqual( field, value ).notx();
     }
 
     global static Filter isIn( Schema.SObjectField field, Set<Object> values )

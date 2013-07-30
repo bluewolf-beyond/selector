@@ -5,7 +5,7 @@ private class FieldTest
     {
         Test.startTest();
 
-            Filter companyChangedFilter = Field.changed( Lead.Company );
+            Filter companyChangedFilter = Field.hasChanged( Lead.Company );
 
         Test.stopTest();
 
@@ -21,7 +21,7 @@ private class FieldTest
     {
         Test.startTest();
 
-            Filter companyChangedFilter = Field.changed( 'Company' );
+            Filter companyChangedFilter = Field.hasChanged( 'Company' );
 
         Test.stopTest();
 
@@ -103,7 +103,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyEqualsFoobarFilter = Field.equals( Lead.Company, FILTER_VALUE );
+            Filter companyEqualsFoobarFilter = Field.isEqual( Lead.Company, FILTER_VALUE );
 
         Test.stopTest();
 
@@ -123,7 +123,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyEqualsFoobarFilter = Field.equals( 'Company', FILTER_VALUE );
+            Filter companyEqualsFoobarFilter = Field.isEqual( 'Company', FILTER_VALUE );
 
         Test.stopTest();
 
@@ -143,7 +143,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyNotEqualsFoobarFilter = Field.notEquals( Lead.Company, FILTER_VALUE );
+            Filter companyNotEqualsFoobarFilter = Field.notEqual( Lead.Company, FILTER_VALUE );
 
         Test.stopTest();
 
@@ -163,7 +163,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyNotEqualsFoobarFilter = Field.notEquals( 'Company', FILTER_VALUE );
+            Filter companyNotEqualsFoobarFilter = Field.notEqual( 'Company', FILTER_VALUE );
 
         Test.stopTest();
 
