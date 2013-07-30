@@ -395,8 +395,8 @@ private class FilterTest
 
     private static testMethod void testFilter_andx()
     {
-        Filter.Predicate left = new ConstantPredicate( false );
-        Filter.Predicate right = new ConstantPredicate( true );
+        Predicate left = new ConstantPredicate( false );
+        Predicate right = new ConstantPredicate( true );
 
         Test.startTest();
 
@@ -420,8 +420,8 @@ private class FilterTest
 
     private static testMethod void testFilter_orx()
     {
-        Filter.Predicate left = new ConstantPredicate( false );
-        Filter.Predicate right = new ConstantPredicate( true );
+        Predicate left = new ConstantPredicate( false );
+        Predicate right = new ConstantPredicate( true );
 
         Test.startTest();
 
@@ -449,7 +449,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldChanged_Insert()
     {
-        Filter.Predicate predicate = new Filter.FieldChangedPredicate( Lead.Company );
+        Predicate predicate = new Filter.FieldChangedPredicate( Lead.Company );
 
         sObject sObjectWithValue = new Lead();
         sObjectWithValue.put( 'Company', 'Foobar Industries' );
@@ -471,7 +471,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldChanged_Update()
     {
-        Filter.Predicate predicate = new Filter.FieldChangedPredicate( Lead.Company );
+        Predicate predicate = new Filter.FieldChangedPredicate( Lead.Company );
 
         sObject sObjectOriginal = new Lead();
         sObjectOriginal.put( 'Company', 'Foobar Industries' );
@@ -497,7 +497,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldNew_Insert()
     {
-        Filter.Predicate predicate = new Filter.FieldNewPredicate( Lead.Company );
+        Predicate predicate = new Filter.FieldNewPredicate( Lead.Company );
 
         sObject sObjectWithValue = new Lead();
         sObjectWithValue.put( 'Company', 'Foobar Industries' );
@@ -519,7 +519,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldNew_Update()
     {
-        Filter.Predicate predicate = new Filter.FieldNewPredicate( Lead.Company );
+        Predicate predicate = new Filter.FieldNewPredicate( Lead.Company );
 
         sObject sObjectNew = new Lead();
         sObjectNew.put( 'Company', 'Foobar Industries' );
@@ -545,7 +545,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldEquals()
     {
-        Filter.Predicate predicate = new Filter.FieldEqualsPredicate( Lead.Company, 'Foobar Industries' );
+        Predicate predicate = new Filter.FieldEqualsPredicate( Lead.Company, 'Foobar Industries' );
 
         sObject sObjectWithValue = new Lead();
         sObjectWithValue.put( 'Company', 'Foobar Industries' );
@@ -571,7 +571,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldNotEquals()
     {
-        Filter.Predicate predicate = new Filter.FieldNotEqualsPredicate( Lead.Company, 'Foobar Industries' );
+        Predicate predicate = new Filter.FieldNotEqualsPredicate( Lead.Company, 'Foobar Industries' );
 
         sObject sObjectWithValue = new Lead();
         sObjectWithValue.put( 'Company', 'Foobar Industries' );
@@ -597,7 +597,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldIn()
     {
-        Filter.Predicate predicate = new Filter.FieldInPredicate( Lead.Company, new Set<Object>{ 'Foobar Industries' } );
+        Predicate predicate = new Filter.FieldInPredicate( Lead.Company, new Set<Object>{ 'Foobar Industries' } );
 
         sObject sObjectWithValue = new Lead();
         sObjectWithValue.put( 'Company', 'Foobar Industries' );
@@ -645,7 +645,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldNotIn()
     {
-        Filter.Predicate predicate = new Filter.FieldNotInPredicate( Lead.Company, new Set<Object>{ 'Foobar Industries' } );
+        Predicate predicate = new Filter.FieldNotInPredicate( Lead.Company, new Set<Object>{ 'Foobar Industries' } );
 
         sObject sObjectWithValue = new Lead();
         sObjectWithValue.put( 'Company', 'Foobar Industries' );
@@ -671,7 +671,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldNull()
     {
-        Filter.Predicate predicate = new Filter.FieldNullPredicate( Lead.Company );
+        Predicate predicate = new Filter.FieldNullPredicate( Lead.Company );
 
         sObject sObjectWithValue = new Lead();
         sObjectWithValue.put( 'Company', 'Foobar Industries' );
@@ -696,7 +696,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldNotNull()
     {
-        Filter.Predicate predicate = new Filter.FieldNotNullPredicate( Lead.Company );
+        Predicate predicate = new Filter.FieldNotNullPredicate( Lead.Company );
 
         sObject sObjectWithValue = new Lead();
         sObjectWithValue.put( 'Company', 'Foobar Industries' );
@@ -721,13 +721,13 @@ private class FilterTest
 
     private static testMethod void testPredicate_And()
     {
-        Filter.Predicate yes = new ConstantPredicate( true );
-        Filter.Predicate no = new ConstantPredicate( false );
+        Predicate yes = new ConstantPredicate( true );
+        Predicate no = new ConstantPredicate( false );
 
-        Filter.Predicate yesAndYes = new Filter.AndPredicate( yes, yes );
-        Filter.Predicate yesAndNo = new Filter.AndPredicate( no, yes );
-        Filter.Predicate noAndYes = new Filter.AndPredicate( yes, no );
-        Filter.Predicate noAndNo = new Filter.AndPredicate( no, no );
+        Predicate yesAndYes = new Filter.AndPredicate( yes, yes );
+        Predicate yesAndNo = new Filter.AndPredicate( no, yes );
+        Predicate noAndYes = new Filter.AndPredicate( yes, no );
+        Predicate noAndNo = new Filter.AndPredicate( no, no );
 
         Lead sObj = new Lead();
 
@@ -748,13 +748,13 @@ private class FilterTest
 
     private static testMethod void testPredicate_Or()
     {
-        Filter.Predicate yes = new ConstantPredicate( true );
-        Filter.Predicate no = new ConstantPredicate( false );
+        Predicate yes = new ConstantPredicate( true );
+        Predicate no = new ConstantPredicate( false );
 
-        Filter.Predicate yesOrYes = new Filter.OrPredicate( yes, yes );
-        Filter.Predicate yesOrNo = new Filter.OrPredicate( no, yes );
-        Filter.Predicate noOrYes = new Filter.OrPredicate( yes, no );
-        Filter.Predicate noOrNo = new Filter.OrPredicate( no, no );
+        Predicate yesOrYes = new Filter.OrPredicate( yes, yes );
+        Predicate yesOrNo = new Filter.OrPredicate( no, yes );
+        Predicate noOrYes = new Filter.OrPredicate( yes, no );
+        Predicate noOrNo = new Filter.OrPredicate( no, no );
 
         Lead sObj = new Lead();
 
@@ -777,7 +777,7 @@ private class FilterTest
     // test predicates
     /////////////////////////////////////////////////////////////////
 
-    private class CompanyMatcher implements Filter.Predicate
+    private class CompanyMatcher implements Predicate
     {
         String company;
         CompanyMatcher( String company )

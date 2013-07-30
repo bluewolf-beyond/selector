@@ -155,12 +155,6 @@ global class Filter
     // Predicate interface
     /////////////////////////////////////////////////////////////////
 
-    global interface Predicate
-    {
-        Boolean evaluate( sObject newRecord );
-        Boolean evaluate( sObject newRecord, sObject oldRecord );
-    }
-
     global abstract class InsertPredicate implements Predicate
     {
         global Boolean evaluate( sObject newRecord, sObject oldRecord )
