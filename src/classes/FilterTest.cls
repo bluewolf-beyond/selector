@@ -45,10 +45,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyNewFilter.predicate instanceof Filter.FieldNewPredicate,
+        System.assert( companyNewFilter.predicate instanceof FieldNewPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldNewPredicate predicate = (Filter.FieldNewPredicate)companyNewFilter.predicate;
+        FieldNewPredicate predicate = (FieldNewPredicate)companyNewFilter.predicate;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
@@ -61,10 +61,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyNewFilter.predicate instanceof Filter.FieldNewPredicate,
+        System.assert( companyNewFilter.predicate instanceof FieldNewPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldNewPredicate predicate = (Filter.FieldNewPredicate)companyNewFilter.predicate;
+        FieldNewPredicate predicate = (FieldNewPredicate)companyNewFilter.predicate;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
@@ -449,7 +449,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldNew_Insert()
     {
-        Predicate predicate = new Filter.FieldNewPredicate( Lead.Company );
+        Predicate predicate = new FieldNewPredicate( Lead.Company );
 
         sObject sObjectWithValue = new Lead();
         sObjectWithValue.put( 'Company', 'Foobar Industries' );
@@ -471,7 +471,7 @@ private class FilterTest
 
     private static testMethod void testPredicate_FieldNew_Update()
     {
-        Predicate predicate = new Filter.FieldNewPredicate( Lead.Company );
+        Predicate predicate = new FieldNewPredicate( Lead.Company );
 
         sObject sObjectNew = new Lead();
         sObjectNew.put( 'Company', 'Foobar Industries' );
