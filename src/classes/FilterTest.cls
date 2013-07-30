@@ -137,14 +137,14 @@ private class FilterTest
         System.assert( leftOrRight.predicate instanceof OrPredicate,
             'The filter or operation should return an or predicate' );
         OrPredicate orPredicate = (OrPredicate)leftOrRight.predicate;
-        System.assertEquals( left, orPredicate.left, 'the predicates should be the children' );
-        System.assertEquals( right, orPredicate.right, 'the predicates should be the children' );
+        System.assertEquals( left, orPredicate.predicates[0], 'the predicates should be the children' );
+        System.assertEquals( right, orPredicate.predicates[1], 'the predicates should be the children' );
 
         System.assert( rightOrLeft.predicate instanceof OrPredicate,
             'The filter or operation should return an or predicate' );
         orPredicate = (OrPredicate)rightOrLeft.predicate;
-        System.assertEquals( right, orPredicate.left, 'the predicates should be the children' );
-        System.assertEquals( left, orPredicate.right, 'the predicates should be the children' );
+        System.assertEquals( right, orPredicate.predicates[0], 'the predicates should be the children' );
+        System.assertEquals( left, orPredicate.predicates[1], 'the predicates should be the children' );
     }
 
     private static testMethod void testFilter_notx()

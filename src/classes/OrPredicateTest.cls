@@ -1,11 +1,11 @@
 @isTest
 private class OrPredicateTest
 {
+    static Predicate yes = new ConstantPredicate( true );
+    static Predicate no = new ConstantPredicate( false );
+
     private static testMethod void testInsert()
     {
-        Predicate yes = new ConstantPredicate( true );
-        Predicate no = new ConstantPredicate( false );
-
         Predicate yesOrYes = new OrPredicate( yes, yes );
         Predicate yesOrNo = new OrPredicate( no, yes );
         Predicate noOrYes = new OrPredicate( yes, no );
@@ -30,9 +30,6 @@ private class OrPredicateTest
 
     private static testMethod void testUpdate()
     {
-        Predicate yes = new ConstantPredicate( true );
-        Predicate no = new ConstantPredicate( false );
-
         Predicate yesOrYes = new OrPredicate( yes, yes );
         Predicate yesOrNo = new OrPredicate( no, yes );
         Predicate noOrYes = new OrPredicate( yes, no );
@@ -53,5 +50,70 @@ private class OrPredicateTest
         System.assertEquals( true, yesOrNoVal, 'true or false is true' );
         System.assertEquals( true, noOrYesVal, 'false or true is true' );
         System.assertEquals( false, noOrNoVal, 'false or false is false' );
+    }
+
+    private static testMethod void testConstruct_compoundFirst()
+    {
+        Predicate both = new OrPredicate( yes, no );
+        Predicate another = new ConstantPredicate( true );
+
+        Test.startTest();
+
+            OrPredicate compoundPredicate = new OrPredicate( both, another );
+
+        Test.stopTest();
+
+        System.assertEquals( 3, compoundPredicate.predicates.size(),
+            'Compound predicates should be flattened' );
+        System.assertEquals( yes, compoundPredicate.predicates[0],
+            'Compound predicates should be built in order' );
+        System.assertEquals( no, compoundPredicate.predicates[1],
+            'Compound predicates should be built in order' );
+        System.assertEquals( another, compoundPredicate.predicates[2],
+            'Compound predicates should be built in order' );
+    }
+
+    private static testMethod void testConstruct_compoundSecond()
+    {
+        Predicate both = new OrPredicate( yes, no );
+        Predicate another = new ConstantPredicate( true );
+
+        Test.startTest();
+
+            OrPredicate compoundPredicate = new OrPredicate( another, both );
+
+        Test.stopTest();
+
+        System.assertEquals( 3, compoundPredicate.predicates.size(),
+            'Compound predicates should be flattened' );
+        System.assertEquals( another, compoundPredicate.predicates[0],
+            'Compound predicates should be built in order' );
+        System.assertEquals( yes, compoundPredicate.predicates[1],
+            'Compound predicates should be built in order' );
+        System.assertEquals( no, compoundPredicate.predicates[2],
+            'Compound predicates should be built in order' );
+    }
+
+    private static testMethod void testConstruct_compoundBoth()
+    {
+        Predicate both = new OrPredicate( yes, no );
+        Predicate another = new OrPredicate( no, yes );
+
+        Test.startTest();
+
+            OrPredicate compoundPredicate = new OrPredicate( both, another );
+
+        Test.stopTest();
+
+        System.assertEquals( 4, compoundPredicate.predicates.size(),
+            'Compound predicates should be flattened' );
+        System.assertEquals( yes, compoundPredicate.predicates[0],
+            'Compound predicates should be built in order' );
+        System.assertEquals( no, compoundPredicate.predicates[1],
+            'Compound predicates should be built in order' );
+        System.assertEquals( no, compoundPredicate.predicates[2],
+            'Compound predicates should be built in order' );
+        System.assertEquals( yes, compoundPredicate.predicates[3],
+            'Compound predicates should be built in order' );
     }
 }
