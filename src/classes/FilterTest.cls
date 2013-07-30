@@ -473,28 +473,6 @@ private class FilterTest
             'A Field with a differing value on insert isn\'t considered equal' );
     }
 
-    private static testMethod void testHasNoChildren_noChildren()
-    {
-        Account act = new Account();
-
-        Test.startTest();
-            List<sObject> accountsWithNoChildren = Filter.hasChildren( 'Contacts' ).filter( new List<Account>{ act } );
-        Test.stopTest();
-
-        System.assertEquals( 0, accountsWithNoChildren.size(), 'This account has a no children, so it should have been filtered out');
-    }
-
-    private static testMethod void testHasChildren_noChildren()
-    {
-        Account act = new Account();
-
-        Test.startTest();
-            List<sObject> accountsWithChildren = Filter.hasNoChildren( 'Contacts' ).filter( new List<Account>{ act } );
-        Test.stopTest();
-
-        System.assertEquals( 1, accountsWithChildren.size(), 'This account has no children, so it should not have been filtered out');
-    }
-
     private static testMethod void testPredicate_FieldNotIn()
     {
         Predicate predicate = new Filter.FieldNotInPredicate( Lead.Company, new Set<Object>{ 'Foobar Industries' } );
