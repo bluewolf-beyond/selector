@@ -405,15 +405,15 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( leftAndRight.predicate instanceof Filter.AndPredicate,
+        System.assert( leftAndRight.predicate instanceof AndPredicate,
             'The filter and operation should return an and predicate' );
-        Filter.AndPredicate andPredicate = (Filter.AndPredicate)leftAndRight.predicate;
+        AndPredicate andPredicate = (AndPredicate)leftAndRight.predicate;
         System.assertEquals( left, andPredicate.left, 'the predicates should be the children' );
         System.assertEquals( right, andPredicate.right, 'the predicates should be the children' );
 
-        System.assert( rightAndLeft.predicate instanceof Filter.AndPredicate,
+        System.assert( rightAndLeft.predicate instanceof AndPredicate,
             'The filter and operation should return an and predicate' );
-        andPredicate = (Filter.AndPredicate)rightAndLeft.predicate;
+        andPredicate = (AndPredicate)rightAndLeft.predicate;
         System.assertEquals( right, andPredicate.left, 'the predicates should be the children' );
         System.assertEquals( left, andPredicate.right, 'the predicates should be the children' );
     }
@@ -717,33 +717,6 @@ private class FilterTest
             'A Field with a value on insert is not null' );
         System.assertEquals( false, fieldWithoutValueNotNull,
             'A Field without a value on insert is null' );
-    }
-
-    private static testMethod void testPredicate_And()
-    {
-        Predicate yes = new ConstantPredicate( true );
-        Predicate no = new ConstantPredicate( false );
-
-        Predicate yesAndYes = new Filter.AndPredicate( yes, yes );
-        Predicate yesAndNo = new Filter.AndPredicate( no, yes );
-        Predicate noAndYes = new Filter.AndPredicate( yes, no );
-        Predicate noAndNo = new Filter.AndPredicate( no, no );
-
-        Lead sObj = new Lead();
-
-        Test.startTest();
-
-            Boolean yesAndYesVal = yesAndYes.evaluate( sObj );
-            Boolean yesAndNoVal = yesAndNo.evaluate( sObj );
-            Boolean noAndYesVal = noAndYes.evaluate( sObj );
-            Boolean noAndNoVal = noAndNo.evaluate( sObj );
-
-        Test.stopTest();
-
-        System.assertEquals( true, yesAndYesVal, 'true and true is true' );
-        System.assertEquals( false, yesAndNoVal, 'true and false is false' );
-        System.assertEquals( false, noAndYesVal, 'false and true is false' );
-        System.assertEquals( false, noAndNoVal, 'false and false is false' );
     }
 
     private static testMethod void testPredicate_Or()
