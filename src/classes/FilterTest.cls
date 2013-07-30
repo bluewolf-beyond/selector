@@ -2,7 +2,7 @@
 private class FilterTest
 {
     /////////////////////////////////////////////////////////////////
-    // Filter instance methods
+    // filtering methods
     /////////////////////////////////////////////////////////////////
 
     private static testMethod void testFilter_Insert()
@@ -92,6 +92,10 @@ private class FilterTest
                 'Only records matching the filter should be returned' );
         }
     }
+
+    /////////////////////////////////////////////////////////////////
+    // composition methods
+    /////////////////////////////////////////////////////////////////
 
     private static testMethod void testFilter_andx()
     {
