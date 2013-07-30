@@ -32,8 +32,9 @@ Wouldn't you rather write this:
 installation
 ------------
 
-Use the Solution Repository:
-<http://bw-solution-repository.herokuapp.com/>
+Install the managed package:
+ * Production: <https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000WCzs>
+ * Sandbox: <https://test.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000WCzs>
 
 reference
 ---------
