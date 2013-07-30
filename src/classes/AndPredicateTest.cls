@@ -27,4 +27,31 @@ private class AndPredicateTest
         System.assertEquals( false, noAndYesVal, 'false and true is false' );
         System.assertEquals( false, noAndNoVal, 'false and false is false' );
     }
+
+    private static testMethod void testUpdate()
+    {
+        Predicate yes = new ConstantPredicate( true );
+        Predicate no = new ConstantPredicate( false );
+
+        Predicate yesAndYes = new AndPredicate( yes, yes );
+        Predicate yesAndNo = new AndPredicate( no, yes );
+        Predicate noAndYes = new AndPredicate( yes, no );
+        Predicate noAndNo = new AndPredicate( no, no );
+
+        Lead sObj = new Lead();
+
+        Test.startTest();
+
+            Boolean yesAndYesVal = yesAndYes.evaluate( sObj, sObj );
+            Boolean yesAndNoVal = yesAndNo.evaluate( sObj, sObj );
+            Boolean noAndYesVal = noAndYes.evaluate( sObj, sObj );
+            Boolean noAndNoVal = noAndNo.evaluate( sObj, sObj );
+
+        Test.stopTest();
+
+        System.assertEquals( true, yesAndYesVal, 'true and true is true' );
+        System.assertEquals( false, yesAndNoVal, 'true and false is false' );
+        System.assertEquals( false, noAndYesVal, 'false and true is false' );
+        System.assertEquals( false, noAndNoVal, 'false and false is false' );
+    }
 }
