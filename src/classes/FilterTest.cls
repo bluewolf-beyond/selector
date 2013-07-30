@@ -245,10 +245,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyNullFilter.predicate instanceof Filter.FieldNullPredicate,
+        System.assert( companyNullFilter.predicate instanceof FieldNullPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldNullPredicate predicate = (Filter.FieldNullPredicate)companyNullFilter.predicate;
+        FieldNullPredicate predicate = (FieldNullPredicate)companyNullFilter.predicate;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
@@ -261,10 +261,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyNullFilter.predicate instanceof Filter.FieldNullPredicate,
+        System.assert( companyNullFilter.predicate instanceof FieldNullPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldNullPredicate predicate = (Filter.FieldNullPredicate)companyNullFilter.predicate;
+        FieldNullPredicate predicate = (FieldNullPredicate)companyNullFilter.predicate;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
@@ -545,31 +545,6 @@ private class FilterTest
             'A Field with a matching value on insert is considered equal' );
         System.assertEquals( true, fieldWithOtherNotIn,
             'A Field with a differing value on insert isn\'t considered equal' );
-    }
-
-    private static testMethod void testPredicate_FieldNull()
-    {
-        Predicate predicate = new Filter.FieldNullPredicate( Lead.Company );
-
-        sObject sObjectWithValue = new Lead();
-        sObjectWithValue.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithoutValue = new Lead();
-
-        Test.startTest();
-
-            Boolean fieldWithValueNull = predicate.evaluate( sObjectWithValue );
-            Boolean fieldWithoutValueNull = predicate.evaluate( sObjectWithoutValue );
-
-        Test.stopTest();
-
-        System.assert( predicate instanceof InsertPredicate,
-            'No update test needed' );
-
-        System.assertEquals( false, fieldWithValueNull,
-            'A Field with a value on insert is not null' );
-        System.assertEquals( true, fieldWithoutValueNull,
-            'A Field without a value on insert is null' );
     }
 
     private static testMethod void testPredicate_FieldNotNull()
