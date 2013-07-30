@@ -79,10 +79,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyEqualsFoobarFilter.predicate instanceof Filter.FieldEqualsPredicate,
+        System.assert( companyEqualsFoobarFilter.predicate instanceof FieldEqualsPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldEqualsPredicate predicate = (Filter.FieldEqualsPredicate)companyEqualsFoobarFilter.predicate;
+        FieldEqualsPredicate predicate = (FieldEqualsPredicate)companyEqualsFoobarFilter.predicate;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( FILTER_VALUE, predicate.value,
@@ -99,10 +99,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyEqualsFoobarFilter.predicate instanceof Filter.FieldEqualsPredicate,
+        System.assert( companyEqualsFoobarFilter.predicate instanceof FieldEqualsPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldEqualsPredicate predicate = (Filter.FieldEqualsPredicate)companyEqualsFoobarFilter.predicate;
+        FieldEqualsPredicate predicate = (FieldEqualsPredicate)companyEqualsFoobarFilter.predicate;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( FILTER_VALUE, predicate.value,
@@ -446,80 +446,6 @@ private class FilterTest
     /////////////////////////////////////////////////////////////////
     // standard Predicates
     /////////////////////////////////////////////////////////////////
-
-    private static testMethod void testPredicate_FieldNew_Insert()
-    {
-        Predicate predicate = new FieldNewPredicate( Lead.Company );
-
-        sObject sObjectWithValue = new Lead();
-        sObjectWithValue.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithoutValue = new Lead();
-
-        Test.startTest();
-
-            Boolean fieldWithValueNew = predicate.evaluate( sObjectWithValue );
-            Boolean fieldWithoutValueNew = predicate.evaluate( sObjectWithoutValue );
-
-        Test.stopTest();
-
-        System.assertEquals( true, fieldWithValueNew,
-            'A Field with a value on insert is considered new' );
-        System.assertEquals( false, fieldWithoutValueNew,
-            'A Field without a value on insert isn\'t considered new' );
-    }
-
-    private static testMethod void testPredicate_FieldNew_Update()
-    {
-        Predicate predicate = new FieldNewPredicate( Lead.Company );
-
-        sObject sObjectNew = new Lead();
-        sObjectNew.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithValue = new Lead();
-        sObjectWithValue.put( 'Company', 'Intractable Industries' );
-
-        sObject sObjectWithoutValue = new Lead();
-        sObjectWithoutValue.put( 'Company', null );
-
-        Test.startTest();
-
-            Boolean fieldWithValueNew = predicate.evaluate( sObjectNew, sObjectWithValue );
-            Boolean fieldWithoutValueNew = predicate.evaluate( sObjectNew, sObjectWithoutValue );
-
-        Test.stopTest();
-
-        System.assertEquals( false, fieldWithValueNew,
-            'A Field with a value on update isn\'t considered new' );
-        System.assertEquals( true, fieldWithoutValueNew,
-            'A Field without a value on update is considered new' );
-    }
-
-    private static testMethod void testPredicate_FieldEquals()
-    {
-        Predicate predicate = new Filter.FieldEqualsPredicate( Lead.Company, 'Foobar Industries' );
-
-        sObject sObjectWithValue = new Lead();
-        sObjectWithValue.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithOther = new Lead();
-        sObjectWithOther.put( 'Company', 'Intractable Industries' );
-
-        Test.startTest();
-
-            Boolean fieldWithValueEquals = predicate.evaluate( sObjectWithValue );
-            Boolean fieldWithOtherEquals = predicate.evaluate( sObjectWithOther );
-
-        Test.stopTest();
-
-        System.assert( predicate instanceof InsertPredicate,
-            'No update test needed' );
-
-        System.assertEquals( true, fieldWithValueEquals,
-            'A Field with a matching value on insert is considered equal' );
-        System.assertEquals( false, fieldWithOtherEquals,
-            'A Field with a differing value on insert isn\'t considered equal' );
-    }
 
     private static testMethod void testPredicate_FieldNotEquals()
     {
