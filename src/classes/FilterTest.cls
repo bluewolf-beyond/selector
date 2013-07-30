@@ -443,6 +443,22 @@ private class FilterTest
         System.assertEquals( left, orPredicate.right, 'the predicates should be the children' );
     }
 
+    private static testMethod void testFilter_notx()
+    {
+        Predicate no = new ConstantPredicate( false );
+
+        Test.startTest();
+
+            Filter yesFilter = new Filter( no ).notx();
+
+        Test.stopTest();
+
+        System.assert( yesFilter.predicate instanceof NotPredicate,
+            'The filter not operation should return a not predicate' );
+        NotPredicate yes = (NotPredicate)yesFilter.predicate;
+        System.assertEquals( no, yes.inverted, 'the predicate should be the child' );
+    }
+
     /////////////////////////////////////////////////////////////////
     // test predicates
     /////////////////////////////////////////////////////////////////

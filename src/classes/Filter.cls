@@ -41,17 +41,17 @@ global class Filter
 
     global static Filter hasNoChildren( String field )
     {
-        return new Filter( new NotPredicate( new HasChildrenPredicate( field ) ) );
+        return hasChildren( field ).notx();
     }
 
     global static Filter fieldNotEquals( Schema.SObjectField field, Object value )
     {
-        return new Filter( new NotPredicate( new FieldEqualsPredicate( field, value ) ) );
+        return fieldEquals( field, value ).notx();
     }
 
     global static Filter fieldNotEquals( String field, Object value )
     {
-        return new Filter( new NotPredicate( new FieldEqualsPredicate( field, value ) ) );
+        return fieldEquals( field, value ).notx();
     }
 
     global static Filter fieldIn( Schema.SObjectField field, Set<Object> values )
@@ -66,12 +66,12 @@ global class Filter
 
     global static Filter fieldNotIn( Schema.SObjectField field, Set<Object> values )
     {
-        return new Filter( new NotPredicate( new FieldInPredicate( field, values ) ) );
+        return fieldIn( field, values ).notx();
     }
 
     global static Filter fieldNotIn( String field, Set<Object> values )
     {
-        return new Filter( new NotPredicate( new FieldInPredicate( field, values ) ) );
+        return fieldIn( field, values ).notx();
     }
 
     global static Filter fieldNull( Schema.SObjectField field )
@@ -86,12 +86,12 @@ global class Filter
 
     global static Filter fieldNotNull( Schema.SObjectField field )
     {
-        return new Filter( new NotPredicate( new FieldNullPredicate( field ) ) );
+        return fieldNull( field ).notx();
     }
 
     global static Filter fieldNotNull( String field )
     {
-        return new Filter( new NotPredicate( new FieldNullPredicate( field ) ) );
+        return fieldNull( field ).notx();
     }
 
     /////////////////////////////////////////////////////////////////
@@ -138,6 +138,11 @@ global class Filter
     global Filter orx( Filter other )
     {
         return new Filter( new OrPredicate( this.predicate, other.predicate ) );
+    }
+
+    global Filter notx()
+    {
+        return new Filter( new NotPredicate( this.predicate ) );
     }
 
     /////////////////////////////////////////////////////////////////
