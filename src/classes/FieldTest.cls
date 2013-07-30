@@ -65,6 +65,38 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
+    private static testMethod void testFieldHasChildren()
+    {
+        Test.startTest();
+
+            Filter hasOpportunitiesFilter = Field.hasChildren( 'Opportunities' );
+
+        Test.stopTest();
+
+        System.assert( hasOpportunitiesFilter.predicate instanceof HasChildrenPredicate,
+            'The filter should be of the proper variety' );
+
+        HasChildrenPredicate predicate = (HasChildrenPredicate)hasOpportunitiesFilter.predicate;
+        System.assertEquals( 'Opportunities', predicate.childrenField,
+            'The field passed in should be the filter field' );
+    }
+
+    private static testMethod void testFieldHasNoChildren()
+    {
+        Test.startTest();
+
+            Filter hasNoOpportunitiesFilter = Field.hasNoChildren( 'Opportunities' );
+
+        Test.stopTest();
+
+        System.assert( hasNoOpportunitiesFilter.predicate instanceof NotPredicate,
+            'The filter should be of the proper variety' );
+
+        HasChildrenPredicate predicate = (HasChildrenPredicate)((NotPredicate)hasNoOpportunitiesFilter.predicate).inverted;
+        System.assertEquals( 'Opportunities', predicate.childrenField,
+            'The field passed in should be the filter field' );
+    }
+
     private static testMethod void testFieldEqualsFilter_Schema()
     {
         final String FILTER_VALUE = 'Foobar';

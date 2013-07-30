@@ -20,6 +20,16 @@ global class Field
         return new Filter( new FieldNewPredicate( field ) );
     }
 
+    global static Filter hasChildren( String field )
+    {
+        return new Filter( new HasChildrenPredicate( field ) );
+    }
+
+    global static Filter hasNoChildren( String field )
+    {
+        return hasChildren( field ).notx();
+    }
+
     global static Filter equals( Schema.SObjectField field, Object value )
     {
         return new Filter( new FieldEqualsPredicate( field, value ) );

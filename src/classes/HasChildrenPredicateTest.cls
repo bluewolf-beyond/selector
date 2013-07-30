@@ -6,7 +6,7 @@ private class HasChildrenPredicateTest
         Account act = new Account();
 
         Test.startTest();
-            List<sObject> accountsWithNoChildren = Filter.hasChildren( 'Contacts' ).filter( new List<Account>{ act } );
+            List<sObject> accountsWithNoChildren = Field.hasChildren( 'Contacts' ).filter( new List<Account>{ act } );
         Test.stopTest();
 
         System.assertEquals( 0, accountsWithNoChildren.size(), 'This account has a no children, so it should have been filtered out');
