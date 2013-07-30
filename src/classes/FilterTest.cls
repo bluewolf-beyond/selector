@@ -119,10 +119,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyNotEqualsFoobarFilter.predicate instanceof Filter.FieldNotEqualsPredicate,
+        System.assert( companyNotEqualsFoobarFilter.predicate instanceof NotPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldNotEqualsPredicate predicate = (Filter.FieldNotEqualsPredicate)companyNotEqualsFoobarFilter.predicate;
+        FieldEqualsPredicate predicate = (FieldEqualsPredicate)((NotPredicate)companyNotEqualsFoobarFilter.predicate).inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( FILTER_VALUE, predicate.value,
@@ -139,10 +139,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyNotEqualsFoobarFilter.predicate instanceof Filter.FieldNotEqualsPredicate,
+        System.assert( companyNotEqualsFoobarFilter.predicate instanceof NotPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldNotEqualsPredicate predicate = (Filter.FieldNotEqualsPredicate)companyNotEqualsFoobarFilter.predicate;
+        FieldEqualsPredicate predicate = (FieldEqualsPredicate)((NotPredicate)companyNotEqualsFoobarFilter.predicate).inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( FILTER_VALUE, predicate.value,
@@ -203,10 +203,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyNotInFoobarFilter.predicate instanceof Filter.FieldNotInPredicate,
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldNotInPredicate predicate = (Filter.FieldNotInPredicate)companyNotInFoobarFilter.predicate;
+        FieldInPredicate predicate = (FieldInPredicate)((NotPredicate)companyNotInFoobarFilter.predicate).inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( 1, predicate.values.size(),
@@ -225,10 +225,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyNotInFoobarFilter.predicate instanceof Filter.FieldNotInPredicate,
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldNotInPredicate predicate = (Filter.FieldNotInPredicate)companyNotInFoobarFilter.predicate;
+        FieldInPredicate predicate = (FieldInPredicate)((NotPredicate)companyNotInFoobarFilter.predicate).inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( 1, predicate.values.size(),
@@ -277,10 +277,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyNotNullFilter.predicate instanceof Filter.FieldNotNullPredicate,
+        System.assert( companyNotNullFilter.predicate instanceof NotPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldNotNullPredicate predicate = (Filter.FieldNotNullPredicate)companyNotNullFilter.predicate;
+        FieldNullPredicate predicate = (FieldNullPredicate)((NotPredicate)companyNotNullFilter.predicate).inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
@@ -293,10 +293,10 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( companyNotNullFilter.predicate instanceof Filter.FieldNotNullPredicate,
+        System.assert( companyNotNullFilter.predicate instanceof NotPredicate,
             'The filter should be of the proper variety' );
 
-        Filter.FieldNotNullPredicate predicate = (Filter.FieldNotNullPredicate)companyNotNullFilter.predicate;
+        FieldNullPredicate predicate = (FieldNullPredicate)((NotPredicate)companyNotNullFilter.predicate).inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
@@ -441,87 +441,6 @@ private class FilterTest
         orPredicate = (OrPredicate)rightOrLeft.predicate;
         System.assertEquals( right, orPredicate.left, 'the predicates should be the children' );
         System.assertEquals( left, orPredicate.right, 'the predicates should be the children' );
-    }
-
-    /////////////////////////////////////////////////////////////////
-    // standard Predicates
-    /////////////////////////////////////////////////////////////////
-
-    private static testMethod void testPredicate_FieldNotEquals()
-    {
-        Predicate predicate = new Filter.FieldNotEqualsPredicate( Lead.Company, 'Foobar Industries' );
-
-        sObject sObjectWithValue = new Lead();
-        sObjectWithValue.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithOther = new Lead();
-        sObjectWithOther.put( 'Company', 'Intractable Industries' );
-
-        Test.startTest();
-
-            Boolean fieldWithValueNotEquals = predicate.evaluate( sObjectWithValue );
-            Boolean fieldWithOtherNotEquals = predicate.evaluate( sObjectWithOther );
-
-        Test.stopTest();
-
-        System.assert( predicate instanceof InsertPredicate,
-            'No update test needed' );
-
-        System.assertEquals( false, fieldWithValueNotEquals,
-            'A Field with a matching value on insert is considered equal' );
-        System.assertEquals( true, fieldWithOtherNotEquals,
-            'A Field with a differing value on insert isn\'t considered equal' );
-    }
-
-    private static testMethod void testPredicate_FieldNotIn()
-    {
-        Predicate predicate = new Filter.FieldNotInPredicate( Lead.Company, new Set<Object>{ 'Foobar Industries' } );
-
-        sObject sObjectWithValue = new Lead();
-        sObjectWithValue.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithOther = new Lead();
-        sObjectWithOther.put( 'Company', 'Intractable Industries' );
-
-        Test.startTest();
-
-            Boolean fieldWithValueNotIn = predicate.evaluate( sObjectWithValue );
-            Boolean fieldWithOtherNotIn = predicate.evaluate( sObjectWithOther );
-
-        Test.stopTest();
-
-        System.assert( predicate instanceof InsertPredicate,
-            'No update test needed' );
-
-        System.assertEquals( false, fieldWithValueNotIn,
-            'A Field with a matching value on insert is considered equal' );
-        System.assertEquals( true, fieldWithOtherNotIn,
-            'A Field with a differing value on insert isn\'t considered equal' );
-    }
-
-    private static testMethod void testPredicate_FieldNotNull()
-    {
-        Predicate predicate = new Filter.FieldNotNullPredicate( Lead.Company );
-
-        sObject sObjectWithValue = new Lead();
-        sObjectWithValue.put( 'Company', 'Foobar Industries' );
-
-        sObject sObjectWithoutValue = new Lead();
-
-        Test.startTest();
-
-            Boolean fieldWithValueNotNull = predicate.evaluate( sObjectWithValue );
-            Boolean fieldWithoutValueNotNull = predicate.evaluate( sObjectWithoutValue );
-
-        Test.stopTest();
-
-        System.assert( predicate instanceof InsertPredicate,
-            'No update test needed' );
-
-        System.assertEquals( true, fieldWithValueNotNull,
-            'A Field with a value on insert is not null' );
-        System.assertEquals( false, fieldWithoutValueNotNull,
-            'A Field without a value on insert is null' );
     }
 
     /////////////////////////////////////////////////////////////////
