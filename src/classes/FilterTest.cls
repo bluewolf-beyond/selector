@@ -430,15 +430,15 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( leftOrRight.predicate instanceof Filter.OrPredicate,
+        System.assert( leftOrRight.predicate instanceof OrPredicate,
             'The filter or operation should return an or predicate' );
-        Filter.OrPredicate orPredicate = (Filter.OrPredicate)leftOrRight.predicate;
+        OrPredicate orPredicate = (OrPredicate)leftOrRight.predicate;
         System.assertEquals( left, orPredicate.left, 'the predicates should be the children' );
         System.assertEquals( right, orPredicate.right, 'the predicates should be the children' );
 
-        System.assert( rightOrLeft.predicate instanceof Filter.OrPredicate,
+        System.assert( rightOrLeft.predicate instanceof OrPredicate,
             'The filter or operation should return an or predicate' );
-        orPredicate = (Filter.OrPredicate)rightOrLeft.predicate;
+        orPredicate = (OrPredicate)rightOrLeft.predicate;
         System.assertEquals( right, orPredicate.left, 'the predicates should be the children' );
         System.assertEquals( left, orPredicate.right, 'the predicates should be the children' );
     }
@@ -717,33 +717,6 @@ private class FilterTest
             'A Field with a value on insert is not null' );
         System.assertEquals( false, fieldWithoutValueNotNull,
             'A Field without a value on insert is null' );
-    }
-
-    private static testMethod void testPredicate_Or()
-    {
-        Predicate yes = new ConstantPredicate( true );
-        Predicate no = new ConstantPredicate( false );
-
-        Predicate yesOrYes = new Filter.OrPredicate( yes, yes );
-        Predicate yesOrNo = new Filter.OrPredicate( no, yes );
-        Predicate noOrYes = new Filter.OrPredicate( yes, no );
-        Predicate noOrNo = new Filter.OrPredicate( no, no );
-
-        Lead sObj = new Lead();
-
-        Test.startTest();
-
-            Boolean yesOrYesVal = yesOrYes.evaluate( sObj );
-            Boolean yesOrNoVal = yesOrNo.evaluate( sObj );
-            Boolean noOrYesVal = noOrYes.evaluate( sObj );
-            Boolean noOrNoVal = noOrNo.evaluate( sObj );
-
-        Test.stopTest();
-
-        System.assertEquals( true, yesOrYesVal, 'true or true is true' );
-        System.assertEquals( true, yesOrNoVal, 'true or false is true' );
-        System.assertEquals( true, noOrYesVal, 'false or true is true' );
-        System.assertEquals( false, noOrNoVal, 'false or false is false' );
     }
 
     /////////////////////////////////////////////////////////////////
