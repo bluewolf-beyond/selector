@@ -560,7 +560,7 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( predicate instanceof Filter.InsertPredicate,
+        System.assert( predicate instanceof InsertPredicate,
             'No update test needed' );
 
         System.assertEquals( true, fieldWithValueEquals,
@@ -586,7 +586,7 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( predicate instanceof Filter.InsertPredicate,
+        System.assert( predicate instanceof InsertPredicate,
             'No update test needed' );
 
         System.assertEquals( false, fieldWithValueNotEquals,
@@ -612,7 +612,7 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( predicate instanceof Filter.InsertPredicate,
+        System.assert( predicate instanceof InsertPredicate,
             'No update test needed' );
 
         System.assertEquals( true, fieldWithValueIn,
@@ -660,7 +660,7 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( predicate instanceof Filter.InsertPredicate,
+        System.assert( predicate instanceof InsertPredicate,
             'No update test needed' );
 
         System.assertEquals( false, fieldWithValueNotIn,
@@ -685,7 +685,7 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( predicate instanceof Filter.InsertPredicate,
+        System.assert( predicate instanceof InsertPredicate,
             'No update test needed' );
 
         System.assertEquals( false, fieldWithValueNull,
@@ -710,7 +710,7 @@ private class FilterTest
 
         Test.stopTest();
 
-        System.assert( predicate instanceof Filter.InsertPredicate,
+        System.assert( predicate instanceof InsertPredicate,
             'No update test needed' );
 
         System.assertEquals( true, fieldWithValueNotNull,
@@ -793,21 +793,6 @@ private class FilterTest
         public Boolean evaluate( sObject newRecord, sObject oldRecord )
         {
             return newRecord.get('Company') != company;
-        }
-    }
-
-    private class ConstantPredicate extends Filter.InsertPredicate
-    {
-        Boolean value;
-
-        ConstantPredicate( Boolean value )
-        {
-            this.value = value;
-        }
-
-        public Boolean evaluate( sObject newRecord )
-        {
-            return value;
         }
     }
 }
