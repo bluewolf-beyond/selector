@@ -5,7 +5,7 @@ private class FieldTest
     {
         Test.startTest();
 
-            Filter companyChangedFilter = Field.fieldChanged( Lead.Company );
+            Filter companyChangedFilter = Field.changed( Lead.Company );
 
         Test.stopTest();
 
@@ -21,7 +21,7 @@ private class FieldTest
     {
         Test.startTest();
 
-            Filter companyChangedFilter = Field.fieldChanged( 'Company' );
+            Filter companyChangedFilter = Field.changed( 'Company' );
 
         Test.stopTest();
 
@@ -37,7 +37,7 @@ private class FieldTest
     {
         Test.startTest();
 
-            Filter companyNewFilter = Field.fieldNew( Lead.Company );
+            Filter companyNewFilter = Field.isNew( Lead.Company );
 
         Test.stopTest();
 
@@ -53,7 +53,7 @@ private class FieldTest
     {
         Test.startTest();
 
-            Filter companyNewFilter = Field.fieldNew( 'Company' );
+            Filter companyNewFilter = Field.isNew( 'Company' );
 
         Test.stopTest();
 
@@ -71,7 +71,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyEqualsFoobarFilter = Field.fieldEquals( Lead.Company, FILTER_VALUE );
+            Filter companyEqualsFoobarFilter = Field.equals( Lead.Company, FILTER_VALUE );
 
         Test.stopTest();
 
@@ -91,7 +91,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyEqualsFoobarFilter = Field.fieldEquals( 'Company', FILTER_VALUE );
+            Filter companyEqualsFoobarFilter = Field.equals( 'Company', FILTER_VALUE );
 
         Test.stopTest();
 
@@ -111,7 +111,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyNotEqualsFoobarFilter = Field.fieldNotEquals( Lead.Company, FILTER_VALUE );
+            Filter companyNotEqualsFoobarFilter = Field.notEquals( Lead.Company, FILTER_VALUE );
 
         Test.stopTest();
 
@@ -131,7 +131,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyNotEqualsFoobarFilter = Field.fieldNotEquals( 'Company', FILTER_VALUE );
+            Filter companyNotEqualsFoobarFilter = Field.notEquals( 'Company', FILTER_VALUE );
 
         Test.stopTest();
 
@@ -151,7 +151,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyInFoobarFilter = Field.fieldIn( Lead.Company, FILTER_VALUES );
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
 
         Test.stopTest();
 
@@ -173,7 +173,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyInFoobarFilter = Field.fieldIn( 'Company', FILTER_VALUES );
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
 
         Test.stopTest();
 
@@ -195,7 +195,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyNotInFoobarFilter = Field.fieldNotIn( Lead.Company, FILTER_VALUES );
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
 
         Test.stopTest();
 
@@ -217,7 +217,7 @@ private class FieldTest
 
         Test.startTest();
 
-            Filter companyNotInFoobarFilter = Field.fieldNotIn( 'Company', FILTER_VALUES );
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
 
         Test.stopTest();
 
@@ -237,7 +237,7 @@ private class FieldTest
     {
         Test.startTest();
 
-            Filter companyNullFilter = Field.fieldNull( Lead.Company );
+            Filter companyNullFilter = Field.isNull( Lead.Company );
 
         Test.stopTest();
 
@@ -253,7 +253,7 @@ private class FieldTest
     {
         Test.startTest();
 
-            Filter companyNullFilter = Field.fieldNull( 'Company' );
+            Filter companyNullFilter = Field.isNull( 'Company' );
 
         Test.stopTest();
 
@@ -269,7 +269,7 @@ private class FieldTest
     {
         Test.startTest();
 
-            Filter companyNotNullFilter = Field.fieldNotNull( Lead.Company );
+            Filter companyNotNullFilter = Field.notNull( Lead.Company );
 
         Test.stopTest();
 
@@ -285,7 +285,7 @@ private class FieldTest
     {
         Test.startTest();
 
-            Filter companyNotNullFilter = Field.fieldNotNull( 'Company' );
+            Filter companyNotNullFilter = Field.notNull( 'Company' );
 
         Test.stopTest();
 
