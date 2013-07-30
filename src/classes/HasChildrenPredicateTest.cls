@@ -1,14 +1,19 @@
 @isTest
 private class HasChildrenPredicateTest
 {
-    private static testMethod void testHasNoChildren_noChildren()
+    private static testMethod void testInsert()
     {
         Account act = new Account();
 
+        Predicate hasContacts = new HasChildrenPredicate( 'Contacts' );
+
         Test.startTest();
-            List<sObject> accountsWithNoChildren = Field.hasChildren( 'Contacts' ).filter( new List<Account>{ act } );
+
+            Boolean accountWithNoChildrenHasContacts = hasContacts.evaluate( act );
+
         Test.stopTest();
 
-        System.assertEquals( 0, accountsWithNoChildren.size(), 'This account has a no children, so it should have been filtered out');
+        System.assertEquals( false, accountWithNoChildrenHasContacts,
+            'sObjects with no children should be recognized as such' );
     }
 }
