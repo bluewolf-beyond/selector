@@ -1,3 +1,11 @@
+/*
+ * Field class
+ *
+ * Factory methods for field-related Filters.
+ *
+ * Named so to confrom to the API:
+ *   Select.Field.hasChanged( field )
+ */
 global class Field
 {
     global static Filter hasChanged( Schema.SObjectField field )

@@ -1,3 +1,11 @@
+/*
+ * Filter class
+ *
+ * The main filtering operation.
+ * Delegates inclusion checking to the Predicate.
+ *
+ * Create custom filters by implementing a Predicate.
+ */
 global class Filter
 {
     /////////////////////////////////////////////////////////////////
