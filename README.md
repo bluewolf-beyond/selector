@@ -27,82 +27,87 @@ you end up reimplementing the same filters over and over again.
 
 Wouldn't you rather write this:
 
-    List<Account> filteredAccounts = Filter.fieldChanged( Account.Name ).filter( Trigger.new );
+    List<Account> filteredAccounts = Select.Field.hasChanged( Account.Name ).filter( Trigger.new );
 
 installation
 ------------
 
 Install the managed package:
+
  * Production: <https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000WCzs>
  * Sandbox: <https://test.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000WCzs>
 
 reference
 ---------
 
-### instance methods
+### Filter instance methods
 
-Filter#*filter*( newRecords )
+Select.Filter# *filter*( newRecords )
 
     List<sObject> filteredRecords = nameChanged.filter( Trigger.new )
 
-Filter#*filter*( newRecords, oldRecords )
+Select.Filter# *filter*( newRecords, oldRecords )
 
     List<sObject> filteredRecords = nameChanged.filter( Trigger.new, Trigger.oldMap )
 
-Filter#*andx*( Filter otherFilter )
+Select.Filter# *andx*( Filter otherFilter )
 
-    Filter nameNulled = nameChanged.andx( nameNull )
+    Select.Filter nameNulled = nameChanged.andx( nameNull )
 
-Filter#*orx*( Filter otherFilter )
+Select.Filter# *orx*( Filter otherFilter )
 
-    Filter fooOrBar = nameEqualsFoo.orx( nameEqualsBar )
+    Select.Filter fooOrBar = nameEqualsFoo.orx( nameEqualsBar )
 
 ### built-in filters
 
-Filter.*fieldChanged*( field )
+Select.Field. *hasChanged*( field )
 
-    Filter nameChanged = Filter.fieldChanged( Account.Name )
+    Select.Filter nameChanged = Select.Field.hasChanged( Account.Name )
 
-Filter.*fieldNew*( field )
+Select.Field. *isNew*( field )
 
-    Filter newPhone = Filter.fieldNew( Contact.Phone )
+    Select.Filter newPhone = Select.Field.isNew( Contact.Phone )
 
-Filter.*fieldEquals*( field, value )
+Select.Field. *isEqual*( field, value )
 
-    Filter nameIsFoobar = Filter.fieldEquals( Account.Name, 'Foobar' )
+    Select.Filter nameIsFoobar = Select.Field.isEqual( Account.Name, 'Foobar' )
 
-Filter.*fieldNotEquals*( field, value )
+Select.Field. *notEqual*( field, value )
 
-    Filter nameIsntFoobar = Filter.fieldEquals( Account.Name, 'Foobar' )
+    Select.Filter nameIsntFoobar = Select.Field.notEqual( Account.Name, 'Foobar' )
 
-Filter.*fieldNull*( field )
+Select.Field. *isNull*( field )
 
-    Filter blankPhone = Filter.fieldNull( Contact.Phone )
+    Select.Filter blankPhone = Select.Field.isNull( Contact.Phone )
 
-Filter.*fieldNotNull*( field )
+Select.Field. *notNull*( field )
 
-    Filter hasPhone = Filter.fieldNotNull( Contact.Phone )
+    Select.Filter hasPhone = Select.Field.notNull( Contact.Phone )
 
-Filter.hasChildren( field )
-    Filter hasChildren = Filter.hasChildren( 'Contacts' )
+Select.Field. *hasChildren*( field )
 
-Filter.hasNoChildren( field )
-    Filter hasNoChildren = Filter.hasNoChildren( 'Contacts' )
+    Select.Filter hasChildren = Select.Field.hasChildren( 'Contacts' )
+
+Select.Field. *hasNoChildren*( field )
+
+    Select.Filter hasNoChildren = Select.Field.hasNoChildren( 'Contacts' )
 
 ### constructors
 
-new Filter( predicate )
+new Select. *Filter*( predicate )
 
-     Filter customFilter = new Filter( customPredicate )
+     Select.Filter customFilter = new Select.Filter( customPredicate )
 
 ### Predicate interface
 
-To write a custom filter predicate, implement the interface `Filter.Predicate`, which
+To write a custom filter predicate, implement the interface `Select.Predicate`, which
 consists of an evaluate method for the insert case and one for the update case.
 
-Boolean Predicate#*evaluate*( sObject newRecord )
+Boolean Select.Predicate# *evaluate*( sObject newRecord )
 
-Boolean Predicate#*evaluate*( sObject newRecord, oldRecord )
+Boolean Select.Predicate# *evaluate*( sObject newRecord, oldRecord )
+
+For examples of Predicate implementations, see the built-in predicates.
 
 ### InsertPredicate abstract class
 
