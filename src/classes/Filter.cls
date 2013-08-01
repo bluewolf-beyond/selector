@@ -29,6 +29,11 @@ global class Filter
 
     global List<sObject> filter( List<sObject> newRecords, Map<Id, sObject> oldRecords )
     {
+        if ( null == oldRecords )
+        {
+            return filter( newRecords );
+        }
+
         List<sObject> filteredRecords = new List<sObject>();
 
         for ( sObject record : newRecords )

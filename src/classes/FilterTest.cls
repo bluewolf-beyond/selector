@@ -93,6 +93,25 @@ private class FilterTest
         }
     }
 
+    private static testMethod void testFilter_Update_oldRecordsNull()
+    {
+        List<sObject> testRecords = new List<sObject>{ new Lead() };
+
+        SpyPredicate spy = new SpyPredicate();
+        Filter filter = new Filter( spy );
+
+        Test.startTest();
+
+            filter.filter( testRecords, null );
+
+        Test.stopTest();
+
+        System.assert( spy.insertCalled,
+            'The insert predicate should be used if the oldMap is null' );
+        System.assertEquals( false, spy.updateCalled,
+            'The update predicate should not be used if the oldMap is null' );
+    }
+
     /////////////////////////////////////////////////////////////////
     // composition methods
     /////////////////////////////////////////////////////////////////
