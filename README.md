@@ -103,16 +103,16 @@ reference
 
 ### Filter instance methods
 
- * Select.Filter# ***filter***( List<sObject> newRecords )
-   * List<sObject>
+ * Select.Filter# ***filter***( List&lt;sObject&gt; newRecords )
+   * List&lt;sObject&gt;
 
 Execute the filter on the list of records, returning the
 list of sObjects matching the filter's predicate.
 
     List<sObject> filteredRecords = nameChanged.filter( Trigger.new )
 
- * Select.Filter# ***filter***( List<sObject> newRecords, Map<Id, sObject> oldRecords )
-   * List<sObject>
+ * Select.Filter# ***filter***( List&lt;sObject&gt; newRecords, Map&lt;Id, sObject&gt; oldRecords )
+   * List&lt;sObject&gt;
 
 Execute the filter on the list of records and the map of
 associated old records, returning the list of sObjects
