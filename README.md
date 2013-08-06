@@ -144,6 +144,11 @@ matching the source filter.
 
 ### built-in filters
 
+All field parameters for the built-in filters can be
+specified as a `String` or as a `Schema.sObjectField`.
+For more information see the `FieldReference`
+documentation below.
+
  * Select.Field. ***hasChanged***( field )
 
 Filter for sObjects that have an updated value in the given
@@ -245,3 +250,43 @@ If you don't need special-case logic for the update case,
 extend this class instead.  That way you only need to
 implement the first signature of the `evaluate` method
 which takes only a single sObject instance.
+
+### FieldReference class
+
+Represents an abstract reference to an sObject field.  It
+uses inversion of control to allow the library to get the
+value of an sObject field without knowing whether the
+reference is a String or a Schema.sObject field.
+
+ * abstract class
+
+   * FieldReference# ***getFrom***( sObject record )
+
+Returns the value of the referenced field on the given
+sObject.
+
+    Id accountId = idReference.getFrom( theAccount )
+
+ * factory methods
+
+   * FieldReference. ***build***( Schema.sObjectField field )
+
+Returns a FieldReference encapsulating the given field.
+
+    FieldReference idRef = FieldReference.build( Account.Id )
+
+   * FieldReference. ***build***( String field )
+
+Returns a FieldReference encapsulating the field represented
+by the given string. If there is no '`.`' character, the
+reference behaves as it would with the equivalent Schema
+reference (and it would be safer to use that).  If the given
+string contains a period, the reference will traverse
+sObject relationships as expected.
+
+    FieldReference parentAccountIdRef = FieldReference.build( 'Account.Id' );
+
+The difference between `idRef` and `parentAccountIdRef` is
+that the former would be legally used only on an Account
+object, whereas the latter could be used on any sObject
+with a lookup named 'Account'.
