@@ -103,14 +103,16 @@ reference
 
 ### Filter instance methods
 
- * Select.Filter# ***filter***( newRecords )
+ * Select.Filter# ***filter***( List<sObject> newRecords )
+   * List<sObject>
 
 Execute the filter on the list of records, returning the
 list of sObjects matching the filter's predicate.
 
     List<sObject> filteredRecords = nameChanged.filter( Trigger.new )
 
- * Select.Filter# ***filter***( newRecords, oldRecords )
+ * Select.Filter# ***filter***( List<sObject> newRecords, Map<Id, sObject> oldRecords )
+   * List<sObject>
 
 Execute the filter on the list of records and the map of
 associated old records, returning the list of sObjects
@@ -119,6 +121,7 @@ matching the filter's predicate.
     List<sObject> filteredRecords = nameChanged.filter( Trigger.new, Trigger.oldMap )
 
  * Select.Filter# ***andx***( Filter otherFilter )
+   * Select.Filter
 
 Returns a filter that is the conjunction of this filter and
 the other filter.  The returned filter only allows through
@@ -127,6 +130,7 @@ sObjects matching _both_ source filters.
     Select.Filter nameNulled = nameChanged.andx( nameNull )
 
  * Select.Filter# ***orx***( Filter otherFilter )
+   * Select.Filter
 
 Returns a filter that is the disjunction of this filter and
 the other filter.  The returned filter allows through all
@@ -135,6 +139,7 @@ sObjects matching _either_ source filter.
     Select.Filter fooOrBar = nameEqualsFoo.orx( nameEqualsBar )
 
  * Select.Filter# ***notx***()
+   * Select.Filter
 
 Returns a filter that is the logical inverse of this filter.
 The returned filter allows through only sObjects _not_
@@ -150,6 +155,7 @@ For more information see the `FieldReference`
 documentation below.
 
  * Select.Field. ***hasChanged***( field )
+   * Select.Filter
 
 Filter for sObjects that have an updated value in the given
 field, or in the insert case, have any non-null value.
@@ -157,6 +163,7 @@ field, or in the insert case, have any non-null value.
     Select.Filter nameChanged = Select.Field.hasChanged( Account.Name )
 
  * Select.Field. ***isNew***( field )
+   * Select.Filter
 
 Filter for sObjects that have a non-null value in the given
 field where previously the field was null, or in the
@@ -165,6 +172,7 @@ insert case have any non-null value.
     Select.Filter newPhone = Select.Field.isNew( Contact.Phone )
 
  * Select.Field. ***isEqual***( field, value )
+   * Select.Filter
 
 Filter for sObjects that have the specified value in the
 given field.
@@ -172,6 +180,7 @@ given field.
     Select.Filter nameIsFoobar = Select.Field.isEqual( Account.Name, 'Foobar' )
 
  * Select.Field. ***notEqual***( field, value )
+   * Select.Filter
 
 Filter for sObjects that do not have the specified value in
 the given field.
@@ -179,6 +188,7 @@ the given field.
     Select.Filter nameIsntFoobar = Select.Field.notEqual( Account.Name, 'Foobar' )
 
  * Select.Field. ***isIn***( field, collection )
+   * Select.Filter
 
 Filter for sObjects with a field value contained in the set
 of specified values.
@@ -186,6 +196,7 @@ of specified values.
     Select.Filter isMidwest = Select.Field.isIn( Account.BillingState, midwestStates )
 
  * Select.Field. ***notIn***( field, collection )
+   * Select.Filter
 
 Filter for sObjects with a field value not contained in the
 set of specified values.
@@ -193,18 +204,21 @@ set of specified values.
     Select.Filter notMidwest = Select.Field.notIn( Account.BillingState, midwestStates )
 
  * Select.Field. ***isNull***( field )
+   * Select.Filter
 
 Filter for sObjects with null in the given field.
 
     Select.Filter blankPhone = Select.Field.isNull( Contact.Phone )
 
  * Select.Field. ***notNull***( field )
+   * Select.Filter
 
 Filter for sObjects with a non-null value in the given field.
 
     Select.Filter hasPhone = Select.Field.notNull( Contact.Phone )
 
  * Select.Field. ***hasChildren***( String childRelationship )
+   * Select.Filter
 
 Filter for sObjects with child records for the given
 child relationship.
@@ -212,6 +226,7 @@ child relationship.
     Select.Filter hasChildren = Select.Field.hasChildren( 'Contacts' )
 
  * Select.Field. ***hasNoChildren***( String childRelationship )
+   * Select.Filter
 
 Filter for sObjects without child records for the given
 child relationship.
@@ -231,12 +246,14 @@ Create a new filter with the given predicate.
 To write a custom filter predicate, implement the interface `Select.Predicate`, which
 consists of an evaluate method for the insert case and one for the update case.
 
- * Boolean Select.Predicate# ***evaluate***( sObject newRecord )
+ * Select.Predicate# ***evaluate***( sObject newRecord )
+   * Boolean
 
 Should return whether or not to include the given record in the
 filtered results.  Represents the insert case of a trigger.
 
- * Boolean Select.Predicate# ***evaluate***( sObject newRecord, sObject oldRecord )
+ * Select.Predicate# ***evaluate***( sObject newRecord, sObject oldRecord )
+   * Boolean
 
 Should return whether or not to include the given record in the
 filtered results.  Represents the update case of a trigger.
@@ -258,22 +275,25 @@ uses inversion of control to allow the library to get the
 value of an sObject field without knowing whether the
 reference is a String or a Schema.sObject field.
 
- * FieldReference# ***getFrom***( sObject record )
+ * Select.FieldReference# ***getFrom***( sObject record )
+   * Object
 
 Returns the value of the referenced field on the given
 sObject.
 
-    Id accountId = idReference.getFrom( theAccount )
+    Id accountId = (Id)idReference.getFrom( theAccount )
 
 ### FieldReference factory methods
 
- * FieldReference. ***build***( Schema.sObjectField field )
+ * Select.FieldReference. ***build***( Schema.sObjectField field )
+   * Select.FieldReference
 
 Returns a FieldReference encapsulating the given field.
 
-    FieldReference idRef = FieldReference.build( Account.Id )
+    Select.FieldReference idRef = Select.FieldReference.build( Account.Id )
 
- * FieldReference. ***build***( String field )
+ * Select.FieldReference. ***build***( String field )
+   * Select.FieldReference
 
 Returns a FieldReference encapsulating the field represented
 by the given string. If there is no '`.`' character, the
@@ -282,7 +302,7 @@ reference (and it would be safer to use that).  If the given
 string contains a period, the reference will traverse
 sObject relationships as expected.
 
-    FieldReference parentAccountIdRef = FieldReference.build( 'Account.Id' );
+    Select.FieldReference parentAccountIdRef = Select.FieldReference.build( 'Account.Id' );
 
 The difference between `idRef` and `parentAccountIdRef` is
 that the former would be legally used only on an Account
