@@ -103,14 +103,14 @@ reference
 
 ### Filter instance methods
 
-Select.Filter# *filter*( newRecords )
+ * Select.Filter# *filter*( newRecords )
 
 Execute the filter on the list of records, returning the
 list of sObjects matching the filter's predicate.
 
     List<sObject> filteredRecords = nameChanged.filter( Trigger.new )
 
-Select.Filter# *filter*( newRecords, oldRecords )
+ * Select.Filter# *filter*( newRecords, oldRecords )
 
 Execute the filter on the list of records and the map of
 associated old records, returning the list of sObjects
@@ -118,7 +118,7 @@ matching the filter's predicate.
 
     List<sObject> filteredRecords = nameChanged.filter( Trigger.new, Trigger.oldMap )
 
-Select.Filter# *andx*( Filter otherFilter )
+ * Select.Filter# *andx*( Filter otherFilter )
 
 Returns a filter that is the conjunction of this filter and
 the other filter.  The returned filter only allows through
@@ -126,7 +126,7 @@ sObjects matching _both_ source filters.
 
     Select.Filter nameNulled = nameChanged.andx( nameNull )
 
-Select.Filter# *orx*( Filter otherFilter )
+ * Select.Filter# *orx*( Filter otherFilter )
 
 Returns a filter that is the disjunction of this filter and
 the other filter.  The returned filter allows through all
@@ -134,7 +134,7 @@ sObjects matching _either_ source filter.
 
     Select.Filter fooOrBar = nameEqualsFoo.orx( nameEqualsBar )
 
-Select.Filter# *notx*()
+ * Select.Filter# *notx*()
 
 Returns a filter that is the logical inverse of this filter.
 The returned filter allows through only sObjects _not_
@@ -144,49 +144,49 @@ matching the source filter.
 
 ### built-in filters
 
-Select.Field. *hasChanged*( field )
+ * Select.Field. *hasChanged*( field )
 
     Select.Filter nameChanged = Select.Field.hasChanged( Account.Name )
 
-Select.Field. *isNew*( field )
+ * Select.Field. *isNew*( field )
 
     Select.Filter newPhone = Select.Field.isNew( Contact.Phone )
 
-Select.Field. *isEqual*( field, value )
+ * Select.Field. *isEqual*( field, value )
 
     Select.Filter nameIsFoobar = Select.Field.isEqual( Account.Name, 'Foobar' )
 
-Select.Field. *notEqual*( field, value )
+ * Select.Field. *notEqual*( field, value )
 
     Select.Filter nameIsntFoobar = Select.Field.notEqual( Account.Name, 'Foobar' )
 
-Select.Field. *isIn*( field, collection )
+ * Select.Field. *isIn*( field, collection )
 
     Select.Filter isMidwest = Select.Field.isIn( Account.BillingState, midwestStates )
 
-Select.Field. *notIn*( field, collection )
+ * Select.Field. *notIn*( field, collection )
 
     Select.Filter notMidwest = Select.Field.notIn( Account.BillingState, midwestStates )
 
-Select.Field. *isNull*( field )
+ * Select.Field. *isNull*( field )
 
     Select.Filter blankPhone = Select.Field.isNull( Contact.Phone )
 
-Select.Field. *notNull*( field )
+ * Select.Field. *notNull*( field )
 
     Select.Filter hasPhone = Select.Field.notNull( Contact.Phone )
 
-Select.Field. *hasChildren*( field )
+ * Select.Field. *hasChildren*( field )
 
     Select.Filter hasChildren = Select.Field.hasChildren( 'Contacts' )
 
-Select.Field. *hasNoChildren*( field )
+ * Select.Field. *hasNoChildren*( field )
 
     Select.Filter hasNoChildren = Select.Field.hasNoChildren( 'Contacts' )
 
 ### constructors
 
-new Select. *Filter*( predicate )
+ * new Select. *Filter*( predicate )
 
      Select.Filter customFilter = new Select.Filter( customPredicate )
 
@@ -195,9 +195,9 @@ new Select. *Filter*( predicate )
 To write a custom filter predicate, implement the interface `Select.Predicate`, which
 consists of an evaluate method for the insert case and one for the update case.
 
-Boolean Select.Predicate# *evaluate*( sObject newRecord )
+ * Boolean Select.Predicate# *evaluate*( sObject newRecord )
 
-Boolean Select.Predicate# *evaluate*( sObject newRecord, oldRecord )
+ * Boolean Select.Predicate# *evaluate*( sObject newRecord, oldRecord )
 
 For examples of Predicate implementations, see the built-in predicates.
 
