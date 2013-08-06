@@ -83,7 +83,7 @@ If the filter you need is simply a logical combination of
 built-ins or existing custom filters, you can use the
 filter composition methods to build it up.
 
-    // !( (filterA && filterB) || filterC )
+    // !((filterA && filterB) || filterC)
     Select.Filter myComplexFilter = filterA.andx( filterB )
                                            .orx( filterC )
                                            .notx();
