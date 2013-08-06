@@ -105,21 +105,40 @@ reference
 
 Select.Filter# *filter*( newRecords )
 
+Execute the filter on the list of records, returning the
+list of sObjects matching the filter's predicate.
+
     List<sObject> filteredRecords = nameChanged.filter( Trigger.new )
 
 Select.Filter# *filter*( newRecords, oldRecords )
+
+Execute the filter on the list of records and the map of
+associated old records, returning the list of sObjects
+matching the filter's predicate.
 
     List<sObject> filteredRecords = nameChanged.filter( Trigger.new, Trigger.oldMap )
 
 Select.Filter# *andx*( Filter otherFilter )
 
+Returns a filter that is the conjunction of this filter and
+the other filter.  The returned filter only allows through
+sObjects matching _both_ source filters.
+
     Select.Filter nameNulled = nameChanged.andx( nameNull )
 
 Select.Filter# *orx*( Filter otherFilter )
 
+Returns a filter that is the disjunction of this filter and
+the other filter.  The returned filter allows through all
+sObjects matching _either_ source filter.
+
     Select.Filter fooOrBar = nameEqualsFoo.orx( nameEqualsBar )
 
 Select.Filter# *notx*()
+
+Returns a filter that is the logical inverse of this filter.
+The returned filter allows through only sObjects _not_
+matching the source filter.
 
     Select.Filter notFoo = isFoo.notx()
 
