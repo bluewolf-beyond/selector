@@ -146,47 +146,78 @@ matching the source filter.
 
  * Select.Field. ***hasChanged***( field )
 
+Filter for sObjects that have an updated value in the given
+field, or in the insert case, have any non-null value.
+
     Select.Filter nameChanged = Select.Field.hasChanged( Account.Name )
 
  * Select.Field. ***isNew***( field )
+
+Filter for sObjects that have a non-null value in the given
+field where previously the field was null, or in the
+insert case have any non-null value.
 
     Select.Filter newPhone = Select.Field.isNew( Contact.Phone )
 
  * Select.Field. ***isEqual***( field, value )
 
+Filter for sObjects that have the specified value in the
+given field.
+
     Select.Filter nameIsFoobar = Select.Field.isEqual( Account.Name, 'Foobar' )
 
  * Select.Field. ***notEqual***( field, value )
+
+Filter for sObjects that do not have the specified value in
+the given field.
 
     Select.Filter nameIsntFoobar = Select.Field.notEqual( Account.Name, 'Foobar' )
 
  * Select.Field. ***isIn***( field, collection )
 
+Filter for sObjects with a field value contained in the set
+of specified values.
+
     Select.Filter isMidwest = Select.Field.isIn( Account.BillingState, midwestStates )
 
  * Select.Field. ***notIn***( field, collection )
+
+Filter for sObjects with a field value not contained in the
+set of specified values.
 
     Select.Filter notMidwest = Select.Field.notIn( Account.BillingState, midwestStates )
 
  * Select.Field. ***isNull***( field )
 
+Filter for sObjects with null in the given field.
+
     Select.Filter blankPhone = Select.Field.isNull( Contact.Phone )
 
  * Select.Field. ***notNull***( field )
+
+Filter for sObjects with a non-null value in the given field.
 
     Select.Filter hasPhone = Select.Field.notNull( Contact.Phone )
 
  * Select.Field. ***hasChildren***( field )
 
+Filter for sObjects with child records for the given
+child relationship.
+
     Select.Filter hasChildren = Select.Field.hasChildren( 'Contacts' )
 
  * Select.Field. ***hasNoChildren***( field )
+
+Filter for sObjects without child records for the given
+child relationship.
 
     Select.Filter hasNoChildren = Select.Field.hasNoChildren( 'Contacts' )
 
 ### constructors
 
  * new Select. ***Filter***( predicate )
+
+Create a new filter with the given predicate.
 
      Select.Filter customFilter = new Select.Filter( customPredicate )
 
@@ -197,10 +228,20 @@ consists of an evaluate method for the insert case and one for the update case.
 
  * Boolean Select.Predicate# ***evaluate***( sObject newRecord )
 
+Should return whether or not to include the given record in the
+filtered results.  Represents the insert case of a trigger.
+
  * Boolean Select.Predicate# ***evaluate***( sObject newRecord, oldRecord )
 
-For examples of Predicate implementations, see the built-in predicates.
+Should return whether or not to include the given record in the
+filtered results.  Represents the update case of a trigger.
+
+For examples of Predicate implementations, see the built-in
+predicates.
 
 ### InsertPredicate abstract class
 
-If you don't need special-case logic for the update case, extend this class instead.
+If you don't need special-case logic for the update case,
+extend this class instead.  That way you only need to
+implement the first signature of the `evaluate` method
+which takes only a single sObject instance.
