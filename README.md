@@ -73,6 +73,23 @@ determine whether to include it in the results.
                                       .filter( Trigger.new );
     }
 
+This may seem like a lot of work, but consider this: as long
+as you unit test your custom predicate you can dispense with
+significant testing of your filter methods.  And since
+testing predicates is much simpler than testing filters
+(because of their singular nature) this is quite easy.
+
+If the filter you need is simply a logical combination of
+built-ins or existing custom filters, you can use the
+filter composition methods to build it up.
+
+    // !( (filterA && filterB) || filterC )
+    Select.Filter myComplexFilter = filterA.andx( filterB )
+                                           .orx( filterC )
+                                           .notx();
+
+For more information consult the API reference below.
+
 installation
 ------------
 
