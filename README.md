@@ -58,6 +58,10 @@ Select.Filter# *orx*( Filter otherFilter )
 
     Select.Filter fooOrBar = nameEqualsFoo.orx( nameEqualsBar )
 
+Select.Filter# *notx*()
+
+    Select.Filter notFoo = isFoo.notx()
+
 ### built-in filters
 
 Select.Field. *hasChanged*( field )
@@ -75,6 +79,14 @@ Select.Field. *isEqual*( field, value )
 Select.Field. *notEqual*( field, value )
 
     Select.Filter nameIsntFoobar = Select.Field.notEqual( Account.Name, 'Foobar' )
+
+Select.Field. *isIn*( field, collection )
+
+    Select.Filter isMidwest = Select.Field.isIn( Account.BillingState, midwestStates )
+
+Select.Field. *notIn*( field, collection )
+
+    Select.Filter notMidwest = Select.Field.notIn( Account.BillingState, midwestStates )
 
 Select.Field. *isNull*( field )
 
