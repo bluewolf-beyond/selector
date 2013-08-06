@@ -199,14 +199,14 @@ Filter for sObjects with a non-null value in the given field.
 
     Select.Filter hasPhone = Select.Field.notNull( Contact.Phone )
 
- * Select.Field. ***hasChildren***( field )
+ * Select.Field. ***hasChildren***( String childRelationship )
 
 Filter for sObjects with child records for the given
 child relationship.
 
     Select.Filter hasChildren = Select.Field.hasChildren( 'Contacts' )
 
- * Select.Field. ***hasNoChildren***( field )
+ * Select.Field. ***hasNoChildren***( String childRelationship )
 
 Filter for sObjects without child records for the given
 child relationship.
@@ -215,7 +215,7 @@ child relationship.
 
 ### constructors
 
- * new Select. ***Filter***( predicate )
+ * new Select. ***Filter***( Select.Predicate predicate )
 
 Create a new filter with the given predicate.
 
@@ -231,7 +231,7 @@ consists of an evaluate method for the insert case and one for the update case.
 Should return whether or not to include the given record in the
 filtered results.  Represents the insert case of a trigger.
 
- * Boolean Select.Predicate# ***evaluate***( sObject newRecord, oldRecord )
+ * Boolean Select.Predicate# ***evaluate***( sObject newRecord, sObject oldRecord )
 
 Should return whether or not to include the given record in the
 filtered results.  Represents the update case of a trigger.
