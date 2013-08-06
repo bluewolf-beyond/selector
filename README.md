@@ -25,9 +25,53 @@ you end up reimplementing the same filters over and over again.
         }
     }
 
+    return filteredAccounts;
+
 Wouldn't you rather write this:
 
-    List<Account> filteredAccounts = Select.Field.hasChanged( Account.Name ).filter( Trigger.new );
+    return (List<Account>)Select.Field.hasChanged( Account.Name )
+                                      .filter( Trigger.new );
+
+For fields directly on the objects being filtered, use the
+`Schema.sObjectField` to reference for the safest code.  It
+is also possible to pass in `String` field references, which
+can traverse parent relationships.  For instance, in a
+Contact trigger:
+
+    return (List<Contact>)Select.Field.isEqual( 'Account.Region', 'Midwest' )
+                                      .filter( Trigger.new );
+
+If the built-in filters are not sufficient, it is simple
+enough to extend them with your own.  Implement the
+`Predicate` interface, which evaluates an sObject to
+determine whether to include it in the results.
+
+    // custom filter predicate
+    class GrowingAccountPredicate implements Select.Predicate
+    {
+        Boolean evaluate( sObject newRecord )
+        {
+            return newRecord.get( 'Annual_Sales__c' ) > 50000;
+        }
+
+        Boolean evaluate( sObject newRecord, sObject oldRecord )
+        {
+            return newRecord.get( 'Annual_Sales__c' ) > oldRecord.get( 'Annual_Sales__c' );
+        }
+    }
+
+    // factory method for the custom filter
+    Select.Filter isGrowingAccount()
+    {
+        return new Select.Filter( new GrowingAccountPredicate() );
+    }
+
+    // usage of the custom filter
+    List<Accounts> filterGrowingAccounts()
+    {
+        return (List<Account>)MyFilter.isGrowingAccount()
+                                      .filter( Trigger.new );
+    }
 
 installation
 ------------
