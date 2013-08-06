@@ -251,31 +251,29 @@ extend this class instead.  That way you only need to
 implement the first signature of the `evaluate` method
 which takes only a single sObject instance.
 
-### FieldReference class
+### FieldReference abstract class
 
 Represents an abstract reference to an sObject field.  It
 uses inversion of control to allow the library to get the
 value of an sObject field without knowing whether the
 reference is a String or a Schema.sObject field.
 
- * abstract class
-
-   * FieldReference# ***getFrom***( sObject record )
+ * FieldReference# ***getFrom***( sObject record )
 
 Returns the value of the referenced field on the given
 sObject.
 
     Id accountId = idReference.getFrom( theAccount )
 
- * factory methods
+### FieldReference factory methods
 
-   * FieldReference. ***build***( Schema.sObjectField field )
+ * FieldReference. ***build***( Schema.sObjectField field )
 
 Returns a FieldReference encapsulating the given field.
 
     FieldReference idRef = FieldReference.build( Account.Id )
 
-   * FieldReference. ***build***( String field )
+ * FieldReference. ***build***( String field )
 
 Returns a FieldReference encapsulating the field represented
 by the given string. If there is no '`.`' character, the
