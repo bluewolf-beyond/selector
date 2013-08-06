@@ -120,7 +120,7 @@ matching the filter's predicate.
 
     List<sObject> filteredRecords = nameChanged.filter( Trigger.new, Trigger.oldMap )
 
- * Select.Filter# ***andx***( Filter otherFilter )
+ * Select.Filter# ***andx***( Select.Filter otherFilter )
    * Select.Filter
 
 Returns a filter that is the conjunction of this filter and
@@ -129,7 +129,7 @@ sObjects matching _both_ source filters.
 
     Select.Filter nameNulled = nameChanged.andx( nameNull )
 
- * Select.Filter# ***orx***( Filter otherFilter )
+ * Select.Filter# ***orx***( Select.Filter otherFilter )
    * Select.Filter
 
 Returns a filter that is the disjunction of this filter and
