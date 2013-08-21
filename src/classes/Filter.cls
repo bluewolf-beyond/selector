@@ -6,13 +6,13 @@
  *
  * Create custom filters by implementing a Predicate.
  */
-global class Filter
+global virtual class Filter
 {
     /////////////////////////////////////////////////////////////////
     // filtering methods
     /////////////////////////////////////////////////////////////////
 
-    global List<sObject> filter( List<sObject> newRecords )
+    global virtual List<sObject> filter( List<sObject> newRecords )
     {
         List<sObject> filteredRecords = new List<sObject>();
 
@@ -27,7 +27,7 @@ global class Filter
         return filteredRecords;
     }
 
-    global List<sObject> filter( List<sObject> newRecords, Map<Id, sObject> oldRecords )
+    global virtual List<sObject> filter( List<sObject> newRecords, Map<Id, sObject> oldRecords )
     {
         if ( null == oldRecords )
         {
