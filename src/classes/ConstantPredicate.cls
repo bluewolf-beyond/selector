@@ -1,6 +1,6 @@
 global class ConstantPredicate extends InsertPredicate
 {
-    Boolean value;
+    @TestVisible Boolean value;
 
     global ConstantPredicate( Boolean value )
     {

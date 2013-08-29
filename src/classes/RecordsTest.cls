@@ -3,12 +3,30 @@ global class RecordsTest
 {
     private static testMethod void all()
     {
-        System.assert( false, 'implement test' );
+        Test.startTest();
+
+            Filter constructed = Records.all();
+
+        Test.stopTest();
+
+        System.assert( constructed.predicate instanceof ConstantPredicate,
+            'The filter should be of the right type' );
+        System.assertEquals( true, ((ConstantPredicate)constructed.predicate).value,
+            'The constant filter should always return true' );
     }
 
     private static testMethod void none()
     {
-        System.assert( false, 'implement test' );
+        Test.startTest();
+
+            Filter constructed = Records.none();
+
+        Test.stopTest();
+
+        System.assert( constructed.predicate instanceof ConstantPredicate,
+            'The filter should be of the right type' );
+        System.assertEquals( false, ((ConstantPredicate)constructed.predicate).value,
+            'The constant filter should always return false' );
     }
 
     private static testMethod void both()
