@@ -34,11 +34,35 @@ global class RecordTest
 
     private static testMethod void byName()
     {
-        System.assert( false, 'implement test' );
+        Test.startTest();
+
+            Filter constructed = Record.byName( 'Foobar' );
+
+        Test.stopTest();
+
+        System.assert( constructed.predicate instanceof FieldEqualsPredicate,
+            'The filter should be a field equals filter' );
+
+        FieldEqualsPredicate predicate = (FieldEqualsPredicate)constructed.predicate;
+        System.assertEquals( 'Name', predicate.field.toString(),
+            'The filter should be on the Name field' );
+        System.assertEquals( 'Foobar', predicate.value,
+            'The value passed in should be the filter value' );
     }
 
     private static testMethod void isOrphan()
     {
-        System.assert( false, 'implement test' );
+        Test.startTest();
+
+            Filter constructed = Record.isOrphan( 'Account' );
+
+        Test.stopTest();
+
+        System.assert( constructed.predicate instanceof FieldNullPredicate,
+            'The filter should be a field null filter' );
+
+        FieldNullPredicate predicate = (FieldNullPredicate)constructed.predicate;
+        System.assertEquals( 'Account', predicate.field.toString(),
+            'The field passed in should be the filter field' );
     }
 }
