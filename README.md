@@ -88,6 +88,66 @@ significant testing of your filter methods.  And since
 testing predicates is much simpler than testing filters
 (because of their singular nature) this is quite easy.
 
+Another point on ***testing***.  Since this library is
+(presumably) well-tested, there is no need for your tests to
+deal with mixed filter cases at all.  To make life easier
+for yourself, use dependency injection to have your tests
+to use a simpler filter, and test the positive and negative
+cases independently.  For instance,
+
+    // somewhere in a service class
+
+    // ...
+    @TestVisible static Select.Filter accountChanged = Select.Field.hasChanged( Contact.AccountId );
+
+    public List<Contact> filterAccountChanged( List<Contact> newRecords, Map<Id, Contact> oldRecords )
+    {
+        return accountChanged.filter( newRecords, oldRecords );
+    }
+    // ...
+
+    // in the corresponding test class
+
+    // ...
+    private static testMethod void testSomeHighLevelThing()
+    {
+        // when setting up test data, don't bother
+        // meeting filter criteria
+        // ...
+
+        // inject a filter that passes ALL records
+        ContactServices.accountChanged = Select.Record.all();
+
+        Test.startTest();
+
+            ContactServices.doSomeHighLevelThing( contacts );
+
+        Test.stopTest();
+
+        // Don't bother checking that the FILTERED records are EXCLUDED
+        // ...
+    }
+
+    private static testMethod void testSomeHighLevelThing_Negative()
+    {
+        // when setting up test data, don't bother
+        // meeting filter criteria
+        // ...
+
+        // inject a filter that passes NONE of the records
+        ContactServices.accountChanged = Select.Record.none();
+
+        Test.startTest();
+
+            ContactServices.doSomeHighLevelThing( contacts );
+
+        Test.stopTest();
+
+        // Don't bother checking that the UNFILTERED records are INCLUDED
+        // ...
+    }
+    // ...
+
 For more information consult the API reference below.
 
 installation
