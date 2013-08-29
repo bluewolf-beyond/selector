@@ -3,9 +3,9 @@ selector
 
 Filter sObjects based on various criteria.
 
- * introduction
- * installation
- * reference
+ * [introduction](#introduction)
+ * [installation](#installation)
+ * [reference](#reference)
 
 introduction
 ------------
