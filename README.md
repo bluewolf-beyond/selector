@@ -7,7 +7,7 @@ Filter sObjects based on various criteria.
   * [specifying fields](#specifying-fields)
   * [combining filters](#combining-filters)
   * [extending the predicates](#extending-the-predicates)
-  * [testing advangates](#testing-advangates)
+  * [testing advantages](#testing-advantages)
  * [installation](#installation)
  * [reference](#reference)
   * [Filter instance methods](#filter-instance-methods)
@@ -105,7 +105,7 @@ significant testing of your filter methods.  And since
 testing predicates is much simpler than testing filters
 (because of their singular nature) this is quite easy.
 
-### testing advangates
+### testing advantages
 
 Another point on testing.  Since this library is (presumably)
 well-tested, there is no need for your tests to deal with
