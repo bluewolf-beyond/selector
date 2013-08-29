@@ -228,6 +228,8 @@ matching the source filter.
 
 ### built-in filters
 
+#### Field
+
 All field parameters for the built-in filters can be
 specified as a `String` or as a `Schema.sObjectField`.
 For more information see the `FieldReference`
@@ -311,6 +313,89 @@ Filter for sObjects without child records for the given
 child relationship.
 
     Select.Filter hasNoChildren = Select.Field.hasNoChildren( 'Contacts' )
+
+#### Record
+
+ * Select.Record. ***isNew***()
+   * Select.Filter
+
+Filter for records that are new.
+
+    Select.Filter isNew = Select.Record.isNew()
+
+ * Select.Record. ***notNew***()
+   * Select.Filter
+
+Filter for records that are not new.
+
+    Select.Filter notNew = Select.Record.notNew()
+
+ * Select.Record. ***byId***( Id searchId )
+   * Select.Filter
+
+Filter for records matching the given Id.
+
+    Select.Filter chosenRecord = Select.Record.byId( recordId )
+
+ * Select.Record. ***byName***( String searchName )
+   * Select.Filter
+
+Filter for records matching the given Name.
+
+    Select.Filter johnDoes = Select.Record.byName( 'John Doe' )
+
+ * Select.Record. ***isOrphan***( String lookupField )
+   * Select.Filter
+
+Filter for records that do not have a parent record for the given relationship.
+
+    Select.Filter orphans = Select.Record.isOrphan( 'Company' )
+
+#### Records
+
+ * Select.Records. ***all***()
+   * Select.Filter
+
+Constant filter that returns all records.
+
+    Select.Filter filterForTesting = Select.Records.all()
+
+ * Select.Records. ***none***()
+   * Select.Filter
+
+Constant filter that returns no records.
+
+    Select.Filter filterForTesting = Select.Records.none()
+
+ * Select.Records. ***both***( Select.Filter one, Select.Filter other )
+   * Select.Filter
+
+Composite filter for both the given filters.  Equivalent to calling `Filter#andx`.
+
+    Select.Filter nameNulled = Select.Records.both( nameChanged, nameNull )
+
+ * Select.Records. ***all***( List&lt;Select.Filter&gt; many )
+   * Select.Filter
+
+Composite filter for all the given filters.  Equivalent to calling `Filter#andx`
+for each of the filters.
+
+    Select.Filter specificFilter = Select.Records.all( myCriteria )
+
+ * Select.Records. ***either***( Select.Filter one, Select.Filter other )
+   * Select.Filter
+
+Composite filter for either of the given filters.  Equivalent to calling `Filter#orx`.
+
+    Select.Filter nameChangedOrNull = Select.Records.either( nameChanged, nameNull )
+
+ * Select.Records. ***any***( List&lt;Select.Filter&gt; many )
+   * Select.Filter
+
+Composite filter for any of the given filters.  Equivalent to calling `Filter#orx`
+for each of the filters.
+
+    Select.Filter generalFilter = Select.Records.any( myCriteria )
 
 ### constructors
 
