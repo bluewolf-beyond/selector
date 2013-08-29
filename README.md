@@ -32,6 +32,8 @@ Wouldn't you rather write this:
     return (List<Account>)Select.Field.hasChanged( Account.Name )
                                       .filter( Trigger.new, Trigger.oldMap );
 
+### specifying fields
+
 For fields directly on the objects being filtered, use the
 `Schema.sObjectField` to reference for the safest code.  It
 is also possible to pass in `String` field references, which
@@ -41,6 +43,8 @@ Contact trigger:
     return (List<Contact>)Select.Field.isEqual( 'Account.Region', 'Midwest' )
                                       .filter( Trigger.new );
 
+### combining filters
+
 If the filter you need is simply a logical combination of
 built-ins or existing custom filters, you can use the
 filter composition methods to build it up.
@@ -49,6 +53,8 @@ filter composition methods to build it up.
     Select.Filter myComplexFilter = filterA.andx( filterB )
                                            .orx( filterC )
                                            .notx();
+
+### extending the predicates
 
 If the built-in filters are not sufficient, it is simple
 enough to extend them with your own.  Implement the
@@ -88,12 +94,14 @@ significant testing of your filter methods.  And since
 testing predicates is much simpler than testing filters
 (because of their singular nature) this is quite easy.
 
-Another point on ***testing***.  Since this library is
-(presumably) well-tested, there is no need for your tests to
-deal with mixed filter cases at all.  To make life easier
-for yourself, use dependency injection to have your tests
-to use a simpler filter, and test the positive and negative
-cases independently.  For instance,
+### testing advangates
+
+Another point on testing.  Since this library is (presumably)
+well-tested, there is no need for your tests to deal with
+mixed filter cases at all.  To make life easier for yourself,
+use dependency injection to have your tests to use a simpler
+filter, and test the positive and negative cases
+independently.  For instance,
 
     // somewhere in a service class
 
