@@ -228,7 +228,7 @@ matching the source filter.
 
 ### built-in filters
 
-#### Field
+#### Select.Field - basic field criteria
 
 All field parameters for the built-in filters can be
 specified as a `String` or as a `Schema.sObjectField`.
@@ -314,7 +314,7 @@ child relationship.
 
     Select.Filter hasNoChildren = Select.Field.hasNoChildren( 'Contacts' )
 
-#### Record
+#### Select.Record - record-level criteria
 
  * Select.Record. ***isNew***()
    * Select.Filter
@@ -351,7 +351,7 @@ Filter for records that do not have a parent record for the given relationship.
 
     Select.Filter orphans = Select.Record.isOrphan( 'Company' )
 
-#### Records
+#### Select.Records - filter combinators and constant filters
 
  * Select.Records. ***all***()
    * Select.Filter
