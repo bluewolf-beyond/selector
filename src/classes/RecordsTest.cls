@@ -52,7 +52,23 @@ global class RecordsTest
 
     private static testMethod void all_conjunction()
     {
-        System.assert( false, 'implement test' );
+        Filter left = Field.hasChanged( 'Account' );
+        Filter right = Field.isNull( 'Name' );
+
+        Test.startTest();
+
+            Filter constructed = Records.all( new List<Filter>{ left, right } );
+
+        Test.stopTest();
+
+        System.assert( constructed.predicate instanceof AndPredicate,
+            'The filter should be a conjunction' );
+
+        AndPredicate predicate = (AndPredicate)constructed.predicate;
+        System.assert( predicate.predicates[0] === left.predicate,
+            'The left predicate should be the first of the conjoined predicates' );
+        System.assert( predicate.predicates[1] === right.predicate,
+            'The left predicate should be the first of the conjoined predicates' );
     }
 
     private static testMethod void either()
@@ -78,6 +94,22 @@ global class RecordsTest
 
     private static testMethod void any()
     {
-        System.assert( false, 'implement test' );
+        Filter left = Field.hasChanged( 'Account' );
+        Filter right = Field.isNull( 'Name' );
+
+        Test.startTest();
+
+            Filter constructed = Records.any( new List<Filter>{ left, right } );
+
+        Test.stopTest();
+
+        System.assert( constructed.predicate instanceof OrPredicate,
+            'The filter should be a disjunction' );
+
+        OrPredicate predicate = (OrPredicate)constructed.predicate;
+        System.assert( predicate.predicates[0] === left.predicate,
+            'The left predicate should be the first of the disjoined predicates' );
+        System.assert( predicate.predicates[1] === right.predicate,
+            'The left predicate should be the first of the disjoined predicates' );
     }
 }
