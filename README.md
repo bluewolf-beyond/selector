@@ -30,7 +30,7 @@ you end up reimplementing the same filters over and over again.
 Wouldn't you rather write this:
 
     return (List<Account>)Select.Field.hasChanged( Account.Name )
-                                      .filter( Trigger.new );
+                                      .filter( Trigger.new, Trigger.oldMap );
 
 For fields directly on the objects being filtered, use the
 `Schema.sObjectField` to reference for the safest code.  It
@@ -40,6 +40,15 @@ Contact trigger:
 
     return (List<Contact>)Select.Field.isEqual( 'Account.Region', 'Midwest' )
                                       .filter( Trigger.new );
+
+If the filter you need is simply a logical combination of
+built-ins or existing custom filters, you can use the
+filter composition methods to build it up.
+
+    // !((filterA && filterB) || filterC)
+    Select.Filter myComplexFilter = filterA.andx( filterB )
+                                           .orx( filterC )
+                                           .notx();
 
 If the built-in filters are not sufficient, it is simple
 enough to extend them with your own.  Implement the
@@ -78,15 +87,6 @@ as you unit test your custom predicate you can dispense with
 significant testing of your filter methods.  And since
 testing predicates is much simpler than testing filters
 (because of their singular nature) this is quite easy.
-
-If the filter you need is simply a logical combination of
-built-ins or existing custom filters, you can use the
-filter composition methods to build it up.
-
-    // !((filterA && filterB) || filterC)
-    Select.Filter myComplexFilter = filterA.andx( filterB )
-                                           .orx( filterC )
-                                           .notx();
 
 For more information consult the API reference below.
 
@@ -305,6 +305,6 @@ sObject relationships as expected.
     Select.FieldReference parentAccountIdRef = Select.FieldReference.build( 'Account.Id' );
 
 The difference between `idRef` and `parentAccountIdRef` is
-that the former would be legally used only on an Account
-object, whereas the latter could be used on any sObject
+that the former would be used directly on the Account
+object, whereas the latter could be used on any child object
 with a lookup named 'Account'.
