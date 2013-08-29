@@ -4,8 +4,19 @@ selector
 Filter sObjects based on various criteria.
 
  * [introduction](#introduction)
+  * [specifying fields](#specifying-fields)
+  * [combining filters](#combining-filters)
+  * [extending the predicates](#extending-the-predicates)
+  * [testing advangates](#testing-advangates)
  * [installation](#installation)
  * [reference](#reference)
+  * [Filter instance methods](#filter-instance-methods)
+  * [built-in filters](#built-in-filters)
+  * [constructors](#constructors)
+  * [Predicate interface](#predicate-interface)
+  * [InsertPredicate abstract class](#insertpredicate-abstract-class)
+  * [FieldReference abstract class](#fieldreference-abstract-class)
+  * [FieldReference factory methods](#fieldreference-factory-methods)
 
 introduction
 ------------
