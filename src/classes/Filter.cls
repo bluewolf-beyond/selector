@@ -68,6 +68,40 @@ global virtual class Filter
         return new Filter( new NotPredicate( this.predicate ) );
     }
 
+    global static Filter andx( List<Filter> many )
+    {
+        if ( many.isEmpty() )
+        {
+            return Records.all();
+        }
+
+        List<Predicate> predicates = new List<Predicate>();
+
+        for ( Filter filter : many )
+        {
+            predicates.add( filter.predicate );
+        }
+
+        return new Filter( new AndPredicate( predicates ) );
+    }
+
+    global static Filter orx( List<Filter> many )
+    {
+        if ( many.isEmpty() )
+        {
+            return Records.none();
+        }
+
+        List<Predicate> predicates = new List<Predicate>();
+
+        for ( Filter filter : many )
+        {
+            predicates.add( filter.predicate );
+        }
+
+        return new Filter( new OrPredicate( predicates ) );
+    }
+
     /////////////////////////////////////////////////////////////////
     // Filter class glue
     /////////////////////////////////////////////////////////////////

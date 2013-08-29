@@ -143,4 +143,18 @@ private class OrPredicateTest
         System.assertEquals( false, spy.wasCalled,
             'OrPredicate should use shortcut evaluation' );
     }
+
+    private static testMethod void testListConstructor()
+    {
+        Test.startTest();
+
+            OrPredicate either = new OrPredicate( new List<Predicate>{ yes, no } );
+
+        Test.stopTest();
+
+        System.assert( either.predicates[0] === yes,
+            'The predicates should be added in order' );
+        System.assert( either.predicates[1] === no,
+            'The predicates should be added in order' );
+    }
 }

@@ -17,19 +17,7 @@ global class Records
 
     global static Filter all( List<Filter> many )
     {
-        if ( many.isEmpty() )
-        {
-            return all();
-        }
-
-        Filter conjunction = many.remove(0);
-
-        for ( Filter filter : many )
-        {
-            conjunction = conjunction.andx( filter );
-        }
-
-        return conjunction;
+        return Filter.andx( many );
     }
 
     global static Filter either( Filter one, Filter other )
@@ -39,18 +27,6 @@ global class Records
 
     global static Filter any( List<Filter> many )
     {
-        if ( many.isEmpty() )
-        {
-            return none();
-        }
-
-        Filter disjunction = many.remove(0);
-
-        for ( Filter filter : many )
-        {
-            disjunction = disjunction.orx( filter );
-        }
-
-        return disjunction;
+        return Filter.orx( many );
     }
 }

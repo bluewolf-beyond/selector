@@ -25,6 +25,12 @@ global class AndPredicate implements Predicate
         }
     }
 
+    global AndPredicate( List<Predicate> predicates )
+    {
+        this.predicates = new List<Predicate>();
+        this.predicates.addAll( predicates );
+    }
+
     global Boolean evaluate( sObject newRecord )
     {
         for ( Predicate predicate : predicates )

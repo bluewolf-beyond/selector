@@ -143,4 +143,18 @@ private class AndPredicateTest
         System.assertEquals( false, spy.wasCalled,
             'AndPredicate should use shortcut evaluation' );
     }
+
+    private static testMethod void testListConstructor()
+    {
+        Test.startTest();
+
+            AndPredicate both = new AndPredicate( new List<Predicate>{ yes, no } );
+
+        Test.stopTest();
+
+        System.assert( both.predicates[0] === yes,
+            'The predicates should be added in order' );
+        System.assert( both.predicates[1] === no,
+            'The predicates should be added in order' );
+    }
 }

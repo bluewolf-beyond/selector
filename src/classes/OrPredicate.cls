@@ -25,6 +25,12 @@ global class OrPredicate implements Predicate
         }
     }
 
+    global OrPredicate( List<Predicate> predicates )
+    {
+        this.predicates = new List<Predicate>();
+        this.predicates.addAll( predicates );
+    }
+
     global Boolean evaluate( sObject newRecord )
     {
         for ( Predicate predicate : predicates )
