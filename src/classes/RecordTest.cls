@@ -29,7 +29,18 @@ global class RecordTest
 
     private static testMethod void byId()
     {
-        System.assert( false, 'implement test' );
+        Test.startTest();
+
+            Filter constructed = Record.byId( '001000000000001' );
+
+        Test.stopTest();
+
+        System.assert( constructed instanceof FilterIdMap,
+            'The filter should be an Id-optimized filter' );
+
+        FilterIdMap filter = (FilterIdMap)constructed;
+        System.assertEquals( '001000000000001', filter.searchId,
+            'The value passed in should be the filter value' );
     }
 
     private static testMethod void byName()
