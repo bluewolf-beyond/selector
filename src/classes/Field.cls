@@ -97,4 +97,14 @@ global class Field
     {
         return isNull( field ).notx();
     }
+
+    global static Filter startsWith( Schema.SObjectField field, String value )
+    {
+        return new Filter( new FieldStartsWithPredicate( field, value ) );
+    }
+
+    global static Filter startsWith( String field, String value )
+    {
+        return new Filter( new FieldStartsWithPredicate( field, value ) );
+    }
 }
