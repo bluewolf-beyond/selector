@@ -1,5 +1,6 @@
 @isTest
-private class FieldStartsWithPredicateTest {
+private class FieldStartsWithPredicateTest
+{
     static testMethod void testInsert()
     {
         final String TASK_FIELD_SUBJECT = 'Subject';
@@ -16,15 +17,20 @@ private class FieldStartsWithPredicateTest {
         Predicate predicate = new FieldStartsWithPredicate( TASK_FIELD_SUBJECT, 'Win' );
 
         Test.startTest();
+
             Boolean fieldWithWine = predicate.evaluate(withWine);
             Boolean fieldWithBrandy = predicate.evaluate(withBrandy);
             Boolean fieldWithNull = predicate.evaluate(withNull);
+
         Test.stopTest();
 
         System.assert(predicate instanceof InsertPredicate, 'No update test needed');
 
-        System.assert(fieldWithWine, 'A field value beginning with the prefix should be recognized as such');
-        System.assert(!fieldWithBrandy, 'A field value beginning with something other than prefix should be recognized as such');
-        System.assert(!fieldWithNull, 'A field with no value should not begin with the prefix');
+        System.assert(fieldWithWine,
+        	'A field value beginning with the prefix should be recognized as such');
+        System.assert(!fieldWithBrandy,
+        	'A field value beginning with something other than prefix should be recognized as such');
+        System.assert(!fieldWithNull,
+        	'A field with no value should not begin with the prefix');
     }
 }
