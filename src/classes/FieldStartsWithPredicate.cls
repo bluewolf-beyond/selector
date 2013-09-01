@@ -1,4 +1,4 @@
-global with sharing class FieldStartsWithPredicate extends InsertPredicate
+global class FieldStartsWithPredicate extends InsertPredicate
 {
     @TestVisible FieldReference field;
     @TestVisible String value;
@@ -11,7 +11,7 @@ global with sharing class FieldStartsWithPredicate extends InsertPredicate
 
     global FieldStartsWithPredicate( Schema.SObjectField field, String value )
     {
-        this( FieldReference.build(field), value );
+        this( FieldReference.build( field ), value );
     }
 
     global FieldStartsWithPredicate( String field, String value )
@@ -21,11 +21,8 @@ global with sharing class FieldStartsWithPredicate extends InsertPredicate
 
     global Boolean evaluate( sObject newRecord )
     {
-        if( field.getFrom( newRecord ) == null )
-        {
-            return false;
-        }
+        Object fieldValue = field.getFrom( newRecord );
 
-        return String.valueOf( field.getFrom( newRecord ) ).startsWith( value );
+        return fieldValue == null ? false : String.valueOf( fieldValue ).startsWith( value );
     }
 }
