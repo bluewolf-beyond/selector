@@ -7,7 +7,7 @@ global class Record
 
     global static Filter notNew()
     {
-        return new Filter( new IsNewPredicate() ).notx();
+        return isNew().notx();
     }
 
     global static Filter byId( Id searchId )
