@@ -303,21 +303,21 @@ Filter for sObjects with a non-null value in the given field.
 
 Filter for sObjects with a prefix on the given field.
 
-    Select.Filter startsWithFoo = Select.Field.startsWith( 'Foo' )
+    Select.Filter nameStartsWithFoo = Select.Field.startsWith( Contact.Name, 'Foo' )
 
  * Select.Field. ***endsWith***( field, suffix )
    * Select.Filter
 
 Filter for sObjects with a suffix on the given field.
 
-    Select.Filter endsWithBar = Select.Field.endsWith( 'Bar' )
+    Select.Filter nameEndsWithBar = Select.Field.endsWith( Contact.Name, 'Bar' )
 
  * Select.Field. ***contains***( field, infix )
    * Select.Filter
 
 Filter for sObjects with a value contained in the given field.
 
-    Select.Filter containsBaz = Select.Field.contains( 'Baz' )
+    Select.Filter nameContainsBaz = Select.Field.contains( Contact.Name, 'Baz' )
 
  * Select.Field. ***hasChildren***( String childRelationship )
    * Select.Filter
