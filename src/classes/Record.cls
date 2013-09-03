@@ -25,6 +25,11 @@ global class Record
         return Field.isEqual( 'Name', searchName );
     }
 
+    global static Filter notName( String searchName )
+    {
+        return byName( searchName ).notx();
+    }
+
     global static Filter isOrphan( String lookupField )
     {
         return Field.isNull( lookupField );

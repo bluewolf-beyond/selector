@@ -85,6 +85,28 @@ global class RecordTest
             'The value passed in should be the filter value' );
     }
 
+    private static testMethod void notName()
+    {
+        Test.startTest();
+
+            Filter constructed = Record.notName( 'Foobar' );
+
+        Test.stopTest();
+
+        System.assert( constructed.predicate instanceof NotPredicate,
+            'The filter should be an inversion' );
+        NotPredicate wrapper = (NotPredicate)constructed.predicate;
+
+        System.assert( wrapper.inverted instanceof FieldEqualsPredicate,
+            'The inverted filter should be a field equals filter' );
+
+        FieldEqualsPredicate predicate = (FieldEqualsPredicate)wrapper.inverted;
+        System.assertEquals( 'Name', predicate.field.toString(),
+            'The filter should be on the Name field' );
+        System.assertEquals( 'Foobar', predicate.value,
+            'The value passed in should be the filter value' );
+    }
+
     private static testMethod void isOrphan()
     {
         Test.startTest();
