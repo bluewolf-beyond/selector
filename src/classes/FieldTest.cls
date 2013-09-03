@@ -1,7 +1,7 @@
 @isTest
 private class FieldTest
 {
-    private static testMethod void testFieldChangedFilter_Schema()
+    private static testMethod void hasChanged_Schema()
     {
         Test.startTest();
 
@@ -17,7 +17,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldChangedFilter_String()
+    private static testMethod void hasChanged_String()
     {
         Test.startTest();
 
@@ -33,7 +33,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNotChangedFilter_Schema()
+    private static testMethod void notChanged_Schema()
     {
         Test.startTest();
 
@@ -53,7 +53,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNotChangedFilter_String()
+    private static testMethod void notChanged_String()
     {
         Test.startTest();
 
@@ -73,7 +73,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNewFilter_Schema()
+    private static testMethod void isNew_Schema()
     {
         Test.startTest();
 
@@ -89,7 +89,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNewFilter_String()
+    private static testMethod void isNew_String()
     {
         Test.startTest();
 
@@ -105,7 +105,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNotNewFilter_Schema()
+    private static testMethod void notNew_Schema()
     {
         Test.startTest();
 
@@ -125,7 +125,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNotNewFilter_String()
+    private static testMethod void notNew_String()
     {
         Test.startTest();
 
@@ -145,7 +145,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldHasChildren()
+    private static testMethod void hasChildren()
     {
         Test.startTest();
 
@@ -161,7 +161,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldHasNoChildren()
+    private static testMethod void hasNoChildren()
     {
         Test.startTest();
 
@@ -181,7 +181,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldEqualsFilter_Schema()
+    private static testMethod void isEqual_Schema()
     {
         final String FILTER_VALUE = 'Foobar';
 
@@ -201,7 +201,7 @@ private class FieldTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldEqualsFilter_String()
+    private static testMethod void isEqual_String()
     {
         final String FILTER_VALUE = 'Foobar';
 
@@ -221,7 +221,7 @@ private class FieldTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldNotEqualsFilter_Schema()
+    private static testMethod void notEqual_Schema()
     {
         final String FILTER_VALUE = 'Foobar';
 
@@ -245,7 +245,7 @@ private class FieldTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldNotEqualsFilter_String()
+    private static testMethod void notEqual_String()
     {
         final String FILTER_VALUE = 'Foobar';
 
@@ -269,7 +269,7 @@ private class FieldTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldInFilter_Schema()
+    private static testMethod void isIn_Schema()
     {
         Set<Object> FILTER_VALUES = new Set<Object>{ 'Foobar' };
 
@@ -291,7 +291,7 @@ private class FieldTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldInFilter_String()
+    private static testMethod void isIn_String()
     {
         Set<Object> FILTER_VALUES = new Set<Object>{ 'Foobar' };
 
@@ -313,7 +313,7 @@ private class FieldTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldNotInFilter_Schema()
+    private static testMethod void notIn_Schema()
     {
         Set<Object> FILTER_VALUES = new Set<Object>{ 'Foobar' };
 
@@ -339,7 +339,7 @@ private class FieldTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldNotInFilter_String()
+    private static testMethod void notIn_String()
     {
         Set<Object> FILTER_VALUES = new Set<Object>{ 'Foobar' };
 
@@ -365,7 +365,7 @@ private class FieldTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldNullFilter_Schema()
+    private static testMethod void isNull_Schema()
     {
         Test.startTest();
 
@@ -381,7 +381,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNullFilter_String()
+    private static testMethod void isNull_String()
     {
         Test.startTest();
 
@@ -397,7 +397,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNotNullFilter_Schema()
+    private static testMethod void notNull_Schema()
     {
         Test.startTest();
 
@@ -417,7 +417,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldNotNullFilter_String()
+    private static testMethod void notNull_String()
     {
         Test.startTest();
 
@@ -437,7 +437,7 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
-    private static testMethod void testFieldStartsWithFilter_Schema()
+    private static testMethod void startsWith_Schema()
     {
         final String FILTER_VALUE = 'Foobar';
 
@@ -457,7 +457,7 @@ private class FieldTest
             'The value passed in should be the filter value' );
     }
 
-    private static testMethod void testFieldStartsWithFilter_String()
+    private static testMethod void startsWith_String()
     {
         final String FILTER_VALUE = 'Foobar';
 
