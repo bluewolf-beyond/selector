@@ -18,6 +18,16 @@ global class Field
         return new Filter( new FieldChangedPredicate( field ) );
     }
 
+    global static Filter notChanged( Schema.SObjectField field )
+    {
+        return hasChanged( field ).notx();
+    }
+
+    global static Filter notChanged( String field )
+    {
+        return hasChanged( field ).notx();
+    }
+
     global static Filter isNew( Schema.SObjectField field )
     {
         return new Filter( new FieldNewPredicate( field ) );

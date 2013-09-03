@@ -33,6 +33,46 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
+    private static testMethod void testFieldNotChangedFilter_Schema()
+    {
+        Test.startTest();
+
+            Filter companyNotChangedFilter = Field.notChanged( Lead.Company );
+
+        Test.stopTest();
+
+        System.assert( companyNotChangedFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotChangedFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldChangedPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldChangedPredicate predicate = (FieldChangedPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
+
+    private static testMethod void testFieldNotChangedFilter_String()
+    {
+        Test.startTest();
+
+            Filter companyNotChangedFilter = Field.notChanged( 'Company' );
+
+        Test.stopTest();
+
+        System.assert( companyNotChangedFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotChangedFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldChangedPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldChangedPredicate predicate = (FieldChangedPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
+
     private static testMethod void testFieldNewFilter_Schema()
     {
         Test.startTest();
