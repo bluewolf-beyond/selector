@@ -34,4 +34,9 @@ global class Record
     {
         return Field.isNull( lookupField );
     }
+
+    global static Filter notOrphan( String lookupField )
+    {
+        return isOrphan( lookupField ).notx();
+    }
 }

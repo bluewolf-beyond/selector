@@ -122,4 +122,24 @@ global class RecordTest
         System.assertEquals( 'Account', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
+
+    private static testMethod void notOrphan()
+    {
+        Test.startTest();
+
+            Filter constructed = Record.notOrphan( 'Account' );
+
+        Test.stopTest();
+
+        System.assert( constructed.predicate instanceof NotPredicate,
+            'The filter should be an inversion' );
+        NotPredicate wrapper = (NotPredicate)constructed.predicate;
+
+        System.assert( wrapper.inverted instanceof FieldNullPredicate,
+            'The inverted filter should be a field null filter' );
+
+        FieldNullPredicate predicate = (FieldNullPredicate)wrapper.inverted;
+        System.assertEquals( 'Account', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
 }
