@@ -35,11 +35,13 @@ global class RecordTest
 
         Test.stopTest();
 
-        System.assert( constructed instanceof FilterIdMap,
-            'The filter should be an Id-optimized filter' );
+        System.assert( constructed instanceof FieldEqualsPredicate,
+            'The filter should be a field equals filter' );
 
-        FilterIdMap filter = (FilterIdMap)constructed;
-        System.assertEquals( '001000000000001', filter.searchId,
+        FieldEqualsPredicate predicate = (FieldEqualsPredicate)constructed.predicate;
+        System.assertEquals( 'Id', predicate.field.toString(),
+            'The filter should be on the Name field' );
+        System.assertEquals( '001000000000001', predicate.value,
             'The value passed in should be the filter value' );
     }
 

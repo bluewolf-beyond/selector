@@ -12,7 +12,7 @@ global class Record
 
     global static Filter byId( Id searchId )
     {
-        return new FilterIdMap( searchId );
+        return Field.isEqual( 'Id', searchId );
     }
 
     global static Filter byName( String searchName )
