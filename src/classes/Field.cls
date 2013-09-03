@@ -38,6 +38,16 @@ global class Field
         return new Filter( new FieldNewPredicate( field ) );
     }
 
+    global static Filter notNew( Schema.SObjectField field )
+    {
+        return isNew( field ).notx();
+    }
+
+    global static Filter notNew( String field )
+    {
+        return isNew( field ).notx();
+    }
+
     global static Filter hasChildren( String field )
     {
         return new Filter( new HasChildrenPredicate( field ) );
