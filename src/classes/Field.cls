@@ -137,4 +137,14 @@ global class Field
     {
         return new Filter( new FieldEndsWithPredicate( field, value ) );
     }
+
+    global static Filter contains( Schema.SObjectField field, String value )
+    {
+        return new Filter( new FieldContainsPredicate( field, value ) );
+    }
+
+    global static Filter contains( String field, String value )
+    {
+        return new Filter( new FieldContainsPredicate( field, value ) );
+    }
 }
