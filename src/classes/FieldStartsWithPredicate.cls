@@ -23,6 +23,6 @@ global class FieldStartsWithPredicate extends InsertPredicate
     {
         Object fieldValue = field.getFrom( newRecord );
 
-        return fieldValue == null ? false : String.valueOf( fieldValue ).startsWith( value );
+        return fieldValue != null && String.valueOf( fieldValue ).startsWith( value );
     }
 }
