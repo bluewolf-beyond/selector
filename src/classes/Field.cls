@@ -127,4 +127,14 @@ global class Field
     {
         return new Filter( new FieldStartsWithPredicate( field, value ) );
     }
+
+    global static Filter endsWith( Schema.SObjectField field, String value )
+    {
+        return new Filter( new FieldEndsWithPredicate( field, value ) );
+    }
+
+    global static Filter endsWith( String field, String value )
+    {
+        return new Filter( new FieldEndsWithPredicate( field, value ) );
+    }
 }

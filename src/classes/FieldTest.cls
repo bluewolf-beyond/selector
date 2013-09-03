@@ -476,4 +476,44 @@ private class FieldTest
         System.assertEquals( FILTER_VALUE, predicate.value,
             'The value passed in should be the filter value' );
     }
+
+    private static testMethod void endsWith_Schema()
+    {
+        final String FILTER_VALUE = 'Foobar';
+
+        Test.startTest();
+
+            Filter companyEndsWithFoobarFilter = Field.endsWith( Lead.Company, FILTER_VALUE );
+
+        Test.stopTest();
+
+        System.assert( companyEndsWithFoobarFilter.predicate instanceof FieldEndsWithPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldEndsWithPredicate predicate = (FieldEndsWithPredicate)companyEndsWithFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( FILTER_VALUE, predicate.value,
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void endsWith_String()
+    {
+        final String FILTER_VALUE = 'Foobar';
+
+        Test.startTest();
+
+            Filter companyEndsWithFoobarFilter = Field.endsWith( 'Company', FILTER_VALUE );
+
+        Test.stopTest();
+
+        System.assert( companyEndsWithFoobarFilter.predicate instanceof FieldEndsWithPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldEndsWithPredicate predicate = (FieldEndsWithPredicate)companyEndsWithFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( FILTER_VALUE, predicate.value,
+            'The value passed in should be the filter value' );
+    }
 }
