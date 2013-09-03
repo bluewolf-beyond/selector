@@ -45,6 +45,28 @@ global class RecordTest
             'The value passed in should be the filter value' );
     }
 
+    private static testMethod void notId()
+    {
+        Test.startTest();
+
+            Filter constructed = Record.notId( '001000000000001' );
+
+        Test.stopTest();
+
+        System.assert( constructed.predicate instanceof NotPredicate,
+            'The filter should be an inversion' );
+        NotPredicate wrapper = (NotPredicate)constructed.predicate;
+
+        System.assert( wrapper.inverted instanceof FieldEqualsPredicate,
+            'The inverted filter should be a field equals filter' );
+
+        FieldEqualsPredicate predicate = (FieldEqualsPredicate)wrapper.inverted;
+        System.assertEquals( 'Id', predicate.field.toString(),
+            'The filter should be on the Id field' );
+        System.assertEquals( '001000000000001', predicate.value,
+            'The value passed in should be the filter value' );
+    }
+
     private static testMethod void byName()
     {
         Test.startTest();

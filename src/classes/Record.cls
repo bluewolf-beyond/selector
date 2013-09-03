@@ -15,6 +15,11 @@ global class Record
         return Field.isEqual( 'Id', searchId );
     }
 
+    global static Filter notId( Id searchId )
+    {
+        return byId( searchId ).notx();
+    }
+
     global static Filter byName( String searchName )
     {
         return Field.isEqual( 'Name', searchName );
