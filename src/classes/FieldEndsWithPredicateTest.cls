@@ -27,11 +27,11 @@ private class FieldEndsWithPredicateTest
         System.assert( predicate instanceof InsertPredicate,
             'No update test needed' );
 
-        System.assert( fieldWithWine,
+        System.assertEquals( true, fieldWithWine,
             'A field value ending with the suffix should be recognized as such' );
-        System.assert( !fieldWithBrandy,
+        System.assertEquals( false, fieldWithBrandy,
             'A field value ending with something other than suffix should be recognized as such' );
-        System.assert( !fieldWithNull,
+        System.assertEquals( false, fieldWithNull,
             'A field with no value should not end with the suffix' );
     }
 }
