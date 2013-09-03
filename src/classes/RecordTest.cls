@@ -23,7 +23,9 @@ global class RecordTest
 
         System.assert( constructed.predicate instanceof NotPredicate,
             'The filter should be an inversion' );
-        System.assert( ((NotPredicate)constructed.predicate).inverted instanceof IsNewPredicate,
+        NotPredicate wrapper = (NotPredicate)constructed.predicate;
+
+        System.assert( wrapper.inverted instanceof IsNewPredicate,
             'The filter should be on non-new records' );
     }
 
@@ -35,12 +37,12 @@ global class RecordTest
 
         Test.stopTest();
 
-        System.assert( constructed instanceof FieldEqualsPredicate,
+        System.assert( constructed.predicate instanceof FieldEqualsPredicate,
             'The filter should be a field equals filter' );
 
         FieldEqualsPredicate predicate = (FieldEqualsPredicate)constructed.predicate;
         System.assertEquals( 'Id', predicate.field.toString(),
-            'The filter should be on the Name field' );
+            'The filter should be on the Id field' );
         System.assertEquals( '001000000000001', predicate.value,
             'The value passed in should be the filter value' );
     }
