@@ -170,9 +170,13 @@ private class FieldTest
         Test.stopTest();
 
         System.assert( hasNoOpportunitiesFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)hasNoOpportunitiesFilter.predicate;
+        System.assert( wrapper.inverted instanceof HasChildrenPredicate,
             'The filter should be of the proper variety' );
 
-        HasChildrenPredicate predicate = (HasChildrenPredicate)((NotPredicate)hasNoOpportunitiesFilter.predicate).inverted;
+        HasChildrenPredicate predicate = (HasChildrenPredicate)wrapper.inverted;
         System.assertEquals( 'Opportunities', predicate.childrenField,
             'The field passed in should be the filter field' );
     }
@@ -228,9 +232,13 @@ private class FieldTest
         Test.stopTest();
 
         System.assert( companyNotEqualsFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotEqualsFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldEqualsPredicate,
             'The filter should be of the proper variety' );
 
-        FieldEqualsPredicate predicate = (FieldEqualsPredicate)((NotPredicate)companyNotEqualsFoobarFilter.predicate).inverted;
+        FieldEqualsPredicate predicate = (FieldEqualsPredicate)wrapper.inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( FILTER_VALUE, predicate.value,
@@ -248,9 +256,13 @@ private class FieldTest
         Test.stopTest();
 
         System.assert( companyNotEqualsFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotEqualsFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldEqualsPredicate,
             'The filter should be of the proper variety' );
 
-        FieldEqualsPredicate predicate = (FieldEqualsPredicate)((NotPredicate)companyNotEqualsFoobarFilter.predicate).inverted;
+        FieldEqualsPredicate predicate = (FieldEqualsPredicate)wrapper.inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( FILTER_VALUE, predicate.value,
@@ -312,9 +324,13 @@ private class FieldTest
         Test.stopTest();
 
         System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
             'The filter should be of the proper variety' );
 
-        FieldInPredicate predicate = (FieldInPredicate)((NotPredicate)companyNotInFoobarFilter.predicate).inverted;
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( 1, predicate.values.size(),
@@ -334,9 +350,13 @@ private class FieldTest
         Test.stopTest();
 
         System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
             'The filter should be of the proper variety' );
 
-        FieldInPredicate predicate = (FieldInPredicate)((NotPredicate)companyNotInFoobarFilter.predicate).inverted;
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
         System.assertEquals( 1, predicate.values.size(),
@@ -386,9 +406,13 @@ private class FieldTest
         Test.stopTest();
 
         System.assert( companyNotNullFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotNullFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldNullPredicate,
             'The filter should be of the proper variety' );
 
-        FieldNullPredicate predicate = (FieldNullPredicate)((NotPredicate)companyNotNullFilter.predicate).inverted;
+        FieldNullPredicate predicate = (FieldNullPredicate)wrapper.inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
@@ -402,9 +426,13 @@ private class FieldTest
         Test.stopTest();
 
         System.assert( companyNotNullFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotNullFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldNullPredicate,
             'The filter should be of the proper variety' );
 
-        FieldNullPredicate predicate = (FieldNullPredicate)((NotPredicate)companyNotNullFilter.predicate).inverted;
+        FieldNullPredicate predicate = (FieldNullPredicate)wrapper.inverted;
         System.assertEquals( 'Company', predicate.field.toString(),
             'The field passed in should be the filter field' );
     }
