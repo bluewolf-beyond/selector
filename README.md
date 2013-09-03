@@ -337,6 +337,13 @@ Filter for records matching the given Id.
 
     Select.Filter chosenRecord = Select.Record.byId( recordId )
 
+ * Select.Record. ***notId***( Id searchId )
+   * Select.Filter
+
+Filter for records that don't have the given Id.
+
+    Select.Filter otherRecords = Select.Record.notId( recordId )
+
  * Select.Record. ***byName***( String searchName )
    * Select.Filter
 
@@ -344,12 +351,26 @@ Filter for records matching the given Name.
 
     Select.Filter johnDoes = Select.Record.byName( 'John Doe' )
 
+ * Select.Record. ***notName***( String searchName )
+   * Select.Filter
+
+Filter for records that don't have the given Name.
+
+    Select.Filter noHomers = Select.Record.notName( 'Homer' )
+
  * Select.Record. ***isOrphan***( String lookupField )
    * Select.Filter
 
 Filter for records that do not have a parent record for the given relationship.
 
     Select.Filter orphans = Select.Record.isOrphan( 'Company' )
+
+ * Select.Record. ***notOrphan***( String lookupField )
+   * Select.Filter
+
+Filter for records that have a parent record for the given relationship.
+
+    Select.Filter orphans = Select.Record.notOrphan( 'Company' )
 
 #### Select.Records - filter combinators and constant filters
 
