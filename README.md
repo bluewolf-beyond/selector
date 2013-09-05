@@ -271,7 +271,7 @@ the given field.
  * Select.Field. ***isIn***( field, collection )
    * Select.Filter
 
-Filter for sObjects with a field value contained in the set
+Filter for sObjects with a field value contained in the set or list
 of specified values.
 
     Select.Filter isMidwest = Select.Field.isIn( Account.BillingState, midwestStates )
@@ -280,7 +280,7 @@ of specified values.
    * Select.Filter
 
 Filter for sObjects with a field value not contained in the
-set of specified values.
+set or list of specified values.
 
     Select.Filter notMidwest = Select.Field.notIn( Account.BillingState, midwestStates )
 
