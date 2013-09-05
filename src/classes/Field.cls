@@ -88,12 +88,32 @@ global class Field
         return new Filter( new FieldInPredicate( field, values ) );
     }
 
+    global static Filter isIn( Schema.SObjectField field, List<Object> values )
+    {
+        return new Filter( new FieldInPredicate( field, new Set<Object>( values ) ) );
+    }
+
+    global static Filter isIn( String field, List<Object> values )
+    {
+        return new Filter( new FieldInPredicate( field, new Set<Object>( values ) ) );
+    }
+
     global static Filter notIn( Schema.SObjectField field, Set<Object> values )
     {
         return isIn( field, values ).notx();
     }
 
     global static Filter notIn( String field, Set<Object> values )
+    {
+        return isIn( field, values ).notx();
+    }
+
+    global static Filter notIn( Schema.SObjectField field, List<Object> values )
+    {
+        return isIn( field, values ).notx();
+    }
+
+    global static Filter notIn( String field, List<Object> values )
     {
         return isIn( field, values ).notx();
     }
