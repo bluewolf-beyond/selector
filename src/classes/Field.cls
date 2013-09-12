@@ -138,6 +138,26 @@ global class Field
         return isNull( field ).notx();
     }
 
+    global static Filter isBlank( Schema.SObjectField field )
+    {
+        return new Filter( new FieldIsBlankPredicate( field ) );
+    }
+
+    global static Filter isBlank( String field )
+    {
+        return new Filter( new FieldIsBlankPredicate( field ) );
+    }
+
+    global static Filter notBlank( Schema.SObjectField field )
+    {
+        return isBlank( field ).notx();
+    }
+
+    global static Filter notBlank( String field )
+    {
+        return isBlank( field ).notx();
+    }
+
     global static Filter startsWith( Schema.SObjectField field, String value )
     {
         return new Filter( new FieldStartsWithPredicate( field, value ) );

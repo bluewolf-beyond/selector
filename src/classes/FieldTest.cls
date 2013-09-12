@@ -493,6 +493,74 @@ private class FieldTest
             'The field passed in should be the filter field' );
     }
 
+    private static testMethod void isBlank_Schema()
+    {
+        Test.startTest();
+
+            Filter companyIsBlankFilter = Field.isBlank( Lead.Company );
+
+        Test.stopTest();
+
+        System.assert( companyIsBlankFilter.predicate instanceof FieldIsBlankPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldIsBlankPredicate predicate = (FieldIsBlankPredicate)companyIsBlankFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
+
+    private static testMethod void isBlank_String()
+    {
+        Test.startTest();
+
+            Filter companyIsBlankFilter = Field.isBlank( 'Company' );
+
+        Test.stopTest();
+
+        System.assert( companyIsBlankFilter.predicate instanceof FieldIsBlankPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldIsBlankPredicate predicate = (FieldIsBlankPredicate)companyIsBlankFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
+
+    private static testMethod void notBlank_Schema()
+    {
+        Test.startTest();
+
+            Filter companyBlankFilter = Field.notBlank( Lead.Company );
+
+        Test.stopTest();
+
+        NotPredicate wrapper = (NotPredicate)companyBlankFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldIsBlankPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldIsBlankPredicate predicate = (FieldIsBlankPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
+
+    private static testMethod void notBlank_String()
+    {
+        Test.startTest();
+
+            Filter companyBlankFilter = Field.notBlank( 'Company' );
+
+        Test.stopTest();
+
+        System.assert( companyBlankFilter.predicate instanceof NotPredicate,
+            'The filter should be of the proper variety' );
+
+        NotPredicate wrapper = (NotPredicate)companyBlankFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldIsBlankPredicate, 'The filter should be of the proper variety');
+
+        FieldIsBlankPredicate predicate = (FieldIsBlankPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+    }
+
     private static testMethod void notNull_Schema()
     {
         Test.startTest();
