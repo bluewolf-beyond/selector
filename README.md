@@ -48,11 +48,11 @@ Wouldn't you rather write this:
 For fields directly on the objects being filtered, use the
 `Schema.sObjectField` to reference for the safest code.  It
 is also possible to pass in `String` field references, which
-can traverse parent relationships.  For instance, in a
-Contact trigger service:
+can traverse parent relationships.  For instance, in an
+OpportunityLineItem trigger:
 
-    return Select.Field.isEqual( 'Account.Region', 'Midwest' )
-                       .filter( Trigger.new );
+    Select.Field.isEqual( 'Opportunity.Account.Region', 'Midwest' )
+                .filter( opportunityLineItems );
 
 ### combining filters
 
