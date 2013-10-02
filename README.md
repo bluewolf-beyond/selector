@@ -40,8 +40,8 @@ you end up reimplementing the same filters over and over again.
 
 Wouldn't you rather write this:
 
-    return (List<Account>)Select.Field.hasChanged( Account.Name )
-                                      .filter( Trigger.new, Trigger.oldMap );
+    return Select.Field.hasChanged( Account.Name )
+                       .filter( Trigger.new, Trigger.oldMap );
 
 ### specifying fields
 
@@ -49,10 +49,10 @@ For fields directly on the objects being filtered, use the
 `Schema.sObjectField` to reference for the safest code.  It
 is also possible to pass in `String` field references, which
 can traverse parent relationships.  For instance, in a
-Contact trigger:
+Contact trigger service:
 
-    return (List<Contact>)Select.Field.isEqual( 'Account.Region', 'Midwest' )
-                                      .filter( Trigger.new );
+    return Select.Field.isEqual( 'Account.Region', 'Midwest' )
+                       .filter( Trigger.new );
 
 ### combining filters
 
@@ -95,8 +95,8 @@ determine whether to include it in the results.
     // usage of the custom filter
     List<Accounts> filterGrowingAccounts()
     {
-        return (List<Account>)MyFilter.isGrowingAccount()
-                                      .filter( Trigger.new );
+        return MyFilter.isGrowingAccount()
+                       .filter( Trigger.new );
     }
 
 This may seem like a lot of work, but consider this: as long
