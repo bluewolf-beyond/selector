@@ -322,6 +322,12 @@ Filter for sObjects with a value contained in the given field.
  * Select.Field. ***hasChildren***( String childRelationship )
    * Select.Filter
 
+Filter for sObjects with a value less than the given value of the field.
+    Select.Filter lessThan = Select.Field.lessThan( Opportunity.Amount, 100 )
+
+Filter for sObjects with a value greater than the given value of the field.
+    Select.Filter lessThan = Select.Field.greaterThan( Opportunity.Amount, 100 )
+
 Filter for sObjects with child records for the given
 child relationship.
 

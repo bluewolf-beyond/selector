@@ -652,4 +652,84 @@ private class FieldTest
         System.assertEquals( FILTER_VALUE, predicate.value,
             'The value passed in should be the filter value' );
     }
+
+    private static testMethod void filterLess_String()
+    {
+        final Integer FILTER_VALUE = 100;
+
+        Test.startTest();
+
+            Filter theFilter = Field.lessThan( 'Company', FILTER_VALUE );
+
+        Test.stopTest();
+
+        System.assert( theFilter.predicate instanceof FieldLessThanPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldLessThanPredicate predicate = (FieldLessThanPredicate)theFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( FILTER_VALUE, predicate.value,
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void filterLess_Schema()
+    {
+        final Integer FILTER_VALUE = 100;
+
+        Test.startTest();
+
+            Filter theFilter = Field.lessThan( Lead.Company, FILTER_VALUE );
+
+        Test.stopTest();
+
+        System.assert( theFilter.predicate instanceof FieldLessThanPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldLessThanPredicate predicate = (FieldLessThanPredicate)theFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( FILTER_VALUE, predicate.value,
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void filterGreater_String()
+    {
+        final Integer FILTER_VALUE = 100;
+
+        Test.startTest();
+
+            Filter theFilter = Field.greaterThan( 'Company', FILTER_VALUE );
+
+        Test.stopTest();
+
+        System.assert( theFilter.predicate instanceof FieldGreaterThanPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldGreaterThanPredicate predicate = (FieldGreaterThanPredicate)theFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( FILTER_VALUE, predicate.value,
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void filterGreater_Schema()
+    {
+        final Integer FILTER_VALUE = 100;
+
+        Test.startTest();
+
+            Filter theFilter = Field.greaterThan( Lead.Company, FILTER_VALUE );
+
+        Test.stopTest();
+
+        System.assert( theFilter.predicate instanceof FieldGreaterThanPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldGreaterThanPredicate predicate = (FieldGreaterThanPredicate)theFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( FILTER_VALUE, predicate.value,
+            'The value passed in should be the filter value' );
+    }
 }

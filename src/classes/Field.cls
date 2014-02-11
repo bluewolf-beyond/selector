@@ -167,4 +167,24 @@ global class Field
     {
         return new Filter( new FieldContainsPredicate( field, value ) );
     }
+    
+    global static Filter lessThan( String field, Object value )
+    {
+        return new Filter( new FieldLessThanPredicate(field, value) );
+    }
+
+    global static Filter lessThan( Schema.SObjectField field, Object value )
+    {
+        return new Filter( new FieldLessThanPredicate(field, value) );
+    }
+
+    global static Filter greaterThan( String field, Object value )
+    {
+        return new Filter( new FieldGreaterThanPredicate(field, value) );
+    }
+
+    global static Filter greaterThan( Schema.SObjectField field, Object value )
+    {
+        return new Filter( new FieldGreaterThanPredicate(field, value) );
+    }    
 }
