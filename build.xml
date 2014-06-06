@@ -1,0 +1,207 @@
+<project name="Sample usage of Salesforce Ant tasks" default="help" basedir="." xmlns:sf="antlib:com.salesforce" >
+    <macrodef name="propertycopy">
+      <attribute name="name"/>
+      <attribute name="from"/>
+      <sequential>
+        <property name="@{name}" value="${@{from}}"/>
+      </sequential>
+    </macrodef>
+    
+    <macrodef name="loadproperties">
+        <attribute name="namespace"/>
+        <sequential>
+       <property file="build.properties"/>
+       <fail message="'org' must be set to continue" unless="org"/>
+       <loadorginformation target="${org}" namespace="sfdclogin"/>
+       <mkdir dir="${sfdclogin.basepath}"/>
+    </sequential>
+    </macrodef>
+
+    <!-- Download Ant-Contrib and copy ant-contrib-1.0b3 to the lib directory of your Ant installation.
+      http://sourceforge.net/projects/ant-contrib/files/ant-contrib/1.0b3/ -->
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+
+    <target name="svn_ant_check">
+      <path id="svnant.classpath">
+        <fileset dir="${svn.svnantdir}">
+          <include name= "*.jar" />
+        </fileset>
+      </path>
+      <typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath" />
+    </target>
+
+    <target name="default_env" unless="env">
+      <basename property="env" file="${basedir}" />
+      <echo level="info">Defaulting environment to ${env}...</echo>
+    </target>
+
+    <target name="load_env" depends="default_env, prop_file_check">
+      <property file="build.properties.${env}"/>
+      <property environment="env"/>
+    </target>
+
+    <target name="prop_file_check" depends="default_env">
+      <fail message="You must define the environment with -Denv=environment_name." unless="env"/>
+      <available property="prop_file_exists" file="build.properties.${env}"/>
+      <fail message="You must define the login credentials in build.properties.${env}." unless="prop_file_exists"/>
+    </target>
+
+    <target name="src_dir_check" >
+      <available property="src_dir_exists" file="src" type="dir"/>
+      <fail message="You must provide a source directory at src/" unless="src_dir_exists"/>
+      <available property="package_file_exists" file="src/package.xml"/>
+      <fail message="You must provide a package file at src/package.xml" unless="package_file_exists"/>
+    </target>
+
+    <target name="undeploy_dir_check">
+      <available property="undeploy_dir_exists" file="undeploy" type="dir"/>
+      <fail message="You must provide an undeploy directory at undeploy/" unless="undeploy_dir_exists"/>
+      <available property="undeploy_package_file_exists" file="undeploy/package.xml"/>
+      <fail message="You must provide a package file at undeploy/package.xml" unless="undeploy_package_file_exists"/>
+      <available property="destructive_changes_file_exists" file="undeploy/destructiveChanges.xml"/>
+      <fail message="You must provide a destructive changes file at undeploy/destructiveChanges.xml" unless="destructive_changes_file_exists"/>
+    </target>
+
+    <target name="help" description="Display detailed usage information.">
+      <echo level="info">Prerequisites:
+    - build.properties.&lt;environment_name&gt;    A property file for each environment specifying Salesforce credentials
+    - src/                    The source directory to push and pull from
+    - src/package.xml            The package file detailing the metadata files to push and pull
+Usage:
+    ant target_name -Denv=&lt;environment_name&gt;
+
+List targets with:
+    ant -p
+
+</echo>
+      <exec executable="ant">
+        <arg value="-p" />
+      </exec>
+    </target>
+
+    <macrodef name="loadorginformation">
+       <attribute name="target"/>
+       <attribute name="namespace"/>
+       <sequential>
+           <property name="@{namespace}.username" value="${@{target}.sf.username}"/>
+           <property name="@{namespace}.password" value="${@{target}.sf.password}"/>
+           <condition property="@{namespace}.server" value="https://login.salesforce.com" else="https://test.salesforce.com">
+                <isset property="@{target}.sf.isproduction"/>
+           </condition>
+           <property name="@{namespace}.basepath" value="@{target}"/>
+           <condition property="@{namespace}.isProduction" value="true" else="false">
+             <isset property="@{target}.sf.isproduction"/>
+           </condition>
+       </sequential>
+    </macrodef>
+
+    <target name="pull" description="Pull metadata from the specified Salesforce environment."  >
+       <!-- Check the properties exit  -->
+       <loadproperties namespace="sfdclogin"/>
+
+       <echo level="info">Pulling package from ${sfdclogin.basepath} metadata for ${sfdclogin.username}</echo>
+
+       <sf:retrieve
+        username="${sfdclogin.username}"
+        password="${sfdclogin.password}"
+        serverurl="${sfdclogin.server}"
+        retrieveTarget="${sfdclogin.basepath}"
+        unpackaged="./package.xml"
+       />
+    </target>
+
+    <target name="push" description="Push metadata to the specified Salesforce environment.">
+      <loadproperties namespace="sfdclogin"/>
+      <record name="log.txt" action="start"/>
+      <echo level="info">Pushing package metadata for ${sfdclogin.basepath}...${sfdclogin.isProduction}</echo>
+      <sf:deploy username="${sfdclogin.username}" password="${sfdclogin.password}" serverurl="${sfdclogin.server}" deployRoot="${sfdclogin.basepath}"/>
+      <record name="log.txt" action="stop"/>
+    </target>
+    
+    <target name="validate">
+      <echo level="info">Validating the deployment... from ${from} to ${to}</echo>
+      <property file="build.properties"/>
+      <loadorginformation target="${from}" namespace="fromCreds"/>
+      <loadorginformation target="${to}" namespace="toCreds"/>
+      
+      <echo level="info">From ...${fromCreds.basepath}</echo>
+      <echo level="info">To   ...${toCreds.basepath}</echo>
+      <sf:deploy username="${toCreds.username}" password="${toCreds.password}" serverurl="${toCreds.server}" deployRoot="${fromCreds.basepath}" checkOnly="true" runAllTests="true" logType="Debugonly"/>
+    </target>	
+    
+    <macrodef name="confirmation">
+      <attribute name="msg"/>
+      <sequential>
+        <input message="@{msg}" validargs="y,n" addproperty="confirm"/>
+        <condition property="abort">
+          <equals arg1="n" arg2="${confirm}"/>
+        </condition>
+        <fail if="abort">Procedure aborted</fail>
+      </sequential>
+    </macrodef>
+
+    <target name="deploy" description="Deploy metadata to the specified Salesforce environment and run tests.">
+      <echo level="info">Deploying and running tests...from ${from} to ${to}...</echo>
+      <property file="build.properties"/>
+      <loadorginformation target="${from}" namespace="fromCreds"/>
+      <loadorginformation target="${to}" namespace="toCreds"/>
+      <confirmation msg="Are you sure you would like to deploy from ${from.basepath} to ${to.basepath}"/>
+      <sf:deploy username="${toCreds.username}" password="${toCreds.password}" serverurl="${toCreds.server}" runAllTests="false" rollbackOnError="true" deployRoot="${fromCreds.basepath}" />
+    </target>
+
+    <target name="undeploy" description="Delete all files listed in undeploy/destructiveChanges.xml on the specified Salesforce environnment." depends="load_env, undeploy_dir_check">
+      <echo level="info">Deleting files...</echo>
+      <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="undeploy"/>
+    </target>
+
+    <target name="login" description="Login to the Salesforce environment with Firefox">
+      <loadproperties namespace="sfdclogin"/>
+      <echo level="info" message="Logging into ${org} as user"/>
+
+        <exec executable="google-chrome" spawn="true">
+          <arg
+          value="${sfdclogin.server}?un=${sfdclogin.username}&amp;pw=${sfdclogin.password}"/>
+        </exec>
+    </target>
+
+    <target name="diff" description="Diff your local source files against the specified Salesforce environment" depends="load_env, src_dir_check">
+      <echo level="info">Diffing metadata against ${env}...</echo>
+      <mkdir dir="${env}"/>
+      <copy file="src/package.xml" todir="${env}"/>
+      <sf:retrieve username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" retrieveTarget="${env}" unpackaged="${env}/package.xml"/>
+      <exec executable="diff">
+        <arg value="-r"/>
+        <arg value="${env}"/>
+        <arg value="src"/>
+      </exec>
+    </target>
+
+    <target name="addClient" description="Pull down client production and check-in to svn if it doesn't exist and checkout." depends="load_env, svn_ant_check">
+      <svnSetting id="svn.settings" username="${svn.username}" password="${svn.password}"/>
+      <echo level="info">Creating production</echo>
+      <trycatch>
+          <try>
+          <svn refId="svn.settings">
+            <mkdir makeParents="true" url="${svn.repositoryurl}${svn.repository}/production/main" message="Adding client production ${svn.repository}" />
+          </svn>
+        </try>
+          <catch>
+          <fail message="Production branch already exists."/>
+          </catch>
+      </trycatch>
+      <svn refId="svn.settings">
+        <checkout recurse="true" url="${svn.repositoryurl}${svn.repository}/production/main/" destPath="production/" />
+      </svn>
+      <antcall target="pull">
+          <param name="org" value="production"/>
+      </antcall>
+      
+      <echo level="info">Committing back to the repository</echo>
+      <svn refId="svn.settings">
+        <add dir="production/src" recurse="true" force="true" />
+        <commit dir="production" message="initial import of ${svn.repository} production by BuildTool"/>
+      </svn>
+    </target>
+    
+
+</project>
