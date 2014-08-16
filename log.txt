@@ -1,8 +1,0 @@
-     [echo] Pushing package metadata for src...true
-[sf:deploy] Request for a deploy submitted successfully.
-[sf:deploy] Request ID for the current deploy task: 09SE00000003yjbMAA
-[sf:deploy] Waiting for server to finish processing the request...
-[sf:deploy] Request Status: Pending
-[sf:deploy] Request Status: Succeeded
-[sf:deploy] *********** DEPLOYMENT SUCCEEDED ***********
-[sf:deploy] Finished request 09SE00000003yjbMAA successfully.
