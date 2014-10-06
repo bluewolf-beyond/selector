@@ -290,6 +290,138 @@ private class FieldTest
         System.assert( predicate.values.containsAll( FILTER_VALUES ),
             'The value passed in should be the filter value' );
     }
+    
+    private static testMethod void isIn_Schema_StringSet()
+    {
+        Set<String> FILTER_VALUES = new Set<String>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<String>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_Schema_IntegerSet()
+    {
+        Set<Integer> FILTER_VALUES = new Set<Integer>{ 10 };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Integer>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }    
+    
+    private static testMethod void isIn_Schema_DecimalSet()
+    {
+        Set<Decimal> FILTER_VALUES = new Set<Decimal>{ 10.1 };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Decimal>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_Schema_DateSet()
+    {
+        Set<Date> FILTER_VALUES = new Set<Date>{ Date.today() };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Date>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_Schema_DateTimeSet()
+    {
+        Set<DateTime> FILTER_VALUES = new Set<DateTime>{ DateTime.now() };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<DateTime>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_Schema_IdSet()
+    {
+        Set<Id> FILTER_VALUES = new Set<Id>{ Account.sObjectType.getDescribe().getKeyPrefix() + 'i000000JqkMw' };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Id>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
 
     private static testMethod void isIn_String_Set()
     {
@@ -310,6 +442,296 @@ private class FieldTest
         System.assertEquals( 1, predicate.values.size(),
             'The set passed in should be the filter set' );
         System.assert( predicate.values.containsAll( FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_String_StringSet()
+    {
+        Set<String> FILTER_VALUES = new Set<String>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<String>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    
+    private static testMethod void isIn_String_IntegerSet()
+    {
+        Set<Integer> FILTER_VALUES = new Set<Integer>{ 10 };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Integer>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }    
+    
+    private static testMethod void isIn_String_DecimalSet()
+    {
+        Set<Decimal> FILTER_VALUES = new Set<Decimal>{ 10.1 };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Decimal>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_String_DateSet()
+    {
+        Set<Date> FILTER_VALUES = new Set<Date>{ Date.today() };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Date>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_String_DateTimeSet()
+    {
+        Set<DateTime> FILTER_VALUES = new Set<DateTime>{ DateTime.now() };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<DateTime>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_String_IdSet()
+    {
+        Set<Id> FILTER_VALUES = new Set<Id>{ Account.sObjectType.getDescribe().getKeyPrefix() + 'i000000JqkMw' };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Id>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_Schema_SetString()
+    {
+       Set<String> FILTER_VALUES = new Set<String>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<String>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_Schema_SetId()
+    {
+        Account testAccount = new Account();
+        Set<Id> FILTER_VALUES = new Set<Id>{ testAccount.Id };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Id>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_Schema_SetDeciaml()
+    {
+       Set<Decimal> FILTER_VALUES = new Set<Decimal>{ 109 };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Decimal>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_Schema_SetInteger()
+    {
+       Set<Integer> FILTER_VALUES = new Set<Integer>{ 107 };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll(  new Set<Object>( (List<Object>)new List<Integer>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_Schema_SetDate()
+    {
+       Set<Date> FILTER_VALUES = new Set<Date>{ System.today() };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Date>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_Schema_SetDateTime()
+    {
+       Set<DateTime> FILTER_VALUES = new Set<DateTime>{ DateTime.now() };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<DateTime>(FILTER_VALUES) ) ),
             'The value passed in should be the filter value' );
     }
 
@@ -365,6 +787,319 @@ private class FieldTest
             'The value passed in should be the filter value' );
     }
 
+    private static testMethod void notIn_String_SetString()
+    {
+       Set<String> FILTER_VALUES = new Set<String>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<String>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_String_SetId()
+    {
+        Account testAccount = new Account();
+        Set<Id> FILTER_VALUES = new Set<Id>{ testAccount.Id };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Id>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_String_SetDeciaml()
+    {
+       Set<Decimal> FILTER_VALUES = new Set<Decimal>{ 109 };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Decimal>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_String_SetInteger()
+    {
+       Set<Integer> FILTER_VALUES = new Set<Integer>{ 107 };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll(  new Set<Object>( (List<Object>)new List<Integer>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_String_SetDate()
+    {
+       Set<Date> FILTER_VALUES = new Set<Date>{ System.today() };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Date>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_String_SetDateTime()
+    {
+       Set<DateTime> FILTER_VALUES = new Set<DateTime>{ DateTime.now() };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<DateTime>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_Schema_StringList()
+    {
+        List<String> FILTER_VALUES = new List<String>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void notIn_Schema_IdList()
+    {
+        List<Id> FILTER_VALUES = new List<Id>{ Account.sObjectType.getDescribe().getKeyPrefix() + 'i000000JqkMw' };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void notIn_Schema_DecimalList()
+    {
+        List<Decimal> FILTER_VALUES = new List<Decimal>{ 10.3 };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void notIn_Schema_IntegerList()
+    {
+        List<Integer> FILTER_VALUES = new List<Integer>{ 10 };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void notIn_Schema_DateList()
+    {
+        List<Date> FILTER_VALUES = new List<Date>{ Date.today() };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void notIn_Schema_DateTimeList()
+    {
+        List<DateTime> FILTER_VALUES = new List<DateTime>{ DateTime.now() };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+
     private static testMethod void isIn_Schema_List()
     {
         List<Object> FILTER_VALUES = new List<Object>{ 'Foobar' };
@@ -386,7 +1121,139 @@ private class FieldTest
         System.assert( predicate.values.containsAll( FILTER_VALUES ),
             'The value passed in should be the filter value' );
     }
+    
+    private static testMethod void isIn_Schema_StringList()
+    {
+        List<String> FILTER_VALUES = new List<String>{ 'Foobar' };
 
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<String>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_Schema_IntegerList()
+    {
+        List<Integer> FILTER_VALUES = new List<Integer>{ 10 };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Integer>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }    
+    
+    private static testMethod void isIn_Schema_DecimalList()
+    {
+        List<Decimal> FILTER_VALUES = new List<Decimal>{ 10.1 };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Decimal>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_Schema_DateList()
+    {
+        List<Date> FILTER_VALUES = new List<Date>{ Date.today() };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Date>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_Schema_DateTimeList()
+    {
+        List<DateTime> FILTER_VALUES = new List<DateTime>{ DateTime.now() };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<DateTime>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_Schema_IdList()
+    {
+        List<Id> FILTER_VALUES = new List<Id>{ Account.sObjectType.getDescribe().getKeyPrefix() + 'i000000JqkMw' };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( Lead.Company, FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Id>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
     private static testMethod void isIn_String_List()
     {
         List<Object> FILTER_VALUES = new List<Object>{ 'Foobar' };
@@ -406,6 +1273,139 @@ private class FieldTest
         System.assertEquals( 1, predicate.values.size(),
             'The set passed in should be the filter set' );
         System.assert( predicate.values.containsAll( FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    
+    private static testMethod void isIn_String_StringList()
+    {
+        List<String> FILTER_VALUES = new List<String>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<String>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_String_IntegerList()
+    {
+        List<Integer> FILTER_VALUES = new List<Integer>{ 10 };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Integer>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }    
+    
+    private static testMethod void isIn_String_DecimalList()
+    {
+        List<Decimal> FILTER_VALUES = new List<Decimal>{ 10.1 };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Decimal>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_String_DateList()
+    {
+        List<Date> FILTER_VALUES = new List<Date>{ Date.today() };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Date>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_String_DateTimeList()
+    {
+        List<DateTime> FILTER_VALUES = new List<DateTime>{ DateTime.now() };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<DateTime>(FILTER_VALUES) ) ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void isIn_String_IdList()
+    {
+        List<Id> FILTER_VALUES = new List<Id>{ Account.sObjectType.getDescribe().getKeyPrefix() + 'i000000JqkMw' };
+
+        Test.startTest();
+
+            Filter companyInFoobarFilter = Field.isIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyInFoobarFilter.predicate instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)companyInFoobarFilter.predicate;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( new Set<Object>( (List<Object>)new List<Id>(FILTER_VALUES) ) ),
             'The value passed in should be the filter value' );
     }
 
@@ -432,6 +1432,162 @@ private class FieldTest
         System.assertEquals( 1, predicate.values.size(),
             'The set passed in should be the filter set' );
         System.assert( predicate.values.containsAll( FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+
+    private static testMethod void notIn_String_StringList()
+    {
+        List<String> FILTER_VALUES = new List<String>{ 'Foobar' };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void notIn_String_IdList()
+    {
+        List<Id> FILTER_VALUES = new List<Id>{ Account.sObjectType.getDescribe().getKeyPrefix() + 'i000000JqkMw' };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void notIn_String_DecimalList()
+    {
+        List<Decimal> FILTER_VALUES = new List<Decimal>{ 10.3 };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void notIn_String_IntegerList()
+    {
+        List<Integer> FILTER_VALUES = new List<Integer>{ 10 };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void notIn_String_DateList()
+    {
+        List<Date> FILTER_VALUES = new List<Date>{ Date.today() };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
+            'The value passed in should be the filter value' );
+    }
+    
+    private static testMethod void notIn_String_DateTimeList()
+    {
+        List<DateTime> FILTER_VALUES = new List<DateTime>{ DateTime.now() };
+
+        Test.startTest();
+
+            Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
+
+        Test.stopTest();
+/home/justin/work/tools/selector/production
+        System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
+            'The filter should be inverted' );
+
+        NotPredicate wrapper = (NotPredicate)companyNotInFoobarFilter.predicate;
+        System.assert( wrapper.inverted instanceof FieldInPredicate,
+            'The filter should be of the proper variety' );
+
+        FieldInPredicate predicate = (FieldInPredicate)wrapper.inverted;
+        System.assertEquals( 'Company', predicate.field.toString(),
+            'The field passed in should be the filter field' );
+        System.assertEquals( 1, predicate.values.size(),
+            'The set passed in should be the filter set' );
+        System.assert( predicate.values.containsAll( (List<Object>)FILTER_VALUES ),
             'The value passed in should be the filter value' );
     }
 
