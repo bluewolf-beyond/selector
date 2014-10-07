@@ -174,8 +174,8 @@ installation
 
 Install the managed package:
 
- * into a [production org](https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000Wlw7)
- * into a [sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000Wlw7)
+ * into a [production org](https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000Y0O1
+ * into a [sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000Y0O1)
 
 reference
 ---------
