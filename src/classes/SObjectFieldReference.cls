@@ -1,4 +1,4 @@
-global virtual class SObjectFieldReference extends Select.FieldReference
+global virtual class SObjectFieldReference extends FieldReference
 {
     @TestVisible String field;
     global SObjectFieldReference( String field )
@@ -16,7 +16,7 @@ global virtual class SObjectFieldReference extends Select.FieldReference
         return field;
     }
 
-    global static Select.FieldReference buildSObjectFieldReference( String field )
+    global static FieldReference buildSObjectFieldReference( String field )
     {
         Integer index = field.indexOf('.');
 

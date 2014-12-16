@@ -28,7 +28,7 @@ private class SObjectFieldReferenceTest
         oli.Opportunity = opty;
 
         Test.startTest();
-            Select.FieldReference sObjFieldRef = SObjectFieldReference.buildSObjectFieldReference( fieldRef );
+            FieldReference sObjFieldRef = SObjectFieldReference.buildSObjectFieldReference( fieldRef );
             Account fieldRefsObject = (Account)sObjFieldRef.getFrom( oli );
         Test.stopTest();
 
