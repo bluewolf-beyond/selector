@@ -1574,7 +1574,7 @@ private class FieldTest
             Filter companyNotInFoobarFilter = Field.notIn( 'Company', FILTER_VALUES );
 
         Test.stopTest();
-/home/justin/work/tools/selector/production
+
         System.assert( companyNotInFoobarFilter.predicate instanceof NotPredicate,
             'The filter should be inverted' );
 
