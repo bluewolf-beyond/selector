@@ -135,7 +135,7 @@ independently.  For instance,
         // ...
 
         // inject a filter that passes ALL records
-        ContactServices.accountChanged = Select.Record.all();
+        ContactServices.accountChanged = Select.Records.all();
 
         Test.startTest();
 
@@ -154,7 +154,7 @@ independently.  For instance,
         // ...
 
         // inject a filter that passes NONE of the records
-        ContactServices.accountChanged = Select.Record.none();
+        ContactServices.accountChanged = Select.Records.none();
 
         Test.startTest();
 
