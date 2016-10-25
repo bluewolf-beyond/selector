@@ -178,7 +178,7 @@ Install the managed package Latest:
  * into a [sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000Y0O1)
 
 ##### WARNING:
-Befure updating to v 1.3 in any org, update the meta-xml files for all affected classes and triggers!
+Before updating to v 1.3 in any org, update the meta-xml files for all affected classes and triggers!
 
 Version 1.2
  * into a [production org](https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000Wlw7)
